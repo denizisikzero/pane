@@ -178,7 +178,7 @@
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
-      "description": "A glass button in default (plain glass), inverted, prominent (accent) and destructive variants, filled or tinted, in shadcn/ui's sizes, with asChild support via Radix Slot.",
+      "description": "A glass button in default (plain glass), inverted, ghost, prominent (accent) and destructive variants, filled or tinted, in shadcn/ui's sizes, with asChild support via Radix Slot.",
       "author": "Deniz Isik (https://github.com/denizisikzero)",
       "categories": ["ui", "form"],
       "docs": "Usage and props: https://pane.theui.company/docs/components/button",

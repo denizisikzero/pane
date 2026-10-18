@@ -5,6 +5,7 @@ export default function ButtonVariants() {
     <div className="flex flex-wrap items-center justify-center gap-3">
       <Button>Default</Button>
       <Button variant="inverted">Inverted</Button>
+      <Button variant="ghost">Ghost</Button>
       <Button variant="prominent">Prominent</Button>
       <Button variant="destructive">Destructive</Button>
     </div>

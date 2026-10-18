@@ -206,7 +206,9 @@ function Invite() {
         </div>
       </CardHeader>
       <CardFooter className="justify-end gap-2 px-4">
-        <Button size="sm">Decline</Button>
+        <Button variant="ghost" size="sm">
+          Decline
+        </Button>
         <Button variant="prominent" size="sm">
           Accept
         </Button>

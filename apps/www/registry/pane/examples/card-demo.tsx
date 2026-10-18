@@ -26,7 +26,9 @@ export default function CardDemo() {
         <Button variant="prominent" className="flex-1">
           Upgrade
         </Button>
-        <Button className="flex-1">Not now</Button>
+        <Button variant="ghost" className="flex-1">
+          Not now
+        </Button>
       </CardFooter>
     </Card>
   );

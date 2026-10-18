@@ -113,7 +113,7 @@ export function Example() {
     slug: "button",
     title: "Button",
     description:
-      "A glass button: plain glass by default, inverted to the theme, filled with the accent as prominent, red as destructive.",
+      "A glass button: plain glass by default, inverted to the theme, bare as ghost, filled with the accent as prominent, red as destructive.",
     registryName: "button",
     demo: ButtonDemo,
     usage: `import { Button } from "@/components/ui/button";
@@ -127,7 +127,7 @@ export function Example() {
         name: "button-variants",
         demo: ButtonVariants,
         description:
-          "`default` is plain glass, for most actions. `inverted` is filled with the text color, dark on light and light on dark, for a strong action that leaves the accent alone. `prominent` is filled with `--pane-accent`: one per screen, for the main action. `destructive` is filled with `--pane-destructive`, for actions that delete.",
+          "`default` is plain glass, for most actions. `inverted` is filled with the text color, dark on light and light on dark, for a strong action that leaves the accent alone. `ghost` has no glass until it's hovered, for buttons that sit on another glass surface, like a card footer or a toolbar. `prominent` is filled with `--pane-accent`: one per screen, for the main action. `destructive` is filled with `--pane-destructive`, for actions that delete.",
       },
       {
         title: "Tinted",
@@ -154,10 +154,10 @@ export function Example() {
     props: [
       {
         name: "variant",
-        type: '"default" | "inverted" | "prominent" | "destructive"',
+        type: '"default" | "inverted" | "ghost" | "prominent" | "destructive"',
         default: '"default"',
         description:
-          "default is plain glass, inverted is filled with the text color, prominent takes --pane-accent, destructive --pane-destructive.",
+          "default is plain glass, inverted is filled with the text color, ghost has no glass until hovered, prominent takes --pane-accent, destructive --pane-destructive.",
       },
       {
         name: "tinted",

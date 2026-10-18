@@ -40,6 +40,7 @@ const buttonVariants = cva(
       variant: {
         default: "text-foreground",
         inverted: "text-background",
+        ghost: "text-foreground",
         prominent: "",
         destructive: "",
       },
@@ -99,6 +100,14 @@ const glassByVariant = {
     tinted:
       "[--pane-tint-clear:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
   },
+  // no glass until it is touched: for buttons that sit on another surface,
+  // where glass on glass would stack
+  ghost: {
+    filled:
+      "[--pane-nested-clear:transparent] [--pane-border-clear:transparent] [--pane-highlight:transparent] [--pane-shadow:transparent] hover:[--pane-nested-clear:color-mix(in_oklab,var(--foreground)_7%,transparent)] has-[:active]:[--pane-nested-clear:color-mix(in_oklab,var(--foreground)_12%,transparent)]",
+    tinted:
+      "[--pane-nested-clear:transparent] [--pane-border-clear:transparent] [--pane-highlight:transparent] [--pane-shadow:transparent] hover:[--pane-nested-clear:color-mix(in_oklab,var(--foreground)_7%,transparent)] has-[:active]:[--pane-nested-clear:color-mix(in_oklab,var(--foreground)_12%,transparent)]",
+  },
   prominent: {
     filled:
       "[--pane-tint-clear:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-border-clear:var(--pane-border-accent)]",
@@ -133,6 +142,8 @@ function Button({
     <Pane
       variant="clear"
       interactive
+      // nested skips the backdrop: no blur or refraction to hide
+      nested={variant === "ghost" || undefined}
       radius={radiusBySize[size ?? "default"]}
       className={cn(
         wrapperVariants({ size }),
