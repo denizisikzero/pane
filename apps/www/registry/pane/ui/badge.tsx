@@ -10,6 +10,7 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default: "text-foreground",
+        inverted: "text-background",
         prominent: "",
         destructive: "",
       },
@@ -43,6 +44,13 @@ const badgeVariants = cva(
 /** The same glass per variant as Button's. */
 const glassByVariant = {
   default: { filled: "", tinted: "" },
+  // the opposite of the theme: dark on light, light on dark
+  inverted: {
+    filled:
+      "[--pane-tint-clear:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
+    tinted:
+      "[--pane-tint-clear:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
+  },
   prominent: {
     filled:
       "[--pane-tint-clear:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-border-clear:var(--pane-border-accent)]",

@@ -3,7 +3,6 @@ import AccordionDemo from "@/registry/pane/examples/accordion-demo";
 import AlertDemo from "@/registry/pane/examples/alert-demo";
 import AvatarDemo from "@/registry/pane/examples/avatar-demo";
 import BadgeDemo from "@/registry/pane/examples/badge-demo";
-import ButtonAsChild from "@/registry/pane/examples/button-as-child";
 import ButtonDemo from "@/registry/pane/examples/button-demo";
 import ButtonIcons from "@/registry/pane/examples/button-icons";
 import ButtonSize from "@/registry/pane/examples/button-size";
@@ -114,7 +113,7 @@ export function Example() {
     slug: "button",
     title: "Button",
     description:
-      "A glass button: plain glass by default, filled with the accent as prominent, red as destructive.",
+      "A glass button: plain glass by default, inverted to the theme, filled with the accent as prominent, red as destructive.",
     registryName: "button",
     demo: ButtonDemo,
     usage: `import { Button } from "@/components/ui/button";
@@ -128,7 +127,7 @@ export function Example() {
         name: "button-variants",
         demo: ButtonVariants,
         description:
-          "`default` is plain glass, for most actions. `prominent` is filled with `--pane-accent`: one per screen, for the main action. `destructive` is filled with `--pane-destructive`, for actions that delete.",
+          "`default` is plain glass, for most actions. `inverted` is filled with the text color, dark on light and light on dark, for a strong action that leaves the accent alone. `prominent` is filled with `--pane-accent`: one per screen, for the main action. `destructive` is filled with `--pane-destructive`, for actions that delete.",
       },
       {
         title: "Tinted",
@@ -151,21 +150,14 @@ export function Example() {
         description:
           "Icons go before or after the label and are sized by the button. An icon-only button needs an `aria-label`.",
       },
-      {
-        title: "As a link",
-        name: "button-as-child",
-        demo: ButtonAsChild,
-        description:
-          "With `asChild` the glass wraps your own element, such as a Next.js `Link`.",
-      },
     ],
     props: [
       {
         name: "variant",
-        type: '"default" | "prominent" | "destructive"',
+        type: '"default" | "inverted" | "prominent" | "destructive"',
         default: '"default"',
         description:
-          "default is plain glass, prominent takes --pane-accent, destructive --pane-destructive.",
+          "default is plain glass, inverted is filled with the text color, prominent takes --pane-accent, destructive --pane-destructive.",
       },
       {
         name: "tinted",
@@ -240,10 +232,10 @@ export function Example() {
     props: [
       {
         name: "variant",
-        type: '"default" | "prominent" | "destructive"',
+        type: '"default" | "inverted" | "prominent" | "destructive"',
         default: '"default"',
         description:
-          "default is plain glass, prominent takes --pane-accent, destructive --pane-destructive.",
+          "default is plain glass, inverted is filled with the text color, prominent takes --pane-accent, destructive --pane-destructive.",
       },
       {
         name: "tinted",

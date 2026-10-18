@@ -39,6 +39,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "text-foreground",
+        inverted: "text-background",
         prominent: "",
         destructive: "",
       },
@@ -86,10 +87,18 @@ const buttonVariants = cva(
 /**
  * What the glass itself does per variant. Filled is dense, so the label
  * reads, but the rim and glint still show; tinted is a wash of the color
- * with the label carrying it. Default is the plain material.
+ * with the label carrying it. Default is the plain material; inverted
+ * fills it with the text color instead.
  */
 const glassByVariant = {
   default: { filled: "", tinted: "" },
+  // the opposite of the theme: dark on light, light on dark
+  inverted: {
+    filled:
+      "[--pane-tint-clear:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
+    tinted:
+      "[--pane-tint-clear:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
+  },
   prominent: {
     filled:
       "[--pane-tint-clear:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-border-clear:var(--pane-border-accent)]",
