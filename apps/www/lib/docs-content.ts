@@ -78,7 +78,7 @@ export const tokenGroups: { title: string; tokens: Record<string, string> }[] =
       title: "Color",
       tokens: {
         "pane-accent":
-          "The brand color: the default Button and Badge, and Switch, Checkbox, Radio Group, Slider and Progress when on.",
+          "The brand color: the prominent Button and Badge, and Switch, Checkbox, Radio Group, Slider and Progress when on.",
         "pane-accent-foreground": "Labels, checks and dots on the accent.",
         "pane-accent-opacity":
           "How much of the accent the controls mix into their glass.",

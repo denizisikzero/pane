@@ -34,9 +34,11 @@ export function AccentPicker({
         <PreviewSurface>
           <div className="flex w-full max-w-xs flex-col items-center gap-6">
             <div className="flex items-center gap-3">
-              <Button>Continue</Button>
-              <Button tinted>Edit</Button>
-              <Button variant="secondary">Cancel</Button>
+              <Button variant="prominent">Continue</Button>
+              <Button variant="prominent" tinted>
+                Edit
+              </Button>
+              <Button>Cancel</Button>
             </div>
             <div className="flex items-center gap-5">
               <Switch defaultChecked aria-label="Wi-Fi" />

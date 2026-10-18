@@ -26,7 +26,7 @@ export default function DocsIntroductionPage() {
       </PageHeader>
 
       {pane ? (
-        <ComponentPreview registryName={pane.registryName} demo={pane.demo} />
+        <ComponentPreview name={`${pane.registryName}-demo`} demo={pane.demo} />
       ) : null}
 
       <section className="flex flex-col gap-5">

@@ -3,7 +3,12 @@ import AccordionDemo from "@/registry/pane/examples/accordion-demo";
 import AlertDemo from "@/registry/pane/examples/alert-demo";
 import AvatarDemo from "@/registry/pane/examples/avatar-demo";
 import BadgeDemo from "@/registry/pane/examples/badge-demo";
+import ButtonAsChild from "@/registry/pane/examples/button-as-child";
 import ButtonDemo from "@/registry/pane/examples/button-demo";
+import ButtonIcons from "@/registry/pane/examples/button-icons";
+import ButtonSize from "@/registry/pane/examples/button-size";
+import ButtonTinted from "@/registry/pane/examples/button-tinted";
+import ButtonVariants from "@/registry/pane/examples/button-variants";
 import CardDemo from "@/registry/pane/examples/card-demo";
 import CheckboxDemo from "@/registry/pane/examples/checkbox-demo";
 import CommandDemo from "@/registry/pane/examples/command-demo";
@@ -33,6 +38,15 @@ export interface PropRow {
   description: string;
 }
 
+export interface ComponentExample {
+  title: string;
+  /** file in registry/pane/examples, without the extension */
+  name: string;
+  demo: ComponentType;
+  /** `code` spans are rendered as code */
+  description?: string;
+}
+
 export interface ComponentMeta {
   slug: string;
   title: string;
@@ -42,6 +56,8 @@ export interface ComponentMeta {
   props?: PropRow[];
   /** imports and a minimal example, shown under Usage */
   usage?: string;
+  /** one preview per variant or feature, under Examples */
+  examples?: ComponentExample[];
   /** where the rest of the API is documented: the primitive it's built on */
   reference?: { label: string; href: string };
 }
@@ -98,7 +114,7 @@ export function Example() {
     slug: "button",
     title: "Button",
     description:
-      "A glass button: filled with the accent by default, plain glass as secondary, red as destructive.",
+      "A glass button: plain glass by default, filled with the accent as prominent, red as destructive.",
     registryName: "button",
     demo: ButtonDemo,
     usage: `import { Button } from "@/components/ui/button";
@@ -106,20 +122,57 @@ export function Example() {
 export function Example() {
   return <Button>Continue</Button>;
 }`,
+    examples: [
+      {
+        title: "Variants",
+        name: "button-variants",
+        demo: ButtonVariants,
+        description:
+          "`default` is plain glass, for most actions. `prominent` is filled with `--pane-accent`: one per screen, for the main action. `destructive` is filled with `--pane-destructive`, for actions that delete.",
+      },
+      {
+        title: "Tinted",
+        name: "button-tinted",
+        demo: ButtonTinted,
+        description:
+          "`tinted` washes the glass in the color and moves it to the label, for a colored action that shouldn't outweigh the main one. Works with `prominent` and `destructive`.",
+      },
+      {
+        title: "Sizes",
+        name: "button-size",
+        demo: ButtonSize,
+        description:
+          "Each size has an icon-only twin of the same height, so they line up in a toolbar.",
+      },
+      {
+        title: "Icons",
+        name: "button-icons",
+        demo: ButtonIcons,
+        description:
+          "Icons go before or after the label and are sized by the button. An icon-only button needs an `aria-label`.",
+      },
+      {
+        title: "As a link",
+        name: "button-as-child",
+        demo: ButtonAsChild,
+        description:
+          "With `asChild` the glass wraps your own element, such as a Next.js `Link`.",
+      },
+    ],
     props: [
       {
         name: "variant",
-        type: '"default" | "secondary" | "destructive"',
+        type: '"default" | "prominent" | "destructive"',
         default: '"default"',
         description:
-          "default takes --pane-accent, destructive --pane-destructive, secondary is plain glass.",
+          "default is plain glass, prominent takes --pane-accent, destructive --pane-destructive.",
       },
       {
         name: "tinted",
         type: "boolean",
         default: "false",
         description:
-          "Washes the glass in the variant's color and colors the label, instead of filling it. For default and destructive.",
+          "Washes the glass in the variant's color and colors the label, instead of filling it. For prominent and destructive.",
       },
       {
         name: "size",
@@ -187,17 +240,17 @@ export function Example() {
     props: [
       {
         name: "variant",
-        type: '"default" | "secondary" | "destructive"',
+        type: '"default" | "prominent" | "destructive"',
         default: '"default"',
         description:
-          "default takes --pane-accent, destructive --pane-destructive, secondary is plain glass.",
+          "default is plain glass, prominent takes --pane-accent, destructive --pane-destructive.",
       },
       {
         name: "tinted",
         type: "boolean",
         default: "false",
         description:
-          "Washes the glass in the variant's color and colors the label, instead of filling it. For default and destructive.",
+          "Washes the glass in the variant's color and colors the label, instead of filling it. For prominent and destructive.",
       },
       {
         name: "asChild",
@@ -335,7 +388,7 @@ export function Example() {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="secondary">Hover me</Button>
+        <Button>Hover me</Button>
       </TooltipTrigger>
       <TooltipContent>Saved to your library</TooltipContent>
     </Tooltip>
@@ -385,7 +438,7 @@ export function Example() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="secondary">Open dialog</Button>
+        <Button>Open dialog</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -439,7 +492,7 @@ export function Example() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="secondary">Open sheet</Button>
+        <Button>Open sheet</Button>
       </SheetTrigger>
       <SheetContent side="right">
         <SheetHeader>
@@ -486,7 +539,7 @@ export function Example() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="secondary">Share</Button>
+        <Button>Share</Button>
       </PopoverTrigger>
       <PopoverContent>Anyone with the link can view.</PopoverContent>
     </Popover>
@@ -516,7 +569,7 @@ export function Example() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="secondary">Options</Button>
+        <Button>Options</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>Rename</DropdownMenuItem>

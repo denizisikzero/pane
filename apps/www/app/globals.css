@@ -40,7 +40,7 @@
   --pane-border-clear: rgba(255, 255, 255, 0.6);
 
   /* accent — the one brand color: controls in their "on" state and the
-     default Button. Components mix in --pane-accent-opacity themselves, so
+     prominent Button. Components mix in --pane-accent-opacity themselves, so
      the fill stays translucent and the material still refracts what sits
      behind it. Set --pane-accent on any element to recolor just that part. */
   --pane-accent: #34c759;

@@ -24,7 +24,7 @@ export default function PopoverDemo() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="secondary">Share</Button>
+        <Button>Share</Button>
       </PopoverTrigger>
       <PopoverContent className="grid w-80 gap-3">
         <div className="grid gap-1">
@@ -36,7 +36,6 @@ export default function PopoverDemo() {
         <div className="flex items-center gap-2">
           <Input readOnly defaultValue={link} aria-label="Album link" />
           <Button
-            variant="secondary"
             size="icon"
             aria-label={copied ? "Copied" : "Copy link"}
             onClick={async () => {

@@ -9,7 +9,7 @@ export default function TooltipDemo() {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="secondary">Hover me</Button>
+        <Button>Hover me</Button>
       </TooltipTrigger>
       <TooltipContent>Saved to your library</TooltipContent>
     </Tooltip>

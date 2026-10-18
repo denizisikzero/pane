@@ -29,7 +29,7 @@ export default function DropdownMenuDemo() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="secondary">Options</Button>
+        <Button>Options</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-52">
         <DropdownMenuGroup>

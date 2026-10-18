@@ -48,7 +48,8 @@ export function AccentSwatches({
           onClick={() => onValueChange(name)}
           style={accentScopeStyle(name)}
           className={cn(
-            "size-7 cursor-pointer rounded-full bg-[var(--accent-l)] ring-1 ring-foreground/10 ring-inset outline-none transition-shadow [.dark_&]:bg-[var(--accent-d)]",
+            // split on the diagonal: the light shade, then the dark one
+            "size-7 cursor-pointer rounded-full bg-[linear-gradient(135deg,var(--accent-l)_50%,var(--accent-d)_50%)] ring-1 ring-foreground/10 ring-inset outline-none transition-shadow",
             "focus-visible:ring-[3px] focus-visible:ring-ring/50",
             // the chosen one: a gap, then a ring in the text color
             value === name &&

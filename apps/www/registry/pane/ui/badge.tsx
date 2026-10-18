@@ -9,8 +9,8 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: "",
-        secondary: "text-foreground",
+        default: "text-foreground",
+        prominent: "",
         destructive: "",
       },
       tinted: {
@@ -20,12 +20,12 @@ const badgeVariants = cva(
     },
     compoundVariants: [
       {
-        variant: "default",
+        variant: "prominent",
         tinted: false,
         className: "text-[var(--pane-accent-foreground)]",
       },
       {
-        variant: "default",
+        variant: "prominent",
         tinted: true,
         className: "text-[var(--pane-accent-text)]",
       },
@@ -42,7 +42,8 @@ const badgeVariants = cva(
 
 /** The same glass per variant as Button's. */
 const glassByVariant = {
-  default: {
+  default: { filled: "", tinted: "" },
+  prominent: {
     filled:
       "[--pane-tint-clear:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-border-clear:var(--pane-border-accent)]",
     tinted:
@@ -54,7 +55,6 @@ const glassByVariant = {
     tinted:
       "[--pane-tint-clear:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)]",
   },
-  secondary: { filled: "", tinted: "" },
 };
 
 export interface BadgeProps

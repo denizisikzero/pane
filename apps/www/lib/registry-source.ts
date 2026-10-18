@@ -12,8 +12,9 @@ export function getComponentSource(name: string) {
   return readSource(`ui/${name}.tsx`);
 }
 
+/** `name` is the file in examples/, without the extension. */
 export function getExampleSource(name: string) {
-  return readSource(`examples/${name}-demo.tsx`);
+  return readSource(`examples/${name}.tsx`);
 }
 
 export function getGlassSource(name: string) {

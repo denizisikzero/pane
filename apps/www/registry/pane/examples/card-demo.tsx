@@ -23,10 +23,10 @@ export default function CardDemo() {
         </p>
       </CardContent>
       <CardFooter className="gap-2">
-        <Button className="flex-1">Upgrade</Button>
-        <Button variant="secondary" className="flex-1">
-          Not now
+        <Button variant="prominent" className="flex-1">
+          Upgrade
         </Button>
+        <Button className="flex-1">Not now</Button>
       </CardFooter>
     </Card>
   );

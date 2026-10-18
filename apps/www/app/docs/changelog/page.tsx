@@ -84,10 +84,8 @@ export default async function ChangelogPage() {
                     v{release.version}
                   </a>
                 </h2>
-                {index === 0 ? <Badge>Latest</Badge> : null}
-                {release.prerelease ? (
-                  <Badge variant="secondary">Pre-release</Badge>
-                ) : null}
+                {index === 0 ? <Badge variant="prominent">Latest</Badge> : null}
+                {release.prerelease ? <Badge>Pre-release</Badge> : null}
                 <time
                   dateTime={release.date}
                   className="basis-full text-sm text-muted-foreground sm:ml-auto sm:basis-auto"

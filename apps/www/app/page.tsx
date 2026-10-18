@@ -65,7 +65,7 @@ export default function Home() {
 
       <main className="flex flex-1 flex-col items-center gap-20 px-4 pt-12 pb-24 sm:gap-28 sm:pt-20 sm:pb-32">
         <section className="flex max-w-2xl flex-col items-center gap-6 text-center">
-          <Badge variant="secondary" asChild>
+          <Badge asChild>
             <Link
               href="/docs/changelog"
               className="transition-opacity hover:opacity-80"
@@ -82,7 +82,7 @@ export default function Home() {
             Install with the shadcn CLI or copy the code.
           </p>
           <div className="flex flex-col items-center gap-3 sm:flex-row">
-            <Button size="lg" asChild>
+            <Button variant="prominent" size="lg" asChild>
               <Link href="/docs">Get started</Link>
             </Button>
             <InstallCommand />
@@ -116,9 +116,9 @@ export default function Home() {
             <div className="grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <ShowcaseCell title="Button" href="/docs/components/button">
                 <div className="flex flex-wrap items-center justify-center gap-3">
-                  <Button>Continue</Button>
+                  <Button variant="prominent">Continue</Button>
                   <Button variant="destructive">Delete</Button>
-                  <Button variant="secondary" size="icon" aria-label="Add">
+                  <Button size="icon" aria-label="Add">
                     <PlusIcon />
                   </Button>
                 </div>
@@ -169,9 +169,11 @@ export default function Home() {
               </ShowcaseCell>
               <ShowcaseCell title="Badge" href="/docs/components/badge">
                 <div className="flex flex-wrap items-center justify-center gap-2">
-                  <Badge>New</Badge>
-                  <Badge tinted>Pro</Badge>
-                  <Badge variant="secondary">v1.0</Badge>
+                  <Badge variant="prominent">New</Badge>
+                  <Badge variant="prominent" tinted>
+                    Pro
+                  </Badge>
+                  <Badge>v1.0</Badge>
                 </div>
               </ShowcaseCell>
               <ShowcaseCell title="Card" href="/docs/components/card">
@@ -230,7 +232,7 @@ export default function Home() {
             ))}
           </div>
           <div className="flex flex-col items-center gap-3 sm:flex-row">
-            <Button size="lg" asChild>
+            <Button variant="prominent" size="lg" asChild>
               <Link href="/docs/components">
                 Browse components
                 <ArrowRightIcon />

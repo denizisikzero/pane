@@ -133,7 +133,6 @@ export function CommandMenu() {
   return (
     <>
       <Button
-        variant="secondary"
         onClick={() => setOpen(true)}
         aria-label="Search documentation"
         className="w-9 justify-center px-0 font-normal text-muted-foreground lg:w-52 lg:justify-between lg:px-3"

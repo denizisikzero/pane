@@ -146,13 +146,14 @@ export default function ThemingPage() {
       <section className="flex flex-col gap-5">
         <h2 className="text-xl font-semibold">Accent color</h2>
         <p className="text-sm leading-relaxed text-muted-foreground">
-          One color fills the default Button and every control that is on. Pick
-          one below and paste the variables over the ones in your stylesheet, or
-          set them to any color: <code className={code}>var(--primary)</code>{" "}
-          and <code className={code}>var(--primary-foreground)</code> follow
-          your shadcn/ui theme. <code className={code}>--pane-accent-text</code>{" "}
-          is a deeper shade for labels on plain glass, so the bright accent
-          still reads as text. Set them on an element instead of{" "}
+          One color fills the prominent Button and every control that is on.
+          Pick one below and paste the variables over the ones in your
+          stylesheet, or set them to any color:{" "}
+          <code className={code}>var(--primary)</code> and{" "}
+          <code className={code}>var(--primary-foreground)</code> follow your
+          shadcn/ui theme. <code className={code}>--pane-accent-text</code> is a
+          deeper shade for labels on plain glass, so the bright accent still
+          reads as text. Set them on an element instead of{" "}
           <code className={code}>:root</code> to recolor just that part of the
           page.
         </p>

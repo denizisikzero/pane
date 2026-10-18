@@ -38,8 +38,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "",
-        secondary: "text-foreground",
+        default: "text-foreground",
+        prominent: "",
         destructive: "",
       },
       tinted: {
@@ -59,12 +59,12 @@ const buttonVariants = cva(
     },
     compoundVariants: [
       {
-        variant: "default",
+        variant: "prominent",
         tinted: false,
         className: "text-[var(--pane-accent-foreground)]",
       },
       {
-        variant: "default",
+        variant: "prominent",
         tinted: true,
         className: "text-[var(--pane-accent-text)]",
       },
@@ -86,10 +86,11 @@ const buttonVariants = cva(
 /**
  * What the glass itself does per variant. Filled is dense, so the label
  * reads, but the rim and glint still show; tinted is a wash of the color
- * with the label carrying it. Secondary is the plain material.
+ * with the label carrying it. Default is the plain material.
  */
 const glassByVariant = {
-  default: {
+  default: { filled: "", tinted: "" },
+  prominent: {
     filled:
       "[--pane-tint-clear:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-border-clear:var(--pane-border-accent)]",
     tinted:
@@ -101,7 +102,6 @@ const glassByVariant = {
     tinted:
       "[--pane-tint-clear:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)]",
   },
-  secondary: { filled: "", tinted: "" },
 };
 
 export interface ButtonProps

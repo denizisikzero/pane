@@ -107,7 +107,7 @@ function theming() {
     "### Full CSS",
     fence("css", getStyleCssVars()),
     "## Accent color",
-    "One color fills the default Button and every control that is on. Paste the variables over the ones in your stylesheet, or set them to any color: `var(--primary)` and `var(--primary-foreground)` follow your shadcn/ui theme. `--pane-accent-text` is a deeper shade for labels on plain glass, so the bright accent still reads as text. Set them on an element instead of `:root` to recolor just that part of the page.",
+    "One color fills the prominent Button and every control that is on. Paste the variables over the ones in your stylesheet, or set them to any color: `var(--primary)` and `var(--primary-foreground)` follow your shadcn/ui theme. `--pane-accent-text` is a deeper shade for labels on plain glass, so the bright accent still reads as text. Set them on an element instead of `:root` to recolor just that part of the page.",
     `Ready-made presets: ${accentNames.map((n) => `\`${n}\``).join(", ")}. The default, ${DEFAULT_ACCENT}:`,
     fence("css", accentCss(DEFAULT_ACCENT)),
     "## Refraction and springs",
@@ -152,7 +152,12 @@ function component(slug: string) {
     fence("bash", `npx shadcn@latest add @pane/${meta.registryName}`),
     meta.usage ? ["## Usage", fence("tsx", meta.usage)] : [],
     "## Example",
-    fence("tsx", getExampleSource(meta.registryName)),
+    fence("tsx", getExampleSource(`${meta.registryName}-demo`)),
+    (meta.examples ?? []).flatMap((example) => [
+      `## ${example.title}`,
+      example.description ?? [],
+      fence("tsx", getExampleSource(example.name)),
+    ]),
     meta.props || api ? `## ${meta.props ? "Props" : "API reference"}` : [],
     meta.props
       ? table(

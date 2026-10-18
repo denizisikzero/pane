@@ -40,7 +40,7 @@ export function Header() {
         <HeaderNav />
         <div className="col-start-3 flex items-center justify-end gap-2">
           <CommandMenu />
-          <Button variant="secondary" size="icon" asChild>
+          <Button size="icon" asChild>
             <a
               href={siteConfig.links.github}
               target="_blank"
