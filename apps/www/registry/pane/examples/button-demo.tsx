@@ -10,8 +10,8 @@ export default function ButtonDemo() {
         <Button variant="destructive">Destructive</Button>
       </div>
       <div className="flex flex-wrap items-center justify-center gap-3">
-        <Button appearance="tinted">Tinted</Button>
-        <Button variant="destructive" appearance="tinted">
+        <Button tinted>Tinted</Button>
+        <Button variant="destructive" tinted>
           Delete
         </Button>
       </div>

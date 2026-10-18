@@ -13,30 +13,30 @@ const badgeVariants = cva(
         secondary: "text-foreground",
         destructive: "",
       },
-      appearance: {
-        filled: "",
-        tinted: "",
+      tinted: {
+        true: "",
+        false: "",
       },
     },
     compoundVariants: [
       {
         variant: "default",
-        appearance: "filled",
+        tinted: false,
         className: "text-[var(--pane-accent-foreground)]",
       },
       {
         variant: "default",
-        appearance: "tinted",
+        tinted: true,
         className: "text-[var(--pane-accent-text)]",
       },
-      { variant: "destructive", appearance: "filled", className: "text-white" },
+      { variant: "destructive", tinted: false, className: "text-white" },
       {
         variant: "destructive",
-        appearance: "tinted",
+        tinted: true,
         className: "text-[var(--pane-destructive-text)]",
       },
     ],
-    defaultVariants: { variant: "default", appearance: "filled" },
+    defaultVariants: { variant: "default", tinted: false },
   },
 );
 
@@ -66,7 +66,7 @@ export interface BadgeProps
 function Badge({
   className,
   variant = "default",
-  appearance = "filled",
+  tinted = false,
   asChild = false,
   ...props
 }: BadgeProps) {
@@ -77,15 +77,15 @@ function Badge({
       radius={999}
       className={cn(
         "inline-flex w-fit shrink-0",
-        glassByVariant[variant ?? "default"][appearance ?? "filled"],
+        glassByVariant[variant ?? "default"][tinted ? "tinted" : "filled"],
       )}
     >
       <Comp
         data-slot="badge"
         data-variant={variant}
-        data-appearance={appearance}
+        data-tinted={tinted}
         className={cn(
-          badgeVariants({ variant, appearance, className }),
+          badgeVariants({ variant, tinted, className }),
           "bg-transparent",
         )}
         {...props}

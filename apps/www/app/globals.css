@@ -46,7 +46,7 @@
   --pane-accent: #34c759;
   --pane-accent-foreground: #ffffff;
   --pane-accent-opacity: 82%;
-  /* a label in the accent on plain glass (appearance="tinted") — a deeper
+  /* a label in the accent on plain glass (a tinted Button) — a deeper
      shade, since the bright one doesn't read on light glass */
   --pane-accent-text: #248a3d;
   --pane-border-accent: rgba(255, 255, 255, 0.7);

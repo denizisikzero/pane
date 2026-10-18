@@ -6,8 +6,8 @@ export default function BadgeDemo() {
       <Badge>New</Badge>
       <Badge variant="secondary">v1.0</Badge>
       <Badge variant="destructive">Error</Badge>
-      <Badge appearance="tinted">Pro</Badge>
-      <Badge variant="destructive" appearance="tinted">
+      <Badge tinted>Pro</Badge>
+      <Badge variant="destructive" tinted>
         Beta
       </Badge>
     </div>

@@ -42,9 +42,9 @@ const buttonVariants = cva(
         secondary: "text-foreground",
         destructive: "",
       },
-      appearance: {
-        filled: "",
-        tinted: "",
+      tinted: {
+        true: "",
+        false: "",
       },
       size: {
         default: "h-9 px-4",
@@ -60,24 +60,24 @@ const buttonVariants = cva(
     compoundVariants: [
       {
         variant: "default",
-        appearance: "filled",
+        tinted: false,
         className: "text-[var(--pane-accent-foreground)]",
       },
       {
         variant: "default",
-        appearance: "tinted",
+        tinted: true,
         className: "text-[var(--pane-accent-text)]",
       },
-      { variant: "destructive", appearance: "filled", className: "text-white" },
+      { variant: "destructive", tinted: false, className: "text-white" },
       {
         variant: "destructive",
-        appearance: "tinted",
+        tinted: true,
         className: "text-[var(--pane-destructive-text)]",
       },
     ],
     defaultVariants: {
       variant: "default",
-      appearance: "filled",
+      tinted: false,
       size: "default",
     },
   },
@@ -113,7 +113,7 @@ export interface ButtonProps
 function Button({
   className,
   variant = "default",
-  appearance = "filled",
+  tinted = false,
   size = "default",
   asChild = false,
   ...props
@@ -130,16 +130,16 @@ function Button({
         // keyboard only: `focus-within` leaves the ring painted around the pane
         // after every mouse click
         "has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/50 has-[:focus-visible]:ring-offset-0",
-        glassByVariant[variant ?? "default"][appearance ?? "filled"],
+        glassByVariant[variant ?? "default"][tinted ? "tinted" : "filled"],
       )}
     >
       <Comp
         data-slot="button"
         data-variant={variant}
-        data-appearance={appearance}
+        data-tinted={tinted}
         data-size={size}
         className={cn(
-          buttonVariants({ variant, appearance, size, className }),
+          buttonVariants({ variant, tinted, size, className }),
           "bg-transparent",
         )}
         {...props}

@@ -115,11 +115,11 @@ export function Example() {
           "default takes --pane-accent, destructive --pane-destructive, secondary is plain glass.",
       },
       {
-        name: "appearance",
-        type: '"filled" | "tinted"',
-        default: '"filled"',
+        name: "tinted",
+        type: "boolean",
+        default: "false",
         description:
-          "filled fills the glass with the variant's color; tinted only washes it in and colors the label. No effect on secondary.",
+          "Washes the glass in the variant's color and colors the label, instead of filling it. For default and destructive.",
       },
       {
         name: "size",
@@ -193,11 +193,11 @@ export function Example() {
           "default takes --pane-accent, destructive --pane-destructive, secondary is plain glass.",
       },
       {
-        name: "appearance",
-        type: '"filled" | "tinted"',
-        default: '"filled"',
+        name: "tinted",
+        type: "boolean",
+        default: "false",
         description:
-          "filled fills the glass with the variant's color; tinted only washes it in and colors the label. No effect on secondary.",
+          "Washes the glass in the variant's color and colors the label, instead of filling it. For default and destructive.",
       },
       {
         name: "asChild",

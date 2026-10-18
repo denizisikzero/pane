@@ -35,7 +35,7 @@ export function AccentPicker({
           <div className="flex w-full max-w-xs flex-col items-center gap-6">
             <div className="flex items-center gap-3">
               <Button>Continue</Button>
-              <Button appearance="tinted">Edit</Button>
+              <Button tinted>Edit</Button>
               <Button variant="secondary">Cancel</Button>
             </div>
             <div className="flex items-center gap-5">
