@@ -8,26 +8,61 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-const sides = ["top", "right", "bottom", "left"] as const;
-
 export default function SheetSides() {
   return (
     <div className="flex flex-wrap items-center justify-center gap-3">
-      {sides.map((side) => (
-        <Sheet key={side}>
-          <SheetTrigger asChild>
-            <Button className="capitalize">{side}</Button>
-          </SheetTrigger>
-          <SheetContent side={side}>
-            <SheetHeader>
-              <SheetTitle className="capitalize">{side}</SheetTitle>
-              <SheetDescription>
-                This sheet slides in from the {side}.
-              </SheetDescription>
-            </SheetHeader>
-          </SheetContent>
-        </Sheet>
-      ))}
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button>Top</Button>
+        </SheetTrigger>
+        <SheetContent side="top">
+          <SheetHeader>
+            <SheetTitle>Top</SheetTitle>
+            <SheetDescription>
+              This sheet slides in from the top.
+            </SheetDescription>
+          </SheetHeader>
+        </SheetContent>
+      </Sheet>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button>Right</Button>
+        </SheetTrigger>
+        <SheetContent side="right">
+          <SheetHeader>
+            <SheetTitle>Right</SheetTitle>
+            <SheetDescription>
+              This sheet slides in from the right.
+            </SheetDescription>
+          </SheetHeader>
+        </SheetContent>
+      </Sheet>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button>Bottom</Button>
+        </SheetTrigger>
+        <SheetContent side="bottom">
+          <SheetHeader>
+            <SheetTitle>Bottom</SheetTitle>
+            <SheetDescription>
+              This sheet slides in from the bottom.
+            </SheetDescription>
+          </SheetHeader>
+        </SheetContent>
+      </Sheet>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button>Left</Button>
+        </SheetTrigger>
+        <SheetContent side="left">
+          <SheetHeader>
+            <SheetTitle>Left</SheetTitle>
+            <SheetDescription>
+              This sheet slides in from the left.
+            </SheetDescription>
+          </SheetHeader>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 }

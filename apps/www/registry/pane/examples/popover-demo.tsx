@@ -10,8 +10,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const link = "pane.theui.company/a/summer";
-
 export default function PopoverDemo() {
   const [copied, setCopied] = React.useState(false);
 
@@ -34,12 +32,18 @@ export default function PopoverDemo() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Input readOnly defaultValue={link} aria-label="Album link" />
+          <Input
+            readOnly
+            defaultValue="pane.theui.company/a/summer"
+            aria-label="Album link"
+          />
           <Button
             size="icon"
             aria-label={copied ? "Copied" : "Copy link"}
             onClick={async () => {
-              await navigator.clipboard.writeText(`https://${link}`);
+              await navigator.clipboard.writeText(
+                "https://pane.theui.company/a/summer",
+              );
               setCopied(true);
             }}
           >

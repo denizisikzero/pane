@@ -5,19 +5,33 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-const sides = ["top", "right", "bottom", "left"] as const;
-
 export default function TooltipSides() {
   return (
     <div className="flex flex-wrap items-center justify-center gap-3">
-      {sides.map((side) => (
-        <Tooltip key={side}>
-          <TooltipTrigger asChild>
-            <Button className="capitalize">{side}</Button>
-          </TooltipTrigger>
-          <TooltipContent side={side}>On the {side}</TooltipContent>
-        </Tooltip>
-      ))}
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button>Top</Button>
+        </TooltipTrigger>
+        <TooltipContent side="top">On the top</TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button>Right</Button>
+        </TooltipTrigger>
+        <TooltipContent side="right">On the right</TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button>Bottom</Button>
+        </TooltipTrigger>
+        <TooltipContent side="bottom">On the bottom</TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button>Left</Button>
+        </TooltipTrigger>
+        <TooltipContent side="left">On the left</TooltipContent>
+      </Tooltip>
     </div>
   );
 }

@@ -1,30 +1,29 @@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-const options = [
-  { value: "standard", label: "Standard shipping" },
-  { value: "express", label: "Express shipping" },
-  { value: "pickup", label: "Pick up in store", disabled: true },
-];
-
 export default function RadioGroupDisabled() {
   return (
     <RadioGroup defaultValue="standard">
-      {options.map((option) => (
-        <div key={option.value} className="flex items-center gap-3">
-          <RadioGroupItem
-            value={option.value}
-            id={`shipping-${option.value}`}
-            disabled={option.disabled}
-          />
-          <label
-            htmlFor={`shipping-${option.value}`}
-            className="text-sm font-medium aria-disabled:text-muted-foreground"
-            aria-disabled={option.disabled}
-          >
-            {option.label}
-          </label>
-        </div>
-      ))}
+      <div className="flex items-center gap-3">
+        <RadioGroupItem value="standard" id="shipping-standard" />
+        <label htmlFor="shipping-standard" className="text-sm font-medium">
+          Standard shipping
+        </label>
+      </div>
+      <div className="flex items-center gap-3">
+        <RadioGroupItem value="express" id="shipping-express" />
+        <label htmlFor="shipping-express" className="text-sm font-medium">
+          Express shipping
+        </label>
+      </div>
+      <div className="flex items-center gap-3">
+        <RadioGroupItem value="pickup" id="shipping-pickup" disabled />
+        <label
+          htmlFor="shipping-pickup"
+          className="text-sm font-medium text-muted-foreground"
+        >
+          Pick up in store
+        </label>
+      </div>
     </RadioGroup>
   );
 }

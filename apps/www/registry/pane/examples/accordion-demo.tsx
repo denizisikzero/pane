@@ -5,27 +5,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const items = [
-  {
-    value: "package",
-    question: "Is Pane an npm package?",
-    answer:
-      "No. The shadcn CLI copies each component into your project, so you own the code and can change it.",
-  },
-  {
-    value: "browsers",
-    question: "Which browsers get the full effect?",
-    answer:
-      "Chromium browsers get edge refraction. Everyone else gets blur, tint and the pointer highlight.",
-  },
-  {
-    value: "theming",
-    question: "Can I change how the glass looks?",
-    answer:
-      "Yes. Tint, blur, borders and highlights are CSS variables in your globals.css.",
-  },
-];
-
 export default function AccordionDemo() {
   return (
     <Accordion
@@ -34,12 +13,27 @@ export default function AccordionDemo() {
       defaultValue="package"
       className="w-96 max-w-full"
     >
-      {items.map((item) => (
-        <AccordionItem key={item.value} value={item.value}>
-          <AccordionTrigger>{item.question}</AccordionTrigger>
-          <AccordionContent>{item.answer}</AccordionContent>
-        </AccordionItem>
-      ))}
+      <AccordionItem value="package">
+        <AccordionTrigger>Is Pane an npm package?</AccordionTrigger>
+        <AccordionContent>
+          No. The shadcn CLI copies each component into your project, so you own
+          the code and can change it.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="browsers">
+        <AccordionTrigger>Which browsers get the full effect?</AccordionTrigger>
+        <AccordionContent>
+          Chromium browsers get edge refraction. Everyone else gets blur, tint
+          and the pointer highlight.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="theming">
+        <AccordionTrigger>Can I change how the glass looks?</AccordionTrigger>
+        <AccordionContent>
+          Yes. Tint, blur, borders and highlights are CSS variables in your
+          globals.css.
+        </AccordionContent>
+      </AccordionItem>
     </Accordion>
   );
 }
