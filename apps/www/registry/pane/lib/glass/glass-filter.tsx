@@ -63,6 +63,7 @@ export function GlassFilter({
 
   return (
     <svg
+      data-slot="glass-filter"
       aria-hidden="true"
       focusable="false"
       className="absolute h-0 w-0 overflow-hidden"

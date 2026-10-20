@@ -3,8 +3,9 @@ import type * as React from "react";
 import { Pane } from "@/components/ui/pane";
 import { cn } from "@/lib/utils";
 
+// the glass filter is an <svg> child of every Pane, so the icon checks skip it
 const alertVariants = cva(
-  "grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 px-4 py-3.5 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current",
+  "grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 px-4 py-3.5 text-sm has-[>svg:not([data-slot=glass-filter])]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg:not([data-slot=glass-filter])]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current",
   {
     variants: {
       variant: {
