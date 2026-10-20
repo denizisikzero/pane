@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
   return (
     <Pane
-      variant="clear"
       radius={14}
       className="w-full focus-within:ring-[3px] focus-within:ring-ring/50 focus-within:ring-offset-0 has-[:disabled]:opacity-50"
     >

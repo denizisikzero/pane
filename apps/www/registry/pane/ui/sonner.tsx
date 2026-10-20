@@ -25,7 +25,7 @@ import { cn } from "@/lib/utils";
  * and `!` to beat its default button styles.
  */
 const glassButton =
-  "h-7! rounded-full! border-[length:var(--pane-border-width)]! border-[var(--pane-border-clear)]! bg-[var(--pane-nested-clear)]! px-3! font-medium! text-[color:var(--pane-fg)]! text-xs! shadow-[0_1px_1px_0_var(--pane-shadow)]! transition-opacity hover:opacity-80";
+  "h-7! rounded-full! border-[length:var(--pane-border-width)]! border-[var(--pane-border-default)]! bg-[var(--pane-nested-default)]! px-3! font-medium! text-[color:var(--pane-fg)]! text-xs! shadow-[0_1px_1px_0_var(--pane-shadow)]! transition-opacity hover:opacity-80";
 
 const Toaster = ({ toastOptions, ...props }: ToasterProps) => {
   const { theme = "system" } = useTheme();
@@ -50,7 +50,7 @@ const Toaster = ({ toastOptions, ...props }: ToasterProps) => {
         {
           "--normal-bg": "var(--pane-tint-overlay)",
           "--normal-text": "var(--pane-fg)",
-          "--normal-border": "var(--pane-border-regular)",
+          "--normal-border": "var(--pane-border-blur)",
           "--border-radius": "18px",
         } as React.CSSProperties
       }

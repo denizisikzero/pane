@@ -90,7 +90,12 @@ export default function Home() {
           />
           <div className="grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {features.map(({ icon: Icon, title, description }) => (
-              <Pane key={title} radius={22} className="flex flex-col gap-3 p-5">
+              <Pane
+                variant="blur"
+                key={title}
+                radius={22}
+                className="flex flex-col gap-3 p-5"
+              >
                 <Icon className="size-5 text-muted-foreground" />
                 <div className="flex flex-col gap-1">
                   <h3 className="font-medium">{title}</h3>
@@ -110,7 +115,6 @@ export default function Home() {
             {componentsMeta.map((component) => (
               <Pane
                 key={component.slug}
-                variant="clear"
                 radius={999}
                 interactive
                 className="inline-flex"

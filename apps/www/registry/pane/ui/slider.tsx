@@ -59,7 +59,6 @@ function Slider({
       {...props}
     >
       <Pane
-        variant="clear"
         radius={999}
         className="grow data-[orientation=horizontal]:h-2 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2"
         data-orientation={props.orientation ?? "horizontal"}
@@ -82,7 +81,7 @@ function Slider({
           className="block rounded-full outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none"
         >
           {/* At rest the thumb is an opaque knob; while dragged it swells and
-              drops the knob fill, turning into clear glass over the track —
+              drops the knob fill, turning into bare glass over the track —
               the way Liquid Glass sliders lift off their rail. */}
           <motion.span
             className="block"
@@ -90,14 +89,14 @@ function Slider({
             transition={spring.press}
           >
             <Pane
-              variant="regular"
+              variant="blur"
               radius={999}
               className={cn(
                 "h-6 w-9 transition-colors in-data-[orientation=vertical]:h-9 in-data-[orientation=vertical]:w-6",
                 // both fills, as in Switch: inside a Card the thumb is a
                 // nested pane and reads `--pane-nested-*` instead
                 !dragging &&
-                  "[--pane-nested-regular:var(--pane-knob)] [--pane-tint-regular:var(--pane-knob)]",
+                  "[--pane-nested-blur:var(--pane-knob)] [--pane-tint-blur:var(--pane-knob)]",
               )}
             />
           </motion.span>

@@ -19,7 +19,6 @@ function Avatar({
     <Pane
       data-slot="avatar"
       data-size={size}
-      variant="clear"
       radius={999}
       className={cn(
         "group/avatar inline-flex size-8 shrink-0 overflow-visible data-[size=lg]:size-10 data-[size=sm]:size-6",
@@ -102,7 +101,6 @@ function AvatarGroupCount({
   return (
     <Pane
       data-slot="avatar-group-count"
-      variant="clear"
       radius={999}
       className={cn(
         "flex size-8 shrink-0 items-center justify-center text-muted-foreground text-sm ring-2 ring-background group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>svg]:size-4",

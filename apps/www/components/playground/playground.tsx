@@ -32,6 +32,7 @@ import {
   GLASS_SPRING,
 } from "@/lib/glass/config";
 import { type GlassConfig, GlassConfigProvider } from "@/lib/glass/context";
+import type { GlassVariant } from "@/lib/glass/types";
 import { cn } from "@/lib/utils";
 
 type Tokens = Record<"light" | "dark", Record<string, string>>;
@@ -154,7 +155,7 @@ function ExportPanel({ files }: { files: { name: string; code: string }[] }) {
   const current = files.find((file) => file.name === active) ?? files[0];
 
   return (
-    <Pane variant="clear" radius={24} className="flex flex-col">
+    <Pane radius={24} className="flex flex-col">
       <div className="flex items-center justify-between gap-3 border-foreground/5 border-b p-2">
         <Tabs value={current?.name} onValueChange={setActive}>
           <TabsList>
@@ -175,7 +176,7 @@ function ExportPanel({ files }: { files: { name: string; code: string }[] }) {
 }
 
 export function Playground({ tokens }: { tokens: Tokens }) {
-  const baseBlur = Number.parseFloat(tokens.light["pane-blur-regular"] ?? "12");
+  const baseBlur = Number.parseFloat(tokens.light["pane-blur-blur"] ?? "12");
   const baseSaturation = Number.parseFloat(
     tokens.light["pane-saturation"] ?? "1.7",
   );
@@ -227,17 +228,17 @@ export function Playground({ tokens }: { tokens: Tokens }) {
 
   const light = { ...tokens.light };
   const dark = { ...tokens.light, ...tokens.dark };
-  const clearRatio =
-    Number.parseFloat(light["pane-blur-clear"] ?? "5") / baseBlur;
+  const defaultRatio =
+    Number.parseFloat(light["pane-blur-default"] ?? "5") / baseBlur;
   const tintFactor = state.tint / 100;
 
   const cssFor = (vars: Record<string, string>) => ({
-    "pane-tint-regular": rgba(vars["pane-tint-regular"], tintFactor),
-    "pane-tint-clear": rgba(vars["pane-tint-clear"], tintFactor),
+    "pane-tint-blur": rgba(vars["pane-tint-blur"], tintFactor),
+    "pane-tint-default": rgba(vars["pane-tint-default"], tintFactor),
   });
   const shared = {
-    "pane-blur-regular": `${state.blur}px`,
-    "pane-blur-clear": `${round(state.blur * clearRatio, 1)}px`,
+    "pane-blur-blur": `${state.blur}px`,
+    "pane-blur-default": `${round(state.blur * defaultRatio, 1)}px`,
     "pane-saturation": String(state.saturation),
   };
   const themed = cssFor(theme === "dark" ? dark : light);
@@ -256,7 +257,7 @@ export function Playground({ tokens }: { tokens: Tokens }) {
     state.damping === GLASS_SPRING.press.damping;
 
   const config = React.useMemo<Partial<GlassConfig>>(() => {
-    const scale = (variant: "regular" | "clear") => ({
+    const scale = (variant: GlassVariant) => ({
       ...GLASS_DISPLACEMENT[variant],
       strength: round(
         (GLASS_DISPLACEMENT[variant].strength * state.refraction) / 100,
@@ -268,7 +269,11 @@ export function Playground({ tokens }: { tokens: Tokens }) {
       ),
     });
     return {
-      displacement: { regular: scale("regular"), clear: scale("clear") },
+      displacement: {
+        default: scale("default"),
+        blur: scale("blur"),
+        transparent: scale("transparent"),
+      },
       specular: { ...GLASS_SPECULAR, intensity: state.highlight },
       spring: isDefaultSpring
         ? GLASS_SPRING
@@ -380,7 +385,11 @@ export function Playground({ tokens }: { tokens: Tokens }) {
           </GlassConfigProvider>
         </ShowcaseBackdrop>
 
-        <Pane radius={24} className="flex flex-col gap-6 self-start p-5">
+        <Pane
+          variant="blur"
+          radius={24}
+          className="flex flex-col gap-6 self-start p-5"
+        >
           <div className="flex items-center justify-between">
             <h2 className="font-semibold">Material</h2>
             <div className="flex items-center gap-2">

@@ -92,7 +92,7 @@ function edgeBand(thickness: number): React.CSSProperties {
  * arbitrary content in glass.
  */
 export function Pane({
-  variant = "regular",
+  variant = "default",
   interactive = false,
   radius = 28,
   nested: nestedProp,

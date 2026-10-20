@@ -12,18 +12,17 @@ function Checkbox({
 }: React.ComponentProps<typeof CheckboxPrimitive.Root>) {
   return (
     <Pane
-      variant="clear"
       radius={999}
       className={cn(
         "inline-flex size-5 shrink-0 has-[:disabled]:opacity-50 has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/50",
         // Checked or indeterminate: the glass fills with the accent, rim included — both fill
         // tokens, as in Switch, so it still fills inside a card or dialog.
-        "has-[[data-state=checked]]:[--pane-tint-clear:color-mix(in_oklab,var(--pane-accent)_var(--pane-accent-opacity),transparent)]",
-        "has-[[data-state=indeterminate]]:[--pane-tint-clear:color-mix(in_oklab,var(--pane-accent)_var(--pane-accent-opacity),transparent)]",
-        "has-[[data-state=checked]]:[--pane-nested-clear:color-mix(in_oklab,var(--pane-accent)_var(--pane-accent-opacity),transparent)]",
-        "has-[[data-state=indeterminate]]:[--pane-nested-clear:color-mix(in_oklab,var(--pane-accent)_var(--pane-accent-opacity),transparent)]",
-        "has-[[data-state=checked]]:[--pane-border-clear:var(--pane-border-accent)]",
-        "has-[[data-state=indeterminate]]:[--pane-border-clear:var(--pane-border-accent)]",
+        "has-[[data-state=checked]]:[--pane-tint-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-accent-opacity),transparent)]",
+        "has-[[data-state=indeterminate]]:[--pane-tint-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-accent-opacity),transparent)]",
+        "has-[[data-state=checked]]:[--pane-nested-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-accent-opacity),transparent)]",
+        "has-[[data-state=indeterminate]]:[--pane-nested-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-accent-opacity),transparent)]",
+        "has-[[data-state=checked]]:[--pane-border-default:var(--pane-border-accent)]",
+        "has-[[data-state=indeterminate]]:[--pane-border-default:var(--pane-border-accent)]",
       )}
     >
       <CheckboxPrimitive.Root

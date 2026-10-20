@@ -23,7 +23,6 @@ export function Step({
         className="absolute top-9 bottom-1 left-[15px] w-px bg-foreground/10 group-last/step:hidden"
       />
       <Pane
-        variant="clear"
         radius={999}
         className="flex size-[31px] shrink-0 items-center justify-center font-medium text-sm"
       >

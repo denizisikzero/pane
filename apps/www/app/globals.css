@@ -16,12 +16,14 @@
 
   /* Blur past ~12px with a tint past ~0.3 tips over into opaque plastic and
      leaves the refraction nothing to refract. */
-  --pane-blur-regular: 12px;
-  --pane-blur-clear: 5px;
+  --pane-blur-blur: 12px;
+  --pane-blur-default: 5px;
+  --pane-blur-transparent: 0px;
   --pane-saturation: 1.7;
 
-  --pane-tint-regular: rgba(255, 255, 255, 0.26);
-  --pane-tint-clear: rgba(255, 255, 255, 0.08);
+  --pane-tint-blur: rgba(255, 255, 255, 0.26);
+  --pane-tint-default: rgba(255, 255, 255, 0.08);
+  --pane-tint-transparent: rgba(255, 255, 255, 0);
 
   /* overlay — dialogs and sheets hold text to read and forms to fill, so they
      trade most of the see-through for legibility. Deliberately past the
@@ -32,12 +34,14 @@
 
   /* glass on glass: a Pane inside a Pane can't blur anything new, so it swaps
      its backdrop for these flat translucent layers instead */
-  --pane-nested-regular: rgba(255, 255, 255, 0.4);
-  --pane-nested-clear: rgba(255, 255, 255, 0.2);
+  --pane-nested-blur: rgba(255, 255, 255, 0.4);
+  --pane-nested-default: rgba(255, 255, 255, 0.2);
+  --pane-nested-transparent: rgba(255, 255, 255, 0);
 
   --pane-border-width: 0.5px;
-  --pane-border-regular: rgba(255, 255, 255, 0.85);
-  --pane-border-clear: rgba(255, 255, 255, 0.6);
+  --pane-border-blur: rgba(255, 255, 255, 0.85);
+  --pane-border-default: rgba(255, 255, 255, 0.6);
+  --pane-border-transparent: rgba(255, 255, 255, 0.6);
 
   /* accent — the one brand color: controls in their "on" state and the
      prominent Button. Components mix in --pane-accent-opacity themselves, so
@@ -68,16 +72,19 @@
   --muted-foreground: #98989d;
   --ring: oklch(0.556 0 0);
 
-  --pane-tint-regular: rgba(28, 28, 32, 0.3);
-  --pane-tint-clear: rgba(18, 18, 22, 0.12);
+  --pane-tint-blur: rgba(28, 28, 32, 0.3);
+  --pane-tint-default: rgba(18, 18, 22, 0.12);
+  --pane-tint-transparent: rgba(18, 18, 22, 0);
 
   --pane-tint-overlay: rgba(28, 28, 32, 0.76);
 
-  --pane-nested-regular: rgba(255, 255, 255, 0.12);
-  --pane-nested-clear: rgba(255, 255, 255, 0.07);
+  --pane-nested-blur: rgba(255, 255, 255, 0.12);
+  --pane-nested-default: rgba(255, 255, 255, 0.07);
+  --pane-nested-transparent: rgba(255, 255, 255, 0);
 
-  --pane-border-regular: rgba(255, 255, 255, 0.14);
-  --pane-border-clear: rgba(255, 255, 255, 0.1);
+  --pane-border-blur: rgba(255, 255, 255, 0.14);
+  --pane-border-default: rgba(255, 255, 255, 0.1);
+  --pane-border-transparent: rgba(255, 255, 255, 0.1);
 
   --pane-accent: #30d158;
   --pane-accent-foreground: #ffffff;

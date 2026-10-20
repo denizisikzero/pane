@@ -1,4 +1,4 @@
-export type GlassVariant = "regular" | "clear";
+export type GlassVariant = "default" | "blur" | "transparent";
 
 export type GlassQuality = "full" | "reduced" | "none";
 

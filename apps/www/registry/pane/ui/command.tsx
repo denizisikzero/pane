@@ -20,7 +20,7 @@ function Command({
   ...props
 }: React.ComponentProps<typeof CommandPrimitive>) {
   return (
-    <Pane variant="regular" radius={18} className={cn("w-full", className)}>
+    <Pane variant="blur" radius={18} className={cn("w-full", className)}>
       <CommandPrimitive
         data-slot="command"
         className={commandClassName}

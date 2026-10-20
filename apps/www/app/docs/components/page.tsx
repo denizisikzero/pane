@@ -21,7 +21,12 @@ export default function ComponentsPage() {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {componentsMeta.map(({ slug, title, description, demo: Demo }) => (
-          <Pane key={slug} radius={24} className="group relative flex flex-col">
+          <Pane
+            variant="blur"
+            key={slug}
+            radius={24}
+            className="group relative flex flex-col"
+          >
             {/* the demo is a picture here, not a control: inert keeps it out
                 of the tab order and lets the whole card act as one link */}
             <div

@@ -73,14 +73,13 @@ function SheetContent({
       >
         <Pane
           nested={false}
-          variant="regular"
+          variant="blur"
           radius={26}
           // the dense overlay material: a sheet is read, not seen through
-          className="flex h-full w-full flex-col gap-5 p-6 [--pane-blur-regular:var(--pane-blur-overlay)] [--pane-tint-regular:var(--pane-tint-overlay)]"
+          className="flex h-full w-full flex-col gap-5 p-6 [--pane-blur-blur:var(--pane-blur-overlay)] [--pane-tint-blur:var(--pane-tint-overlay)]"
         >
           {children}
           <Pane
-            variant="clear"
             interactive
             radius={999}
             className="absolute top-4 right-4 inline-flex has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/50"

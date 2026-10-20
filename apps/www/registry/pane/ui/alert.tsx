@@ -26,7 +26,7 @@ function Alert({
     <Pane
       data-slot="alert"
       role="alert"
-      variant="regular"
+      variant="blur"
       radius={18}
       className={cn(alertVariants({ variant }), className)}
       {...(props as React.ComponentProps<typeof Pane>)}

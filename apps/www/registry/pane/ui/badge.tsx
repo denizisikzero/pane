@@ -47,21 +47,21 @@ const glassByVariant = {
   // the opposite of the theme: dark on light, light on dark
   inverted: {
     filled:
-      "[--pane-tint-clear:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
+      "[--pane-tint-default:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
     tinted:
-      "[--pane-tint-clear:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
+      "[--pane-tint-default:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
   },
   prominent: {
     filled:
-      "[--pane-tint-clear:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-border-clear:var(--pane-border-accent)]",
+      "[--pane-tint-default:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-border-default:var(--pane-border-accent)]",
     tinted:
-      "[--pane-tint-clear:color-mix(in_oklab,var(--pane-accent)_var(--pane-tinted-opacity),transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--pane-accent)_var(--pane-tinted-opacity),transparent)]",
+      "[--pane-tint-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-tinted-opacity),transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-tinted-opacity),transparent)]",
   },
   destructive: {
     filled:
-      "[--pane-tint-clear:color-mix(in_oklab,var(--pane-destructive)_92%,transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--pane-destructive)_92%,transparent)] [--pane-border-clear:var(--pane-border-accent)]",
+      "[--pane-tint-default:color-mix(in_oklab,var(--pane-destructive)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-destructive)_92%,transparent)] [--pane-border-default:var(--pane-border-accent)]",
     tinted:
-      "[--pane-tint-clear:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)]",
+      "[--pane-tint-default:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)]",
   },
 };
 
@@ -81,7 +81,6 @@ function Badge({
   const Comp = asChild ? Slot.Root : "span";
   return (
     <Pane
-      variant="clear"
       radius={999}
       className={cn(
         "inline-flex w-fit shrink-0",

@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
     <Pane
-      variant="clear"
       radius={14}
       className="h-10 w-full focus-within:ring-[3px] focus-within:ring-ring/50 focus-within:ring-offset-0 has-[:disabled]:opacity-50"
     >

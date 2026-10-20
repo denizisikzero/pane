@@ -67,11 +67,7 @@ export function PreviewSurface({
         />
       ) : null}
       <div className="absolute top-3 right-3 z-20">
-        <Pane
-          variant="clear"
-          radius={999}
-          className="inline-flex items-center p-1"
-        >
+        <Pane radius={999} className="inline-flex items-center p-1">
           <button
             type="button"
             onClick={toggle}

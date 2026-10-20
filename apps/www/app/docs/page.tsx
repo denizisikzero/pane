@@ -33,7 +33,12 @@ export default function DocsIntroductionPage() {
         <h2 className="text-xl font-semibold">What makes it glass</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {features.map(({ icon: Icon, title, description }) => (
-            <Pane key={title} radius={20} className="flex flex-col gap-3 p-5">
+            <Pane
+              variant="blur"
+              key={title}
+              radius={20}
+              className="flex flex-col gap-3 p-5"
+            >
               <Icon className="size-5 text-muted-foreground" />
               <div className="flex flex-col gap-1">
                 <h3 className="font-medium">{title}</h3>

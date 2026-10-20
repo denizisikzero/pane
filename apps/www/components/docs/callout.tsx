@@ -12,7 +12,7 @@ export function Callout({
   children: ReactNode;
 }) {
   return (
-    <Pane variant="clear" radius={16} className="flex gap-3 p-4">
+    <Pane radius={16} className="flex gap-3 p-4">
       <Icon className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
       <div className="flex flex-col gap-1 text-sm">
         <p className="font-medium">{title}</p>

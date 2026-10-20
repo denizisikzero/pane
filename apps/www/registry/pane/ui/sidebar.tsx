@@ -189,7 +189,6 @@ function Sidebar({
     return (
       <Pane
         data-slot="sidebar"
-        variant="clear"
         radius={20}
         className={cn("flex h-full w-(--sidebar-width) flex-col", className)}
         {...(props as React.ComponentProps<typeof Pane>)}
@@ -265,7 +264,6 @@ function Sidebar({
         <Pane
           data-sidebar="sidebar"
           data-slot="sidebar-inner"
-          variant="clear"
           radius={variant === "sidebar" ? 0 : 20}
           className="flex h-full w-full flex-col"
         >
@@ -553,7 +551,6 @@ function SidebarMenuButton({
         <Pane
           layoutId={indicatorId}
           transition={spring.hover}
-          variant="clear"
           radius={12}
           className="-z-10 absolute inset-0"
         />

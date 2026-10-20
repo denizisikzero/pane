@@ -21,7 +21,6 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 flex justify-center px-4 pt-4">
       <Pane
-        variant="clear"
         radius={22}
         // three columns, so the links stay centred however wide the
         // buttons on the right get

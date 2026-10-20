@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 function Card({
   className,
-  variant = "clear",
+  variant = "default",
   radius = 24,
   ...props
 }: PaneProps) {

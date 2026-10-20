@@ -72,7 +72,11 @@ export default async function ChangelogPage() {
       <ol className="flex flex-col gap-8">
         {releases.map((release, index) => (
           <li key={release.version}>
-            <Pane radius={20} className="flex flex-col gap-4 p-6">
+            <Pane
+              variant="blur"
+              radius={20}
+              className="flex flex-col gap-4 p-6"
+            >
               <div className="flex flex-wrap items-center gap-2.5">
                 <h2 className="mr-1 text-xl font-semibold">
                   <a

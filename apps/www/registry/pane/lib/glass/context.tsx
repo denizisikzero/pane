@@ -54,11 +54,15 @@ export function GlassConfigProvider({
         drag: { ...parent.spring.drag, ...value.spring?.drag },
       },
       displacement: {
-        regular: {
-          ...parent.displacement.regular,
-          ...value.displacement?.regular,
+        default: {
+          ...parent.displacement.default,
+          ...value.displacement?.default,
         },
-        clear: { ...parent.displacement.clear, ...value.displacement?.clear },
+        blur: { ...parent.displacement.blur, ...value.displacement?.blur },
+        transparent: {
+          ...parent.displacement.transparent,
+          ...value.displacement?.transparent,
+        },
       },
       specular: { ...parent.specular, ...value.specular },
     }),

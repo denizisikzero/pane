@@ -42,19 +42,25 @@ export const tokenGroups: { title: string; tokens: Record<string, string> }[] =
       title: "Surface",
       tokens: {
         "pane-fg": "Text color on glass.",
-        "pane-tint-regular": "Body tint of regular glass.",
-        "pane-tint-clear": "Body tint of clear glass.",
-        "pane-blur-regular": "Backdrop blur behind regular glass.",
-        "pane-blur-clear": "Backdrop blur behind clear glass.",
+        "pane-tint-default": "Body tint of default glass.",
+        "pane-tint-blur": "Body tint of blur glass.",
+        "pane-tint-transparent":
+          "Body tint of transparent glass: none, so the backdrop shows as is.",
+        "pane-blur-default": "Backdrop blur behind default glass.",
+        "pane-blur-blur": "Backdrop blur behind blur glass.",
+        "pane-blur-transparent":
+          "Backdrop blur behind transparent glass: none.",
         "pane-saturation": "How much the backdrop's color is boosted.",
       },
     },
     {
       title: "Nested",
       tokens: {
-        "pane-nested-regular":
-          "Flat tint for regular glass inside another pane, where glass can't stack.",
-        "pane-nested-clear": "Flat tint for clear glass inside another pane.",
+        "pane-nested-default":
+          "Flat tint for default glass inside another pane, where glass can't stack.",
+        "pane-nested-blur": "Flat tint for blur glass inside another pane.",
+        "pane-nested-transparent":
+          "Flat tint for transparent glass inside another pane.",
       },
     },
     {
@@ -68,8 +74,9 @@ export const tokenGroups: { title: string; tokens: Record<string, string> }[] =
       title: "Edge and light",
       tokens: {
         "pane-border-width": "Width of the rim.",
-        "pane-border-regular": "Rim color of regular glass.",
-        "pane-border-clear": "Rim color of clear glass.",
+        "pane-border-default": "Rim color of default glass.",
+        "pane-border-blur": "Rim color of blur glass.",
+        "pane-border-transparent": "Rim color of transparent glass.",
         "pane-highlight": "Rim arcs and the pointer glint.",
         "pane-shadow": "Drop shadow under every pane.",
       },

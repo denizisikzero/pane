@@ -95,7 +95,7 @@ function NavigationMenuContent({
         // It's drawn from the same tokens as a Pane, in CSS: this file stays
         // server-safe, so `navigationMenuTriggerStyle()` can be called from
         // a server component, as in shadcn/ui.
-        "group-data-[viewport=false]/navigation-menu:top-full group-data-[viewport=false]/navigation-menu:mt-2 group-data-[viewport=false]/navigation-menu:rounded-[18px] group-data-[viewport=false]/navigation-menu:border-[length:var(--pane-border-width)] group-data-[viewport=false]/navigation-menu:border-[var(--pane-border-regular)] group-data-[viewport=false]/navigation-menu:bg-[var(--pane-tint-overlay)] group-data-[viewport=false]/navigation-menu:shadow-[0_16px_40px_-20px_var(--pane-shadow)] group-data-[viewport=false]/navigation-menu:backdrop-blur-[var(--pane-blur-overlay)] group-data-[viewport=false]/navigation-menu:backdrop-saturate-[var(--pane-saturation)]",
+        "group-data-[viewport=false]/navigation-menu:top-full group-data-[viewport=false]/navigation-menu:mt-2 group-data-[viewport=false]/navigation-menu:rounded-[18px] group-data-[viewport=false]/navigation-menu:border-[length:var(--pane-border-width)] group-data-[viewport=false]/navigation-menu:border-[var(--pane-border-blur)] group-data-[viewport=false]/navigation-menu:bg-[var(--pane-tint-overlay)] group-data-[viewport=false]/navigation-menu:shadow-[0_16px_40px_-20px_var(--pane-shadow)] group-data-[viewport=false]/navigation-menu:backdrop-blur-[var(--pane-blur-overlay)] group-data-[viewport=false]/navigation-menu:backdrop-saturate-[var(--pane-saturation)]",
         "group-data-[viewport=false]/navigation-menu:duration-200 group-data-[viewport=false]/navigation-menu:data-[state=closed]:animate-out group-data-[viewport=false]/navigation-menu:data-[state=open]:animate-in group-data-[viewport=false]/navigation-menu:data-[state=closed]:fade-out-0 group-data-[viewport=false]/navigation-menu:data-[state=open]:fade-in-0 group-data-[viewport=false]/navigation-menu:data-[state=closed]:zoom-out-95 group-data-[viewport=false]/navigation-menu:data-[state=open]:zoom-in-95",
         className,
       )}
@@ -115,7 +115,7 @@ function NavigationMenuViewport({
           while nothing is open, so its rim and shadow don't linger. */}
       <Pane
         nested={false}
-        variant="regular"
+        variant="blur"
         radius={18}
         className="mt-2 not-has-[[data-slot=navigation-menu-viewport]]:hidden"
       >

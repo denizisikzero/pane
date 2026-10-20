@@ -1,34 +1,82 @@
 import type { ComponentType } from "react";
 import AccordionDemo from "@/registry/pane/examples/accordion-demo";
+import AccordionMultiple from "@/registry/pane/examples/accordion-multiple";
 import AlertDemo from "@/registry/pane/examples/alert-demo";
+import AlertWithoutIcon from "@/registry/pane/examples/alert-no-icon";
+import AlertTitleOnly from "@/registry/pane/examples/alert-title-only";
+import AvatarWithBadge from "@/registry/pane/examples/avatar-badge";
 import AvatarDemo from "@/registry/pane/examples/avatar-demo";
+import AvatarSizes from "@/registry/pane/examples/avatar-sizes";
 import BadgeDemo from "@/registry/pane/examples/badge-demo";
+import BadgeWithIcon from "@/registry/pane/examples/badge-icon";
+import BadgeTinted from "@/registry/pane/examples/badge-tinted";
+import BadgeVariants from "@/registry/pane/examples/badge-variants";
 import ButtonDemo from "@/registry/pane/examples/button-demo";
 import ButtonIcons from "@/registry/pane/examples/button-icons";
 import ButtonSize from "@/registry/pane/examples/button-size";
 import ButtonTinted from "@/registry/pane/examples/button-tinted";
 import ButtonVariants from "@/registry/pane/examples/button-variants";
+import CardWithAction from "@/registry/pane/examples/card-action";
 import CardDemo from "@/registry/pane/examples/card-demo";
+import CardForm from "@/registry/pane/examples/card-form";
+import CardVariants from "@/registry/pane/examples/card-variants";
 import CheckboxDemo from "@/registry/pane/examples/checkbox-demo";
+import CheckboxWithDescription from "@/registry/pane/examples/checkbox-description";
+import CheckboxDisabled from "@/registry/pane/examples/checkbox-disabled";
+import CheckboxIndeterminate from "@/registry/pane/examples/checkbox-indeterminate";
 import CommandDemo from "@/registry/pane/examples/command-demo";
 import DialogDemo from "@/registry/pane/examples/dialog-demo";
+import DialogWithForm from "@/registry/pane/examples/dialog-form";
+import DialogWithoutCloseButton from "@/registry/pane/examples/dialog-no-close";
+import DropdownMenuCheckboxes from "@/registry/pane/examples/dropdown-menu-checkboxes";
 import DropdownMenuDemo from "@/registry/pane/examples/dropdown-menu-demo";
+import DropdownMenuRadio from "@/registry/pane/examples/dropdown-menu-radio";
+import InputWithButton from "@/registry/pane/examples/input-button";
 import InputDemo from "@/registry/pane/examples/input-demo";
+import InputDisabled from "@/registry/pane/examples/input-disabled";
+import InputWithLabel from "@/registry/pane/examples/input-label";
 import NavigationMenuDemo from "@/registry/pane/examples/navigation-menu-demo";
 import PaneDemo from "@/registry/pane/examples/pane-demo";
+import PaneInteractive from "@/registry/pane/examples/pane-interactive";
+import PaneNested from "@/registry/pane/examples/pane-nested";
+import PaneRadius from "@/registry/pane/examples/pane-radius";
+import PopoverAlign from "@/registry/pane/examples/popover-align";
 import PopoverDemo from "@/registry/pane/examples/popover-demo";
 import ProgressDemo from "@/registry/pane/examples/progress-demo";
+import ProgressWithLabel from "@/registry/pane/examples/progress-label";
 import RadioGroupDemo from "@/registry/pane/examples/radio-group-demo";
+import RadioGroupWithDescription from "@/registry/pane/examples/radio-group-description";
+import RadioGroupDisabled from "@/registry/pane/examples/radio-group-disabled";
 import SelectDemo from "@/registry/pane/examples/select-demo";
+import SelectDisabled from "@/registry/pane/examples/select-disabled";
+import SelectGroups from "@/registry/pane/examples/select-groups";
+import SelectSizes from "@/registry/pane/examples/select-sizes";
 import SheetDemo from "@/registry/pane/examples/sheet-demo";
+import SheetSides from "@/registry/pane/examples/sheet-sides";
 import SidebarDemo from "@/registry/pane/examples/sidebar-demo";
 import SliderDemo from "@/registry/pane/examples/slider-demo";
+import SliderDisabled from "@/registry/pane/examples/slider-disabled";
+import SliderRange from "@/registry/pane/examples/slider-range";
+import SliderStep from "@/registry/pane/examples/slider-step";
+import SliderVertical from "@/registry/pane/examples/slider-vertical";
 import SonnerDemo from "@/registry/pane/examples/sonner-demo";
+import SonnerPromise from "@/registry/pane/examples/sonner-promise";
+import SonnerTypes from "@/registry/pane/examples/sonner-types";
 import SwitchDemo from "@/registry/pane/examples/switch-demo";
+import SwitchWithDescription from "@/registry/pane/examples/switch-description";
+import SwitchDisabled from "@/registry/pane/examples/switch-disabled";
 import TabsDemo from "@/registry/pane/examples/tabs-demo";
+import TabsDisabled from "@/registry/pane/examples/tabs-disabled";
+import TabsWithIcons from "@/registry/pane/examples/tabs-icons";
+import TextareaWithButton from "@/registry/pane/examples/textarea-button";
 import TextareaDemo from "@/registry/pane/examples/textarea-demo";
+import TextareaDisabled from "@/registry/pane/examples/textarea-disabled";
+import TextareaWithLabel from "@/registry/pane/examples/textarea-label";
 import ToggleGroupDemo from "@/registry/pane/examples/toggle-group-demo";
+import ToggleGroupDisabled from "@/registry/pane/examples/toggle-group-disabled";
+import ToggleGroupWithIcons from "@/registry/pane/examples/toggle-group-icons";
 import TooltipDemo from "@/registry/pane/examples/tooltip-demo";
+import TooltipSides from "@/registry/pane/examples/tooltip-sides";
 
 export interface PropRow {
   name: string;
@@ -69,11 +117,34 @@ export const componentsMeta: ComponentMeta[] = [
       "The base liquid-glass surface every component in this library is built on top of. Wrap any content in it.",
     registryName: "pane",
     demo: PaneDemo,
+    examples: [
+      {
+        title: "Radius",
+        name: "pane-radius",
+        demo: PaneRadius,
+        description:
+          "`radius` sets the corner in px. The rim, the glow and the refraction map follow it.",
+      },
+      {
+        title: "Interactive",
+        name: "pane-interactive",
+        demo: PaneInteractive,
+        description:
+          "`interactive` adds the press feedback. Use it for any surface that can be clicked.",
+      },
+      {
+        title: "Nested",
+        name: "pane-nested",
+        demo: PaneNested,
+        description:
+          "Glass doesn't stack, so a Pane inside another one skips its own blur and takes the lighter `--pane-nested-*` tint. It's detected for you; `nested` forces it.",
+      },
+    ],
     usage: `import { Pane } from "@/components/ui/pane";
 
 export function Example() {
   return (
-    <Pane variant="regular" radius={24} className="p-6">
+    <Pane radius={24} className="p-6">
       Content on glass
     </Pane>
   );
@@ -85,9 +156,10 @@ export function Example() {
     props: [
       {
         name: "variant",
-        type: '"regular" | "clear"',
-        default: '"regular"',
-        description: "Material variant, matching Apple's HIG vocabulary.",
+        type: '"default" | "blur" | "transparent"',
+        default: '"default"',
+        description:
+          "default is light, see-through glass; blur frosts the backdrop for text over a busy background; transparent keeps only the rim and the refraction.",
       },
       {
         name: "radius",
@@ -187,11 +259,32 @@ export function Example() {
     description: "A glass panel with header, content and footer slots.",
     registryName: "card",
     demo: CardDemo,
+    examples: [
+      {
+        title: "Variants",
+        name: "card-variants",
+        demo: CardVariants,
+        description:
+          "`default` is light and see-through. `blur` frosts the backdrop, for text that sits over a busy background.",
+      },
+      {
+        title: "With action",
+        name: "card-action",
+        demo: CardWithAction,
+        description:
+          "`CardAction` pins a control to the top right of the header. A `ghost` button keeps it from stacking glass on the card.",
+      },
+      {
+        title: "Form",
+        name: "card-form",
+        demo: CardForm,
+      },
+    ],
     props: [
       {
         name: "variant",
-        type: '"regular" | "clear"',
-        default: '"clear"',
+        type: '"default" | "blur" | "transparent"',
+        default: '"default"',
         description: "Glass material of the card.",
       },
       {
@@ -229,6 +322,28 @@ export function Example() {
     description: "A small glass pill for labels and statuses.",
     registryName: "badge",
     demo: BadgeDemo,
+    examples: [
+      {
+        title: "Variants",
+        name: "badge-variants",
+        demo: BadgeVariants,
+        description:
+          "The same variants as Button: `default` is plain glass, `inverted` is filled with the text color, `prominent` with the accent, `destructive` with red.",
+      },
+      {
+        title: "Tinted",
+        name: "badge-tinted",
+        demo: BadgeTinted,
+        description:
+          "`tinted` washes the glass in the color and moves it to the label. Works with `prominent` and `destructive`.",
+      },
+      {
+        title: "With icon",
+        name: "badge-icon",
+        demo: BadgeWithIcon,
+        description: "Icons are sized to the badge.",
+      },
+    ],
     props: [
       {
         name: "variant",
@@ -264,6 +379,23 @@ export function Example() {
     description: "A text input rendered on a glass surface.",
     registryName: "input",
     demo: InputDemo,
+    examples: [
+      {
+        title: "With label",
+        name: "input-label",
+        demo: InputWithLabel,
+      },
+      {
+        title: "With button",
+        name: "input-button",
+        demo: InputWithButton,
+      },
+      {
+        title: "Disabled",
+        name: "input-disabled",
+        demo: InputDisabled,
+      },
+    ],
     usage: `import { Input } from "@/components/ui/input";
 
 export function Example() {
@@ -280,6 +412,18 @@ export function Example() {
     description: "A toggle with a sliding glass thumb.",
     registryName: "switch",
     demo: SwitchDemo,
+    examples: [
+      {
+        title: "With description",
+        name: "switch-description",
+        demo: SwitchWithDescription,
+      },
+      {
+        title: "Disabled",
+        name: "switch-disabled",
+        demo: SwitchDisabled,
+      },
+    ],
     props: [
       {
         name: "checked",
@@ -313,6 +457,20 @@ export function Example() {
     description: "A segmented control with a sliding glass indicator.",
     registryName: "tabs",
     demo: TabsDemo,
+    examples: [
+      {
+        title: "With icons",
+        name: "tabs-icons",
+        demo: TabsWithIcons,
+      },
+      {
+        title: "Disabled",
+        name: "tabs-disabled",
+        demo: TabsDisabled,
+        description:
+          "A `disabled` trigger can't be selected and is skipped by the arrow keys.",
+      },
+    ],
     props: [
       {
         name: "value",
@@ -355,6 +513,15 @@ export function Example() {
     description: "A small glass popover for contextual hints.",
     registryName: "tooltip",
     demo: TooltipDemo,
+    examples: [
+      {
+        title: "Sides",
+        name: "tooltip-sides",
+        demo: TooltipSides,
+        description:
+          "`side` picks where the tooltip opens. It flips on its own when there's no room.",
+      },
+    ],
     props: [
       {
         name: "side",
@@ -397,6 +564,20 @@ export function Example() {
     description: "A modal glass panel over a blurred scrim.",
     registryName: "dialog",
     demo: DialogDemo,
+    examples: [
+      {
+        title: "With form",
+        name: "dialog-form",
+        demo: DialogWithForm,
+      },
+      {
+        title: "Without close button",
+        name: "dialog-no-close",
+        demo: DialogWithoutCloseButton,
+        description:
+          "`showCloseButton={false}` drops the \u00d7 in the corner, for dialogs that need an answer.",
+      },
+    ],
     props: [
       {
         name: "open",
@@ -452,6 +633,15 @@ export function Example() {
     description: "A directional slide-over glass panel.",
     registryName: "sheet",
     demo: SheetDemo,
+    examples: [
+      {
+        title: "Sides",
+        name: "sheet-sides",
+        demo: SheetSides,
+        description:
+          "`side` on `SheetContent` picks the edge it slides in from.",
+      },
+    ],
     props: [
       {
         name: "side",
@@ -506,6 +696,15 @@ export function Example() {
     description: "A floating glass panel anchored to a trigger.",
     registryName: "popover",
     demo: PopoverDemo,
+    examples: [
+      {
+        title: "Align",
+        name: "popover-align",
+        demo: PopoverAlign,
+        description:
+          "`align` lines the popover up with the start, center or end of its trigger.",
+      },
+    ],
     props: [
       {
         name: "align",
@@ -549,6 +748,21 @@ export function Example() {
       "A glass menu with checkbox and radio items, shortcuts and submenus.",
     registryName: "dropdown-menu",
     demo: DropdownMenuDemo,
+    examples: [
+      {
+        title: "Checkboxes",
+        name: "dropdown-menu-checkboxes",
+        demo: DropdownMenuCheckboxes,
+        description:
+          "`DropdownMenuCheckboxItem` toggles without closing the menu.",
+      },
+      {
+        title: "Radio group",
+        name: "dropdown-menu-radio",
+        demo: DropdownMenuRadio,
+        description: "`DropdownMenuRadioGroup` picks one value out of several.",
+      },
+    ],
     usage: `import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -596,6 +810,25 @@ export function Example() {
     description: "A glass field that opens a glass list of options.",
     registryName: "select",
     demo: SelectDemo,
+    examples: [
+      {
+        title: "Sizes",
+        name: "select-sizes",
+        demo: SelectSizes,
+        description: "`size` on `SelectTrigger`: `sm` or `default`.",
+      },
+      {
+        title: "Groups",
+        name: "select-groups",
+        demo: SelectGroups,
+      },
+      {
+        title: "Disabled",
+        name: "select-disabled",
+        demo: SelectDisabled,
+        description: "Disable the whole select, or single items in it.",
+      },
+    ],
     usage: `import {
   Select,
   SelectContent,
@@ -643,6 +876,32 @@ export function Example() {
     description: "A glass track with a knob that turns to glass while dragged.",
     registryName: "slider",
     demo: SliderDemo,
+    examples: [
+      {
+        title: "Range",
+        name: "slider-range",
+        demo: SliderRange,
+        description: "Pass two values for two thumbs.",
+      },
+      {
+        title: "Step",
+        name: "slider-step",
+        demo: SliderStep,
+        description: "`step` snaps the value, here to quarters.",
+      },
+      {
+        title: "Vertical",
+        name: "slider-vertical",
+        demo: SliderVertical,
+        description:
+          '`orientation="vertical"` stands it up. Give the parent a height.',
+      },
+      {
+        title: "Disabled",
+        name: "slider-disabled",
+        demo: SliderDisabled,
+      },
+    ],
     props: [
       {
         name: "value",
@@ -697,6 +956,19 @@ export function Example() {
       "A single-choice control with a glass indicator that springs between segments.",
     registryName: "toggle-group",
     demo: ToggleGroupDemo,
+    examples: [
+      {
+        title: "With icons",
+        name: "toggle-group-icons",
+        demo: ToggleGroupWithIcons,
+        description: "Icon-only items need an `aria-label`.",
+      },
+      {
+        title: "Disabled",
+        name: "toggle-group-disabled",
+        demo: ToggleGroupDisabled,
+      },
+    ],
     usage: `import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 export function Example() {
@@ -738,6 +1010,25 @@ export function Example() {
       "A glass circle that fills with the accent and shows a check when checked.",
     registryName: "checkbox",
     demo: CheckboxDemo,
+    examples: [
+      {
+        title: "With description",
+        name: "checkbox-description",
+        demo: CheckboxWithDescription,
+      },
+      {
+        title: "Indeterminate",
+        name: "checkbox-indeterminate",
+        demo: CheckboxIndeterminate,
+        description:
+          'Pass `"indeterminate"` to `checked` when some, but not all, of the items below are selected.',
+      },
+      {
+        title: "Disabled",
+        name: "checkbox-disabled",
+        demo: CheckboxDisabled,
+      },
+    ],
     props: [
       {
         name: "checked",
@@ -771,6 +1062,20 @@ export function Example() {
     description: "A set of glass circles where one fills with the accent.",
     registryName: "radio-group",
     demo: RadioGroupDemo,
+    examples: [
+      {
+        title: "With description",
+        name: "radio-group-description",
+        demo: RadioGroupWithDescription,
+      },
+      {
+        title: "Disabled",
+        name: "radio-group-disabled",
+        demo: RadioGroupDisabled,
+        description:
+          "Disable a single `RadioGroupItem`, or the whole group with `disabled` on `RadioGroup`.",
+      },
+    ],
     props: [
       {
         name: "value",
@@ -811,6 +1116,23 @@ export function Example() {
       "A multi-line text field on glass that grows with its content.",
     registryName: "textarea",
     demo: TextareaDemo,
+    examples: [
+      {
+        title: "With label",
+        name: "textarea-label",
+        demo: TextareaWithLabel,
+      },
+      {
+        title: "With button",
+        name: "textarea-button",
+        demo: TextareaWithButton,
+      },
+      {
+        title: "Disabled",
+        name: "textarea-disabled",
+        demo: TextareaDisabled,
+      },
+    ],
     usage: `import { Textarea } from "@/components/ui/textarea";
 
 export function Example() {
@@ -827,6 +1149,13 @@ export function Example() {
     description: "A glass track with an accent fill that eases to each value.",
     registryName: "progress",
     demo: ProgressDemo,
+    examples: [
+      {
+        title: "With label",
+        name: "progress-label",
+        demo: ProgressWithLabel,
+      },
+    ],
     usage: `import { Progress } from "@/components/ui/progress";
 
 export function Example() {
@@ -851,6 +1180,19 @@ export function Example() {
     description: "A glass callout with an icon, title and description.",
     registryName: "alert",
     demo: AlertDemo,
+    examples: [
+      {
+        title: "Title only",
+        name: "alert-title-only",
+        demo: AlertTitleOnly,
+      },
+      {
+        title: "Without icon",
+        name: "alert-no-icon",
+        demo: AlertWithoutIcon,
+        description: "Without an icon, the text takes the full width.",
+      },
+    ],
     usage: `import { CheckCircle2Icon } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -879,6 +1221,21 @@ export function Example() {
       "A glass circle with an image or initials, alone or in a group.",
     registryName: "avatar",
     demo: AvatarDemo,
+    examples: [
+      {
+        title: "Sizes",
+        name: "avatar-sizes",
+        demo: AvatarSizes,
+        description: "`sm`, `default` and `lg`.",
+      },
+      {
+        title: "With badge",
+        name: "avatar-badge",
+        demo: AvatarWithBadge,
+        description:
+          "`AvatarBadge` sits on the edge. Empty, it's a status dot; give it an icon for more.",
+      },
+    ],
     usage: `import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function Example() {
@@ -908,6 +1265,15 @@ export function Example() {
     description: "Collapsible sections on one shared glass surface.",
     registryName: "accordion",
     demo: AccordionDemo,
+    examples: [
+      {
+        title: "Multiple",
+        name: "accordion-multiple",
+        demo: AccordionMultiple,
+        description:
+          'With `type="multiple"` any number of sections stay open at once.',
+      },
+    ],
     usage: `import {
   Accordion,
   AccordionContent,
@@ -949,6 +1315,22 @@ export function Example() {
     description: "Toast notifications on the dense glass overlay material.",
     registryName: "sonner",
     demo: SonnerDemo,
+    examples: [
+      {
+        title: "Types",
+        name: "sonner-types",
+        demo: SonnerTypes,
+        description:
+          "`toast.success`, `toast.info`, `toast.warning` and `toast.error` each get their own icon.",
+      },
+      {
+        title: "Promise",
+        name: "sonner-promise",
+        demo: SonnerPromise,
+        description:
+          "`toast.promise` shows a spinner until the promise settles, then its result.",
+      },
+    ],
     usage: `// app/layout.tsx — render the toaster once
 import { Toaster } from "@/components/ui/sonner";
 

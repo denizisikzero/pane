@@ -13,7 +13,7 @@ function Progress({
   return (
     // the size goes on the glass track, so `className="w-1/2"` sizes what
     // you see, as it does in shadcn/ui
-    <Pane variant="clear" radius={999} className={cn("h-2 w-full", className)}>
+    <Pane radius={999} className={cn("h-2 w-full", className)}>
       <ProgressPrimitive.Root
         data-slot="progress"
         value={value}

@@ -104,7 +104,7 @@ export default function ThemingPage() {
         {allGroups.map((group) => (
           <div key={group.title} className="flex flex-col gap-2">
             <h3 className="font-medium text-sm">{group.title}</h3>
-            <Pane radius={20} className="flex flex-col">
+            <Pane variant="blur" radius={20} className="flex flex-col">
               {Object.entries(group.tokens).map(([name, description]) => (
                 <div
                   key={name}
@@ -208,6 +208,7 @@ export default function ThemingPage() {
         <div className="grid gap-4 sm:grid-cols-3">
           {tiers.map((tier) => (
             <Pane
+              variant="blur"
               key={tier.name}
               radius={20}
               className="flex flex-col gap-2 p-5"

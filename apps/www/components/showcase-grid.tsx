@@ -39,7 +39,11 @@ function Cell({
   children: ReactNode;
 }) {
   return (
-    <Pane radius={28} className={cn("flex flex-col gap-4 p-5", className)}>
+    <Pane
+      variant="blur"
+      radius={28}
+      className={cn("flex flex-col gap-4 p-5", className)}
+    >
       <div className="flex items-center gap-3 text-xs font-medium text-foreground/70">
         {links.map(({ title, slug }) => (
           <Link

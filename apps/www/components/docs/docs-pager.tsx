@@ -23,7 +23,7 @@ export function DocsPager() {
   return (
     <nav aria-label="Docs pages" className="mt-12 grid gap-3 sm:grid-cols-2">
       {prev ? (
-        <Pane variant="clear" interactive radius={20}>
+        <Pane interactive radius={20}>
           <Link href={prev.href} className="flex flex-col gap-1 p-5 text-sm">
             <span className="flex items-center gap-1 text-muted-foreground">
               <ChevronLeftIcon className="size-4" />
@@ -36,7 +36,7 @@ export function DocsPager() {
         <span aria-hidden className="hidden sm:block" />
       )}
       {next ? (
-        <Pane variant="clear" interactive radius={20}>
+        <Pane interactive radius={20}>
           <Link
             href={next.href}
             className="flex flex-col items-end gap-1 p-5 text-sm"

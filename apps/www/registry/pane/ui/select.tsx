@@ -34,7 +34,6 @@ function SelectTrigger({
 }) {
   return (
     <Pane
-      variant="clear"
       radius={size === "sm" ? 12 : 14}
       className="inline-flex w-fit has-[:disabled]:opacity-50 has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/50"
     >
@@ -80,7 +79,7 @@ function SelectContent({
       >
         <Pane
           nested={false}
-          variant="regular"
+          variant="blur"
           radius={18}
           className="flex max-h-[inherit] flex-col"
         >

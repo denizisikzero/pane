@@ -96,29 +96,29 @@ const glassByVariant = {
   // the opposite of the theme: dark on light, light on dark
   inverted: {
     filled:
-      "[--pane-tint-clear:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
+      "[--pane-tint-default:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
     tinted:
-      "[--pane-tint-clear:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
+      "[--pane-tint-default:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
   },
   // no glass until it is touched: for buttons that sit on another surface,
   // where glass on glass would stack
   ghost: {
     filled:
-      "[--pane-nested-clear:transparent] [--pane-border-clear:transparent] [--pane-highlight:transparent] [--pane-shadow:transparent] hover:[--pane-nested-clear:color-mix(in_oklab,var(--foreground)_7%,transparent)] has-[:active]:[--pane-nested-clear:color-mix(in_oklab,var(--foreground)_12%,transparent)]",
+      "[--pane-nested-default:transparent] [--pane-border-default:transparent] [--pane-highlight:transparent] [--pane-shadow:transparent] hover:[--pane-nested-default:color-mix(in_oklab,var(--foreground)_7%,transparent)] has-[:active]:[--pane-nested-default:color-mix(in_oklab,var(--foreground)_12%,transparent)]",
     tinted:
-      "[--pane-nested-clear:transparent] [--pane-border-clear:transparent] [--pane-highlight:transparent] [--pane-shadow:transparent] hover:[--pane-nested-clear:color-mix(in_oklab,var(--foreground)_7%,transparent)] has-[:active]:[--pane-nested-clear:color-mix(in_oklab,var(--foreground)_12%,transparent)]",
+      "[--pane-nested-default:transparent] [--pane-border-default:transparent] [--pane-highlight:transparent] [--pane-shadow:transparent] hover:[--pane-nested-default:color-mix(in_oklab,var(--foreground)_7%,transparent)] has-[:active]:[--pane-nested-default:color-mix(in_oklab,var(--foreground)_12%,transparent)]",
   },
   prominent: {
     filled:
-      "[--pane-tint-clear:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-border-clear:var(--pane-border-accent)]",
+      "[--pane-tint-default:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-border-default:var(--pane-border-accent)]",
     tinted:
-      "[--pane-tint-clear:color-mix(in_oklab,var(--pane-accent)_var(--pane-tinted-opacity),transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--pane-accent)_var(--pane-tinted-opacity),transparent)]",
+      "[--pane-tint-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-tinted-opacity),transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-tinted-opacity),transparent)]",
   },
   destructive: {
     filled:
-      "[--pane-tint-clear:color-mix(in_oklab,var(--pane-destructive)_92%,transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--pane-destructive)_92%,transparent)] [--pane-border-clear:var(--pane-border-accent)]",
+      "[--pane-tint-default:color-mix(in_oklab,var(--pane-destructive)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-destructive)_92%,transparent)] [--pane-border-default:var(--pane-border-accent)]",
     tinted:
-      "[--pane-tint-clear:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)] [--pane-nested-clear:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)]",
+      "[--pane-tint-default:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)]",
   },
 };
 
@@ -140,7 +140,6 @@ function Button({
 
   return (
     <Pane
-      variant="clear"
       interactive
       // nested skips the backdrop: no blur or refraction to hide
       nested={variant === "ghost" || undefined}
