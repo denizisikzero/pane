@@ -2,7 +2,8 @@ import type { ComponentType } from "react";
 import AccordionDemo from "@/registry/pane/examples/accordion-demo";
 import AccordionMultiple from "@/registry/pane/examples/accordion-multiple";
 import AlertDemo from "@/registry/pane/examples/alert-demo";
-import AlertWithoutIcon from "@/registry/pane/examples/alert-no-icon";
+import AlertWithIcon from "@/registry/pane/examples/alert-icon";
+import AlertTinted from "@/registry/pane/examples/alert-tinted";
 import AlertTitleOnly from "@/registry/pane/examples/alert-title-only";
 import AvatarWithBadge from "@/registry/pane/examples/avatar-badge";
 import AvatarDemo from "@/registry/pane/examples/avatar-demo";
@@ -59,9 +60,10 @@ import SliderDisabled from "@/registry/pane/examples/slider-disabled";
 import SliderRange from "@/registry/pane/examples/slider-range";
 import SliderStep from "@/registry/pane/examples/slider-step";
 import SliderVertical from "@/registry/pane/examples/slider-vertical";
+import SonnerAction from "@/registry/pane/examples/sonner-action";
 import SonnerDemo from "@/registry/pane/examples/sonner-demo";
+import SonnerWithIcon from "@/registry/pane/examples/sonner-icon";
 import SonnerPromise from "@/registry/pane/examples/sonner-promise";
-import SonnerTypes from "@/registry/pane/examples/sonner-types";
 import SwitchDemo from "@/registry/pane/examples/switch-demo";
 import SwitchWithDescription from "@/registry/pane/examples/switch-description";
 import SwitchDisabled from "@/registry/pane/examples/switch-disabled";
@@ -1177,29 +1179,35 @@ export function Example() {
   {
     slug: "alert",
     title: "Alert",
-    description: "A glass callout with an icon, title and description.",
+    description: "A glass callout with a title, description and optional icon.",
     registryName: "alert",
     demo: AlertDemo,
     examples: [
+      {
+        title: "Tinted",
+        name: "alert-tinted",
+        demo: AlertTinted,
+        description:
+          "`tinted` washes the glass in red, for an error that should stand out.",
+      },
       {
         title: "Title only",
         name: "alert-title-only",
         demo: AlertTitleOnly,
       },
       {
-        title: "Without icon",
-        name: "alert-no-icon",
-        demo: AlertWithoutIcon,
-        description: "Without an icon, the text takes the full width.",
+        title: "With icon",
+        name: "alert-icon",
+        demo: AlertWithIcon,
+        description:
+          "Put an icon first and it takes its own column, with the text aligned beside it.",
       },
     ],
-    usage: `import { CheckCircle2Icon } from "lucide-react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+    usage: `import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export function Example() {
   return (
     <Alert>
-      <CheckCircle2Icon />
       <AlertTitle>Your changes have been saved</AlertTitle>
       <AlertDescription>Everyone on the project can see them now.</AlertDescription>
     </Alert>
@@ -1211,6 +1219,12 @@ export function Example() {
         type: '"default" | "destructive"',
         default: '"default"',
         description: "Visual emphasis.",
+      },
+      {
+        name: "tinted",
+        type: "boolean",
+        default: "false",
+        description: "Tints the glass with the destructive color.",
       },
     ],
   },
@@ -1312,16 +1326,17 @@ export function Example() {
   {
     slug: "sonner",
     title: "Sonner",
-    description: "Toast notifications on the dense glass overlay material.",
+    description:
+      "Toast notifications on the dense glass overlay material, at the top center by default.",
     registryName: "sonner",
     demo: SonnerDemo,
     examples: [
       {
-        title: "Types",
-        name: "sonner-types",
-        demo: SonnerTypes,
+        title: "With action",
+        name: "sonner-action",
+        demo: SonnerAction,
         description:
-          "`toast.success`, `toast.info`, `toast.warning` and `toast.error` each get their own icon.",
+          "`action` adds a button to the toast, for an undo or a follow-up.",
       },
       {
         title: "Promise",
@@ -1329,6 +1344,13 @@ export function Example() {
         demo: SonnerPromise,
         description:
           "`toast.promise` shows a spinner until the promise settles, then its result.",
+      },
+      {
+        title: "With icon",
+        name: "sonner-icon",
+        demo: SonnerWithIcon,
+        description:
+          "`toast.success`, `toast.info`, `toast.warning` and `toast.error` each come with an icon.",
       },
     ],
     usage: `// app/layout.tsx — render the toaster once
@@ -1348,7 +1370,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 // anywhere else — show a toast
 import { toast } from "sonner";
 
-toast("Event has been created");`,
+toast("Your photos are backed up");`,
     reference: {
       label: "Sonner",
       href: "https://sonner.emilkowal.ski",

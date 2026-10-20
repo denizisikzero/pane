@@ -13,23 +13,38 @@ const alertVariants = cva(
         destructive:
           "text-red-600 *:data-[slot=alert-description]:text-red-600/90 dark:text-red-400 dark:*:data-[slot=alert-description]:text-red-400/90",
       },
+      tinted: {
+        true: "",
+        false: "",
+      },
     },
-    defaultVariants: { variant: "default" },
+    compoundVariants: [
+      {
+        // a wash of red in the glass, the same as a tinted destructive button
+        variant: "destructive",
+        tinted: true,
+        className:
+          "[--pane-tint-blur:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)] text-[var(--pane-destructive-text)] *:data-[slot=alert-description]:text-[var(--pane-destructive-text)]/90 dark:text-[var(--pane-destructive-text)] dark:*:data-[slot=alert-description]:text-[var(--pane-destructive-text)]/90",
+      },
+    ],
+    defaultVariants: { variant: "default", tinted: false },
   },
 );
 
 function Alert({
   className,
   variant,
+  tinted,
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof alertVariants>) {
   return (
     <Pane
       data-slot="alert"
       role="alert"
+      data-tinted={tinted ?? false}
       variant="blur"
       radius={18}
-      className={cn(alertVariants({ variant }), className)}
+      className={cn(alertVariants({ variant, tinted }), className)}
       {...(props as React.ComponentProps<typeof Pane>)}
     />
   );

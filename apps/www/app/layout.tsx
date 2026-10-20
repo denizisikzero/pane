@@ -67,7 +67,8 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col">
         <ThemeProvider>
           {children}
-          <Toaster />
+          {/* below the sticky header, which is 72px tall */}
+          <Toaster offset={{ top: 84 }} mobileOffset={{ top: 84 }} />
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />

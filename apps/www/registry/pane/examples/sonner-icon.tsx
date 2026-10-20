@@ -3,10 +3,9 @@
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 
-export default function SonnerTypes() {
+export default function SonnerWithIcon() {
   return (
     <div className="flex flex-wrap items-center justify-center gap-3">
-      <Button onClick={() => toast("Event has been created")}>Default</Button>
       <Button onClick={() => toast.success("Your changes have been saved")}>
         Success
       </Button>
