@@ -182,7 +182,14 @@ async function changelog() {
     ...releases.flatMap((r) => [
       `## v${r.version}${r.prerelease ? " (pre-release)" : ""} — ${r.date}`,
       r.summary || [],
-      r.changes.map((change) => `- ${change}`).join("\n") || [],
+      r.sections.map((section) =>
+        [
+          section.title ? `### ${section.title}` : [],
+          section.changes.map((change) => `- ${change}`).join("\n"),
+        ]
+          .flat()
+          .join("\n\n"),
+      ),
     ]),
   ].flat();
 }

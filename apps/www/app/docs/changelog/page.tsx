@@ -102,21 +102,29 @@ export default async function ChangelogPage() {
                   <Inline text={release.summary} />
                 </p>
               ) : null}
-              {release.changes.length ? (
-                <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
-                  {release.changes.map((change) => (
-                    <li key={change} className="flex gap-3 leading-relaxed">
-                      <span
-                        aria-hidden="true"
-                        className="mt-[0.6em] size-1.5 shrink-0 rounded-full bg-foreground/25"
-                      />
-                      <span>
-                        <Inline text={change} />
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
+              {release.sections.map((section) => (
+                <div
+                  key={section.title ?? "changes"}
+                  className="flex flex-col gap-2"
+                >
+                  {section.title ? (
+                    <h3 className="text-sm font-medium">{section.title}</h3>
+                  ) : null}
+                  <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
+                    {section.changes.map((change) => (
+                      <li key={change} className="flex gap-3 leading-relaxed">
+                        <span
+                          aria-hidden="true"
+                          className="mt-[0.6em] size-1.5 shrink-0 rounded-full bg-foreground/25"
+                        />
+                        <span>
+                          <Inline text={change} />
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </Pane>
           </li>
         ))}
