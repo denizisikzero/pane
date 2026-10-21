@@ -6,7 +6,8 @@ export interface Release {
   date: string;
   prerelease?: boolean;
   summary: string;
-  changes: string[];
+  /** "What's new", "What's changed"; untitled when the notes have no headings */
+  sections: { title?: string; changes: string[] }[];
 }
 
 interface GitHubRelease {
@@ -19,7 +20,8 @@ interface GitHubRelease {
 
 /**
  * Release notes come straight from GitHub so they're written once. A release
- * body is read as a summary paragraph followed by a `- ` bullet per change.
+ * body is read as a summary paragraph, then `## ` headings with a `- ` bullet
+ * per change under each.
  */
 export async function getReleases(): Promise<Release[]> {
   const repo = new URL(siteConfig.links.github).pathname.slice(1);
@@ -57,16 +59,24 @@ export async function getReleases(): Promise<Release[]> {
     .filter((release) => !release.draft && release.published_at)
     .map((release) => {
       const lines = (release.body ?? "").split(/\r?\n/).map((l) => l.trim());
+      const summary: string[] = [];
+      const sections: Release["sections"] = [];
+      for (const line of lines) {
+        if (line.startsWith("## ")) {
+          sections.push({ title: line.slice(3), changes: [] });
+        } else if (line.startsWith("- ")) {
+          if (!sections.length) sections.push({ changes: [] });
+          sections[sections.length - 1].changes.push(line.slice(2));
+        } else if (line && !sections.length) {
+          summary.push(line);
+        }
+      }
       return {
         version: release.tag_name.replace(/^v/, ""),
         date: (release.published_at as string).slice(0, 10),
         prerelease: release.prerelease,
-        summary: lines
-          .filter((line) => line && !line.startsWith("- "))
-          .join(" "),
-        changes: lines
-          .filter((line) => line.startsWith("- "))
-          .map((line) => line.slice(2)),
+        summary: summary.join(" "),
+        sections: sections.filter((section) => section.changes.length),
       };
     });
 }
