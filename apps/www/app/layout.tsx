@@ -20,8 +20,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
-    default: `${siteConfig.name} — ${siteConfig.tagline}`,
-    template: `%s — ${siteConfig.name}`,
+    default: `${siteConfig.name} · ${siteConfig.tagline}`,
+    template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
@@ -39,12 +39,12 @@ export const metadata: Metadata = {
     type: "website",
     url: getSiteUrl(),
     siteName: siteConfig.name,
-    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    title: `${siteConfig.name} · ${siteConfig.tagline}`,
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    title: `${siteConfig.name} · ${siteConfig.tagline}`,
     description: siteConfig.description,
   },
   robots: {
@@ -67,7 +67,8 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col">
         <ThemeProvider>
           {children}
-          <Toaster />
+          {/* below the sticky header, which is 72px tall */}
+          <Toaster offset={{ top: 84 }} mobileOffset={{ top: 84 }} />
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />

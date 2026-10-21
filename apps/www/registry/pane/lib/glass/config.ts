@@ -13,13 +13,19 @@ import type {
 
 export const GLASS_DISPLACEMENT: Record<GlassVariant, GlassDisplacementConfig> =
   {
-    regular: {
+    default: {
+      strength: 15,
+      edge: 17,
+      chromaticAberration: 1.4,
+      blur: 0.6,
+    },
+    blur: {
       strength: 11,
       edge: 13,
       chromaticAberration: 0.9,
       blur: 0.6,
     },
-    clear: {
+    transparent: {
       strength: 15,
       edge: 17,
       chromaticAberration: 1.4,

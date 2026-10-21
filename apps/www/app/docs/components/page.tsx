@@ -1,6 +1,7 @@
 import { ArrowRightIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PageHeader } from "@/components/docs/page-header";
 import { Pane } from "@/components/ui/pane";
 import { componentsMeta } from "@/lib/components-meta";
 import { siteConfig } from "@/lib/site-config";
@@ -13,17 +14,19 @@ export const metadata: Metadata = {
 export default function ComponentsPage() {
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-3">
-        <h1 className="text-4xl font-semibold tracking-tight">Components</h1>
-        <p className="max-w-2xl text-lg text-muted-foreground">
-          {componentsMeta.length} liquid-glass components, all built on the same{" "}
-          {siteConfig.name} primitive.
-        </p>
-      </div>
+      <PageHeader slug={["components"]} title="Components">
+        {componentsMeta.length} liquid-glass components, all built on the same{" "}
+        {siteConfig.name} primitive.
+      </PageHeader>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {componentsMeta.map(({ slug, title, description, demo: Demo }) => (
-          <Pane key={slug} radius={24} className="group relative flex flex-col">
+          <Pane
+            variant="blur"
+            key={slug}
+            radius={24}
+            className="group relative flex flex-col"
+          >
             {/* the demo is a picture here, not a control: inert keeps it out
                 of the tab order and lets the whole card act as one link */}
             <div

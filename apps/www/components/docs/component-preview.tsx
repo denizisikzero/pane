@@ -5,13 +5,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getExampleSource } from "@/lib/registry-source";
 
 export async function ComponentPreview({
-  registryName,
+  name,
   demo: Demo,
+  compact,
 }: {
-  registryName: string;
+  /** the example's file in registry/pane/examples */
+  name: string;
   demo: ComponentType;
+  compact?: boolean;
 }) {
-  const code = getExampleSource(registryName);
+  const code = getExampleSource(name);
 
   return (
     <Tabs defaultValue="preview" className="gap-3">
@@ -20,7 +23,7 @@ export async function ComponentPreview({
         <TabsTrigger value="code">Code</TabsTrigger>
       </TabsList>
       <TabsContent value="preview">
-        <PreviewSurface>
+        <PreviewSurface compact={compact}>
           <Demo />
         </PreviewSurface>
       </TabsContent>

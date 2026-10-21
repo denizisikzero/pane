@@ -10,11 +10,60 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default: "text-foreground",
+        inverted: "text-background",
+        prominent: "",
+        destructive: "",
+      },
+      tinted: {
+        true: "",
+        false: "",
       },
     },
-    defaultVariants: { variant: "default" },
+    compoundVariants: [
+      {
+        variant: "prominent",
+        tinted: false,
+        className: "text-[var(--pane-accent-foreground)]",
+      },
+      {
+        variant: "prominent",
+        tinted: true,
+        className: "text-[var(--pane-accent-text)]",
+      },
+      { variant: "destructive", tinted: false, className: "text-white" },
+      {
+        variant: "destructive",
+        tinted: true,
+        className: "text-[var(--pane-destructive-text)]",
+      },
+    ],
+    defaultVariants: { variant: "default", tinted: false },
   },
 );
+
+/** The same glass per variant as Button's. */
+const glassByVariant = {
+  default: { filled: "", tinted: "" },
+  // the opposite of the theme: dark on light, light on dark
+  inverted: {
+    filled:
+      "[--pane-tint-default:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
+    tinted:
+      "[--pane-tint-default:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
+  },
+  prominent: {
+    filled:
+      "[--pane-tint-default:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-border-default:var(--pane-border-accent)]",
+    tinted:
+      "[--pane-tint-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-tinted-opacity),transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-tinted-opacity),transparent)]",
+  },
+  destructive: {
+    filled:
+      "[--pane-tint-default:color-mix(in_oklab,var(--pane-destructive)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-destructive)_92%,transparent)] [--pane-border-default:var(--pane-border-accent)]",
+    tinted:
+      "[--pane-tint-default:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)]",
+  },
+};
 
 export interface BadgeProps
   extends React.ComponentProps<"span">,
@@ -25,15 +74,27 @@ export interface BadgeProps
 function Badge({
   className,
   variant = "default",
+  tinted = false,
   asChild = false,
   ...props
 }: BadgeProps) {
   const Comp = asChild ? Slot.Root : "span";
   return (
-    <Pane variant="clear" radius={999} className="inline-flex w-fit shrink-0">
+    <Pane
+      radius={999}
+      className={cn(
+        "inline-flex w-fit shrink-0",
+        glassByVariant[variant ?? "default"][tinted ? "tinted" : "filled"],
+      )}
+    >
       <Comp
         data-slot="badge"
-        className={cn(badgeVariants({ variant, className }), "bg-transparent")}
+        data-variant={variant}
+        data-tinted={tinted}
+        className={cn(
+          badgeVariants({ variant, tinted, className }),
+          "bg-transparent",
+        )}
         {...props}
       />
     </Pane>

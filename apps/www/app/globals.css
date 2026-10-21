@@ -16,12 +16,14 @@
 
   /* Blur past ~12px with a tint past ~0.3 tips over into opaque plastic and
      leaves the refraction nothing to refract. */
-  --pane-blur-regular: 12px;
-  --pane-blur-clear: 5px;
+  --pane-blur-blur: 12px;
+  --pane-blur-default: 5px;
+  --pane-blur-transparent: 0px;
   --pane-saturation: 1.7;
 
-  --pane-tint-regular: rgba(255, 255, 255, 0.26);
-  --pane-tint-clear: rgba(255, 255, 255, 0.08);
+  --pane-tint-blur: rgba(255, 255, 255, 0.26);
+  --pane-tint-default: rgba(255, 255, 255, 0.08);
+  --pane-tint-transparent: rgba(255, 255, 255, 0);
 
   /* overlay — dialogs and sheets hold text to read and forms to fill, so they
      trade most of the see-through for legibility. Deliberately past the
@@ -32,17 +34,31 @@
 
   /* glass on glass: a Pane inside a Pane can't blur anything new, so it swaps
      its backdrop for these flat translucent layers instead */
-  --pane-nested-regular: rgba(255, 255, 255, 0.4);
-  --pane-nested-clear: rgba(255, 255, 255, 0.2);
+  --pane-nested-blur: rgba(255, 255, 255, 0.4);
+  --pane-nested-default: rgba(255, 255, 255, 0.2);
+  --pane-nested-transparent: rgba(255, 255, 255, 0);
 
   --pane-border-width: 0.5px;
-  --pane-border-regular: rgba(255, 255, 255, 0.85);
-  --pane-border-clear: rgba(255, 255, 255, 0.6);
+  --pane-border-blur: rgba(255, 255, 255, 0.85);
+  --pane-border-default: rgba(255, 255, 255, 0.6);
+  --pane-border-transparent: rgba(255, 255, 255, 0.6);
 
-  /* accent — system green for controls in their "on" state, kept translucent
-     so the material still refracts what sits behind it */
-  --pane-tint-accent: rgba(52, 199, 89, 0.82);
+  /* accent — the one brand color: controls in their "on" state and the
+     prominent Button. Components mix in --pane-accent-opacity themselves, so
+     the fill stays translucent and the material still refracts what sits
+     behind it. Set --pane-accent on any element to recolor just that part. */
+  --pane-accent: #34c759;
+  --pane-accent-foreground: #ffffff;
+  --pane-accent-opacity: 82%;
+  /* a label in the accent on plain glass (a tinted Button) — a deeper
+     shade, since the bright one doesn't read on light glass */
+  --pane-accent-text: #248a3d;
   --pane-border-accent: rgba(255, 255, 255, 0.7);
+  /* fill of a destructive Button — system red, with a white label */
+  --pane-destructive: #ff3b30;
+  --pane-destructive-text: #d70015;
+  /* how much color a tinted Button or Badge washes into the glass */
+  --pane-tinted-opacity: 16%;
   /* near-solid: the switch thumb has to stay readable over the green fill */
   --pane-knob: rgba(255, 255, 255, 0.92);
 
@@ -56,19 +72,28 @@
   --muted-foreground: #98989d;
   --ring: oklch(0.556 0 0);
 
-  --pane-tint-regular: rgba(28, 28, 32, 0.3);
-  --pane-tint-clear: rgba(18, 18, 22, 0.12);
+  --pane-tint-blur: rgba(28, 28, 32, 0.3);
+  --pane-tint-default: rgba(18, 18, 22, 0.12);
+  --pane-tint-transparent: rgba(18, 18, 22, 0);
 
   --pane-tint-overlay: rgba(28, 28, 32, 0.76);
 
-  --pane-nested-regular: rgba(255, 255, 255, 0.12);
-  --pane-nested-clear: rgba(255, 255, 255, 0.07);
+  --pane-nested-blur: rgba(255, 255, 255, 0.12);
+  --pane-nested-default: rgba(255, 255, 255, 0.07);
+  --pane-nested-transparent: rgba(255, 255, 255, 0);
 
-  --pane-border-regular: rgba(255, 255, 255, 0.14);
-  --pane-border-clear: rgba(255, 255, 255, 0.1);
+  --pane-border-blur: rgba(255, 255, 255, 0.14);
+  --pane-border-default: rgba(255, 255, 255, 0.1);
+  --pane-border-transparent: rgba(255, 255, 255, 0.1);
 
-  --pane-tint-accent: rgba(48, 209, 88, 0.75);
+  --pane-accent: #30d158;
+  --pane-accent-foreground: #ffffff;
+  --pane-accent-opacity: 75%;
+  --pane-accent-text: #30db5b;
   --pane-border-accent: rgba(255, 255, 255, 0.24);
+  --pane-destructive: #ff453a;
+  --pane-destructive-text: #ff6961;
+  --pane-tinted-opacity: 22%;
   --pane-knob: rgba(255, 255, 255, 0.95);
 
   --pane-highlight: rgba(255, 255, 255, 0.22);

@@ -48,12 +48,7 @@ function TooltipContent({
         className="z-50 origin-(--radix-tooltip-content-transform-origin) animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95"
         {...props}
       >
-        <Pane
-          nested={false}
-          variant="clear"
-          radius={12}
-          className="px-3 py-1.5"
-        >
+        <Pane nested={false} radius={12} className="px-3 py-1.5">
           <span className={cn("text-xs font-medium text-balance", className)}>
             {children}
           </span>

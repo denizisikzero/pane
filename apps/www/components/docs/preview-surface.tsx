@@ -14,7 +14,14 @@ export const BACKGROUNDS = {
   dark: "/bg-dark.mp4",
 } as const;
 
-export function PreviewSurface({ children }: { children: React.ReactNode }) {
+export function PreviewSurface({
+  compact = false,
+  children,
+}: {
+  /** shorter, for the examples below a page's main preview */
+  compact?: boolean;
+  children: React.ReactNode;
+}) {
   const [video, setVideo] = React.useState(false);
   const { resolvedTheme } = useTheme();
 
@@ -41,7 +48,8 @@ export function PreviewSurface({ children }: { children: React.ReactNode }) {
   return (
     <div
       className={cn(
-        "relative flex min-h-[320px] items-center justify-center overflow-hidden rounded-3xl p-4 pt-14 sm:p-10",
+        "relative flex items-center justify-center overflow-hidden rounded-3xl p-4 pt-14 sm:p-10",
+        compact ? "min-h-[200px]" : "min-h-[320px]",
         !showVideo && "border border-foreground/10",
       )}
     >
@@ -59,11 +67,7 @@ export function PreviewSurface({ children }: { children: React.ReactNode }) {
         />
       ) : null}
       <div className="absolute top-3 right-3 z-20">
-        <Pane
-          variant="clear"
-          radius={999}
-          className="inline-flex items-center p-1"
-        >
+        <Pane radius={999} className="inline-flex items-center p-1">
           <button
             type="button"
             onClick={toggle}

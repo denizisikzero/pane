@@ -41,7 +41,7 @@ function PopoverContent({
       >
         <Pane
           nested={false}
-          variant="regular"
+          variant="blur"
           radius={20}
           className={cn("w-72 p-4 text-sm", className)}
         >

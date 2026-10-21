@@ -44,7 +44,6 @@ export function HeaderNav() {
               <Pane
                 layoutId="header-nav-indicator"
                 transition={GLASS_SPRING.hover}
-                variant="clear"
                 radius={999}
                 className="-z-10 absolute inset-0"
               />

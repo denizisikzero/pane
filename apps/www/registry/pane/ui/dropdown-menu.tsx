@@ -58,7 +58,7 @@ function DropdownMenuContent({
         )}
         {...props}
       >
-        <Pane nested={false} variant="regular" radius={18}>
+        <Pane nested={false} variant="blur" radius={18}>
           {/* scrolls inside the pane: the pane clips its rim layers with
               overflow-hidden, so it can't be the scroll container itself */}
           <div
@@ -257,7 +257,7 @@ function DropdownMenuSubContent({
         )}
         {...props}
       >
-        <Pane nested={false} variant="regular" radius={18}>
+        <Pane nested={false} variant="blur" radius={18}>
           <div
             className={cn(
               "max-h-(--radix-dropdown-menu-content-available-height) overflow-y-auto p-1.5",

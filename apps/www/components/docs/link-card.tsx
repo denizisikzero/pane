@@ -15,7 +15,11 @@ export function LinkCard({
   icon: LucideIcon;
 }) {
   return (
-    <Pane radius={20} className="group relative flex flex-col gap-3 p-5">
+    <Pane
+      variant="blur"
+      radius={20}
+      className="group relative flex flex-col gap-3 p-5"
+    >
       <Icon className="size-5 text-muted-foreground" />
       <div className="flex flex-col gap-1">
         <h3 className="flex items-center justify-between font-medium">

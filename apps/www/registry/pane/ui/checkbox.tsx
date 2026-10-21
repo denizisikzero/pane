@@ -12,24 +12,23 @@ function Checkbox({
 }: React.ComponentProps<typeof CheckboxPrimitive.Root>) {
   return (
     <Pane
-      variant="clear"
       radius={999}
       className={cn(
         "inline-flex size-5 shrink-0 has-[:disabled]:opacity-50 has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/50",
         // Checked or indeterminate: the glass fills with the accent, rim included — both fill
         // tokens, as in Switch, so it still fills inside a card or dialog.
-        "has-[[data-state=checked]]:[--pane-tint-clear:var(--pane-tint-accent)]",
-        "has-[[data-state=indeterminate]]:[--pane-tint-clear:var(--pane-tint-accent)]",
-        "has-[[data-state=checked]]:[--pane-nested-clear:var(--pane-tint-accent)]",
-        "has-[[data-state=indeterminate]]:[--pane-nested-clear:var(--pane-tint-accent)]",
-        "has-[[data-state=checked]]:[--pane-border-clear:var(--pane-border-accent)]",
-        "has-[[data-state=indeterminate]]:[--pane-border-clear:var(--pane-border-accent)]",
+        "has-[[data-state=checked]]:[--pane-tint-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-accent-opacity),transparent)]",
+        "has-[[data-state=indeterminate]]:[--pane-tint-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-accent-opacity),transparent)]",
+        "has-[[data-state=checked]]:[--pane-nested-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-accent-opacity),transparent)]",
+        "has-[[data-state=indeterminate]]:[--pane-nested-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-accent-opacity),transparent)]",
+        "has-[[data-state=checked]]:[--pane-border-default:var(--pane-border-accent)]",
+        "has-[[data-state=indeterminate]]:[--pane-border-default:var(--pane-border-accent)]",
       )}
     >
       <CheckboxPrimitive.Root
         data-slot="checkbox"
         className={cn(
-          "peer group flex size-full items-center justify-center rounded-[inherit] border border-foreground/20 bg-transparent text-white outline-none disabled:cursor-not-allowed data-[state=checked]:border-transparent data-[state=indeterminate]:border-transparent",
+          "peer group flex size-full items-center justify-center rounded-[inherit] border border-foreground/20 bg-transparent text-[var(--pane-accent-foreground)] outline-none disabled:cursor-not-allowed data-[state=checked]:border-transparent data-[state=indeterminate]:border-transparent",
           className,
         )}
         {...props}

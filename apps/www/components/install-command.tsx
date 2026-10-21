@@ -10,7 +10,7 @@ export function InstallCommand() {
   const [copied, setCopied] = useState(false);
 
   return (
-    <Pane variant="clear" radius={20} interactive className="inline-flex">
+    <Pane radius={20} interactive className="inline-flex">
       <button
         type="button"
         aria-label="Copy install command"

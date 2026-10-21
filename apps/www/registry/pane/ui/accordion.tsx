@@ -7,7 +7,7 @@ import { Pane } from "@/components/ui/pane";
 import { cn } from "@/lib/utils";
 
 /**
- * The items share one clear glass surface, divided by hairlines, the way a
+ * The items share one glass surface, divided by hairlines, the way a
  * grouped list sits on a single sheet. `className` sizes that surface.
  */
 function Accordion({
@@ -15,7 +15,7 @@ function Accordion({
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Root>) {
   return (
-    <Pane variant="clear" radius={20} className={cn("w-full", className)}>
+    <Pane radius={20} className={cn("w-full", className)}>
       <AccordionPrimitive.Root data-slot="accordion" {...props} />
     </Pane>
   );

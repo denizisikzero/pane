@@ -2,6 +2,7 @@ import { BlocksIcon, DownloadIcon, PaletteIcon } from "lucide-react";
 import type { Metadata } from "next";
 import { ComponentPreview } from "@/components/docs/component-preview";
 import { LinkCard } from "@/components/docs/link-card";
+import { PageHeader } from "@/components/docs/page-header";
 import { Pane } from "@/components/ui/pane";
 import { componentsMeta } from "@/lib/components-meta";
 import { features } from "@/lib/features";
@@ -17,25 +18,27 @@ export default function DocsIntroductionPage() {
 
   return (
     <div className="flex flex-col gap-12">
-      <div className="flex flex-col gap-3">
-        <h1 className="text-4xl font-semibold tracking-tight">Introduction</h1>
-        <p className="max-w-2xl text-lg text-muted-foreground">
-          {siteConfig.name} is a set of liquid-glass components for React,
-          distributed as a shadcn registry. Every one of them is built on a
-          single primitive, <code className="text-foreground">{"<Pane>"}</code>,
-          so they refract, tint and respond as one material.
-        </p>
-      </div>
+      <PageHeader slug={[]} title="Introduction">
+        {siteConfig.name} is a set of liquid-glass components for React,
+        distributed as a shadcn registry. Every one of them is built on a single
+        primitive, <code className="text-foreground">{"<Pane>"}</code>, so they
+        refract, tint and respond as one material.
+      </PageHeader>
 
       {pane ? (
-        <ComponentPreview registryName={pane.registryName} demo={pane.demo} />
+        <ComponentPreview name={`${pane.registryName}-demo`} demo={pane.demo} />
       ) : null}
 
       <section className="flex flex-col gap-5">
         <h2 className="text-xl font-semibold">What makes it glass</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {features.map(({ icon: Icon, title, description }) => (
-            <Pane key={title} radius={20} className="flex flex-col gap-3 p-5">
+            <Pane
+              variant="blur"
+              key={title}
+              radius={20}
+              className="flex flex-col gap-3 p-5"
+            >
               <Icon className="size-5 text-muted-foreground" />
               <div className="flex flex-col gap-1">
                 <h3 className="font-medium">{title}</h3>

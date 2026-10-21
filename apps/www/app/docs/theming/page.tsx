@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { CSSProperties } from "react";
+import { AccentPicker } from "@/components/docs/accent-picker";
 import { CodeBlock } from "@/components/docs/code-block";
+import { PageHeader } from "@/components/docs/page-header";
 import { Pane } from "@/components/ui/pane";
+import { accentCss, accentNames } from "@/lib/accents";
+import { providerExample, tiers, tokenGroups } from "@/lib/docs-content";
 import {
   getGlassSource,
   getStyleCssVars,
@@ -16,87 +20,6 @@ export const metadata: Metadata = {
 };
 
 const code = "rounded bg-foreground/[0.06] px-1.5 py-0.5 text-foreground";
-
-// What each token does, grouped the way the material is built. Values come
-// from registry.json, so a token missing here still shows up under "Other".
-const groups: { title: string; tokens: Record<string, string> }[] = [
-  {
-    title: "Surface",
-    tokens: {
-      "pane-fg": "Text color on glass.",
-      "pane-tint-regular": "Body tint of regular glass.",
-      "pane-tint-clear": "Body tint of clear glass.",
-      "pane-blur-regular": "Backdrop blur behind regular glass.",
-      "pane-blur-clear": "Backdrop blur behind clear glass.",
-      "pane-saturation": "How much the backdrop's color is boosted.",
-    },
-  },
-  {
-    title: "Nested",
-    tokens: {
-      "pane-nested-regular":
-        "Flat tint for regular glass inside another pane, where glass can't stack.",
-      "pane-nested-clear": "Flat tint for clear glass inside another pane.",
-    },
-  },
-  {
-    title: "Overlay",
-    tokens: {
-      "pane-blur-overlay": "Blur of the denser Dialog and Sheet material.",
-      "pane-tint-overlay": "Tint of the denser Dialog and Sheet material.",
-    },
-  },
-  {
-    title: "Edge and light",
-    tokens: {
-      "pane-border-width": "Width of the rim.",
-      "pane-border-regular": "Rim color of regular glass.",
-      "pane-border-clear": "Rim color of clear glass.",
-      "pane-highlight": "Rim arcs and the pointer glint.",
-      "pane-shadow": "Drop shadow under every pane.",
-    },
-  },
-  {
-    title: "Controls",
-    tokens: {
-      "pane-tint-accent": "Fill of an active Switch and the Slider range.",
-      "pane-border-accent": "Rim of a Switch that is on.",
-      "pane-knob": "Switch and Slider knob.",
-    },
-  },
-];
-
-const providerExample = `import { GlassConfigProvider } from "@/lib/glass/context";
-
-export function SnappyToolbar({ children }: { children: React.ReactNode }) {
-  return (
-    <GlassConfigProvider
-      value={{ spring: { press: { stiffness: 700, damping: 35 } } }}
-    >
-      {children}
-    </GlassConfigProvider>
-  );
-}`;
-
-const tiers = [
-  {
-    name: "full",
-    who: "Chrome, Edge and most Chromium browsers",
-    description:
-      "The complete effect: blur, saturation, edge refraction and chromatic aberration.",
-  },
-  {
-    name: "reduced",
-    who: "Safari, Firefox and everyone else",
-    description:
-      "Blur, saturation and the pointer-reactive highlight, without edge lensing.",
-  },
-  {
-    name: "none",
-    who: "No backdrop-filter, or reduced transparency",
-    description: "A flat translucent tint with no backdrop filtering.",
-  },
-];
 
 /**
  * Each value sits on its own theme's background, over a checkerboard so the
@@ -124,7 +47,7 @@ function TokenValue({
   scheme: "light" | "dark";
   value: string;
 }) {
-  const isColor = value.startsWith("rgb") || value.startsWith("#");
+  const isColor = /^(rgb|#|oklch|hsl)/.test(value);
   return (
     <div className="flex items-center gap-2 font-mono text-xs">
       <span className="w-9 font-sans text-muted-foreground capitalize">
@@ -145,28 +68,25 @@ function TokenValue({
 
 export default function ThemingPage() {
   const { light, dark } = getStyleTokens();
-  const described = new Set(groups.flatMap((g) => Object.keys(g.tokens)));
+  const described = new Set(tokenGroups.flatMap((g) => Object.keys(g.tokens)));
   const other = Object.keys(light).filter((name) => !described.has(name));
   const allGroups = other.length
     ? [
-        ...groups,
+        ...tokenGroups,
         {
           title: "Other",
           tokens: Object.fromEntries(other.map((name) => [name, ""])),
         },
       ]
-    : groups;
+    : tokenGroups;
 
   return (
     <div className="flex flex-col gap-12">
-      <div className="flex flex-col gap-3">
-        <h1 className="text-4xl font-semibold tracking-tight">Theming</h1>
-        <p className="max-w-2xl text-lg text-muted-foreground">
-          The glass is driven by CSS variables and one config file. Change them
-          once and every component built on{" "}
-          <code className="text-foreground">{"<Pane>"}</code> follows.
-        </p>
-      </div>
+      <PageHeader slug={["theming"]} title="Theming">
+        The glass is driven by CSS variables and one config file. Change them
+        once and every component built on{" "}
+        <code className="text-foreground">{"<Pane>"}</code> follows.
+      </PageHeader>
 
       <section className="flex flex-col gap-5">
         <h2 className="text-xl font-semibold">Glass tokens</h2>
@@ -184,7 +104,7 @@ export default function ThemingPage() {
         {allGroups.map((group) => (
           <div key={group.title} className="flex flex-col gap-2">
             <h3 className="font-medium text-sm">{group.title}</h3>
-            <Pane radius={20} className="flex flex-col">
+            <Pane variant="blur" radius={20} className="flex flex-col">
               {Object.entries(group.tokens).map(([name, description]) => (
                 <div
                   key={name}
@@ -221,6 +141,30 @@ export default function ThemingPage() {
             <CodeBlock lang="css" code={getStyleCssVars()} />
           </div>
         </details>
+      </section>
+
+      <section className="flex flex-col gap-5">
+        <h2 className="text-xl font-semibold">Accent color</h2>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          One color fills the prominent Button and every control that is on.
+          Pick one below and paste the variables over the ones in your
+          stylesheet, or set them to any color:{" "}
+          <code className={code}>var(--primary)</code> and{" "}
+          <code className={code}>var(--primary-foreground)</code> follow your
+          shadcn/ui theme. <code className={code}>--pane-accent-text</code> is a
+          deeper shade for labels on plain glass, so the bright accent still
+          reads as text. Set them on an element instead of{" "}
+          <code className={code}>:root</code> to recolor just that part of the
+          page.
+        </p>
+        <AccentPicker
+          snippets={Object.fromEntries(
+            accentNames.map((name) => [
+              name,
+              <CodeBlock key={name} lang="css" code={accentCss(name)} />,
+            ]),
+          )}
+        />
       </section>
 
       <section className="flex flex-col gap-5">
@@ -264,6 +208,7 @@ export default function ThemingPage() {
         <div className="grid gap-4 sm:grid-cols-3">
           {tiers.map((tier) => (
             <Pane
+              variant="blur"
               key={tier.name}
               radius={20}
               className="flex flex-col gap-2 p-5"

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -23,7 +24,9 @@ export default function DialogDemo() {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button>Cancel</Button>
+          <DialogClose asChild>
+            <Button>Cancel</Button>
+          </DialogClose>
           <Button variant="destructive">Delete</Button>
         </DialogFooter>
       </DialogContent>

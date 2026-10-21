@@ -2,8 +2,25 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CodeBlock } from "@/components/docs/code-block";
 import { ComponentPreview } from "@/components/docs/component-preview";
+import { PageHeader } from "@/components/docs/page-header";
 import { PropsTable } from "@/components/docs/props-table";
 import { componentsMeta, getComponentMeta } from "@/lib/components-meta";
+
+/** Backtick spans in a description, as code. */
+function InlineCode({ text }: { text: string }) {
+  return text.split(/(`[^`]+`)/).map((part) =>
+    part.startsWith("`") ? (
+      <code
+        key={part}
+        className="rounded bg-foreground/[0.06] px-1.5 py-0.5 text-foreground"
+      >
+        {part.slice(1, -1)}
+      </code>
+    ) : (
+      part
+    ),
+  );
+}
 
 export function generateStaticParams() {
   return componentsMeta.map((component) => ({ slug: component.slug }));
@@ -38,17 +55,12 @@ export default async function ComponentPage({
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-3">
-        <h1 className="text-4xl font-semibold tracking-tight">
-          {component.title}
-        </h1>
-        <p className="max-w-2xl text-lg text-muted-foreground">
-          {component.description}
-        </p>
-      </div>
+      <PageHeader slug={["components", slug]} title={component.title}>
+        {component.description}
+      </PageHeader>
 
       <ComponentPreview
-        registryName={component.registryName}
+        name={`${component.registryName}-demo`}
         demo={component.demo}
       />
 
@@ -66,6 +78,18 @@ export default async function ComponentPage({
           <CodeBlock lang="tsx" code={component.usage} />
         </section>
       ) : null}
+
+      {component.examples?.map((example) => (
+        <section key={example.name} className="flex flex-col gap-3">
+          <h2 className="text-xl font-semibold">{example.title}</h2>
+          {example.description ? (
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              <InlineCode text={example.description} />
+            </p>
+          ) : null}
+          <ComponentPreview name={example.name} demo={example.demo} compact />
+        </section>
+      ))}
 
       {component.props || component.reference ? (
         <section className="flex flex-col gap-3">

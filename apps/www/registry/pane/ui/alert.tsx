@@ -3,8 +3,9 @@ import type * as React from "react";
 import { Pane } from "@/components/ui/pane";
 import { cn } from "@/lib/utils";
 
+// the glass filter is an <svg> child of every Pane, so the icon checks skip it
 const alertVariants = cva(
-  "grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 px-4 py-3.5 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current",
+  "grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 px-4 py-3.5 text-sm has-[>svg:not([data-slot=glass-filter])]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg:not([data-slot=glass-filter])]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current",
   {
     variants: {
       variant: {
@@ -12,23 +13,38 @@ const alertVariants = cva(
         destructive:
           "text-red-600 *:data-[slot=alert-description]:text-red-600/90 dark:text-red-400 dark:*:data-[slot=alert-description]:text-red-400/90",
       },
+      tinted: {
+        true: "",
+        false: "",
+      },
     },
-    defaultVariants: { variant: "default" },
+    compoundVariants: [
+      {
+        // a wash of red in the glass, the same as a tinted destructive button
+        variant: "destructive",
+        tinted: true,
+        className:
+          "[--pane-tint-blur:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)] text-[var(--pane-destructive-text)] *:data-[slot=alert-description]:text-[var(--pane-destructive-text)]/90 dark:text-[var(--pane-destructive-text)] dark:*:data-[slot=alert-description]:text-[var(--pane-destructive-text)]/90",
+      },
+    ],
+    defaultVariants: { variant: "default", tinted: false },
   },
 );
 
 function Alert({
   className,
   variant,
+  tinted,
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof alertVariants>) {
   return (
     <Pane
       data-slot="alert"
       role="alert"
-      variant="regular"
+      data-tinted={tinted ?? false}
+      variant="blur"
       radius={18}
-      className={cn(alertVariants({ variant }), className)}
+      className={cn(alertVariants({ variant, tinted }), className)}
       {...(props as React.ComponentProps<typeof Pane>)}
     />
   );

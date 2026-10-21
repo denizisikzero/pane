@@ -44,7 +44,7 @@ function ToggleGroup({
 
   return (
     <ToggleGroupContext.Provider value={{ value: activeValue, indicatorId }}>
-      <Pane variant="clear" radius={16} className="inline-flex w-fit">
+      <Pane radius={16} className="inline-flex w-fit">
         <ToggleGroupPrimitive.Root
           type="single"
           value={activeValue ?? ""}
@@ -92,7 +92,7 @@ function ToggleGroupItem({
           transition={spring.hover}
           className="absolute inset-0"
         >
-          <Pane variant="clear" radius={12} className="h-full w-full" />
+          <Pane radius={12} className="h-full w-full" />
         </motion.div>
       ) : null}
       <span className="relative z-10 inline-flex items-center gap-1.5">

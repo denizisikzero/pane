@@ -4,7 +4,6 @@ import {
   CalendarIcon,
   HomeIcon,
   InboxIcon,
-  type LucideIcon,
   SearchIcon,
   SettingsIcon,
 } from "lucide-react";
@@ -22,14 +21,6 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar";
 
-const items: { title: string; icon: LucideIcon; badge?: number }[] = [
-  { title: "Home", icon: HomeIcon },
-  { title: "Inbox", icon: InboxIcon, badge: 12 },
-  { title: "Calendar", icon: CalendarIcon },
-  { title: "Search", icon: SearchIcon },
-  { title: "Settings", icon: SettingsIcon },
-];
-
 export default function SidebarDemo() {
   const [active, setActive] = React.useState("Inbox");
 
@@ -43,20 +34,52 @@ export default function SidebarDemo() {
             <SidebarGroupLabel>Application</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton
-                      isActive={active === item.title}
-                      onClick={() => setActive(item.title)}
-                    >
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </SidebarMenuButton>
-                    {item.badge ? (
-                      <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>
-                    ) : null}
-                  </SidebarMenuItem>
-                ))}
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    isActive={active === "Home"}
+                    onClick={() => setActive("Home")}
+                  >
+                    <HomeIcon />
+                    <span>Home</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    isActive={active === "Inbox"}
+                    onClick={() => setActive("Inbox")}
+                  >
+                    <InboxIcon />
+                    <span>Inbox</span>
+                  </SidebarMenuButton>
+                  <SidebarMenuBadge>12</SidebarMenuBadge>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    isActive={active === "Calendar"}
+                    onClick={() => setActive("Calendar")}
+                  >
+                    <CalendarIcon />
+                    <span>Calendar</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    isActive={active === "Search"}
+                    onClick={() => setActive("Search")}
+                  >
+                    <SearchIcon />
+                    <span>Search</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    isActive={active === "Settings"}
+                    onClick={() => setActive("Settings")}
+                  >
+                    <SettingsIcon />
+                    <span>Settings</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>

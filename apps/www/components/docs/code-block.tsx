@@ -18,7 +18,7 @@ export async function CodeBlock({
   });
 
   return (
-    <Pane variant="clear" radius={20} className="relative">
+    <Pane radius={20} className="relative">
       <div className="absolute top-3 right-3 z-10">
         <CopyButton text={code} />
       </div>
