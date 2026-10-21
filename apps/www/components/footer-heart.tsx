@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-const hearts = ["❤️", "🫶", "💖", "💗", "🩷"];
+const hearts = ["🫶", "❤️", "💖", "💗", "🩷"];
 
 /** A small easter egg: each click swaps the heart for the next one. */
 export function FooterHeart() {
