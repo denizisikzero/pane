@@ -87,6 +87,9 @@ function edgeBand(thickness: number): React.CSSProperties {
   } as React.CSSProperties;
 }
 
+/** How often, in ms, the WebGPU lens re-reads the blur and saturation tokens. */
+const TOKEN_REFRESH = 250;
+
 /** Reads a `--pane-*` length or number off the node, or `fallback`. */
 function readToken(node: HTMLElement, name: string, fallback: number) {
   const value = Number.parseFloat(
@@ -97,8 +100,10 @@ function readToken(node: HTMLElement, name: string, fallback: number) {
 
 /**
  * The lens parameters for this pane, as a stable function the scene calls once
- * per frame. Blur and saturation stay CSS tokens, as on the CSS path, and are
- * read off the node when the variant changes rather than every frame.
+ * per frame. Blur and saturation stay CSS tokens, as on the CSS path. They are
+ * read off the node at most every TOKEN_REFRESH ms rather than every frame —
+ * often enough that a token changed on a parent, by a theme switch or a live
+ * tuning panel, reaches the shader without a visible lag.
  */
 function useLensParams(
   ref: React.RefObject<HTMLElement | null>,
@@ -108,33 +113,45 @@ function useLensParams(
 ) {
   const { lens, specular } = useGlassConfig();
   const live = React.useRef({ variant, radius, lens, specular });
-  const tokens = React.useRef({ blur: 0, saturation: 1 });
+  const tokens = React.useRef({
+    blur: 0,
+    saturation: 1,
+    variant: "" as string,
+    at: -Infinity,
+  });
 
   React.useEffect(() => {
     live.current = { variant, radius, lens, specular };
   }, [variant, radius, lens, specular]);
 
-  React.useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-    tokens.current = {
-      blur: readToken(node, `--pane-blur-${variant}`, 0),
-      saturation: readToken(node, "--pane-saturation", 1),
-    };
-  }, [ref, variant]);
-
   return React.useCallback((): GlassPaneParams => {
     const { variant, radius, lens, specular } = live.current;
+    const node = ref.current;
+    const now = performance.now();
+    const cached = tokens.current;
+    if (
+      node &&
+      (cached.variant !== variant || now - cached.at > TOKEN_REFRESH)
+    ) {
+      tokens.current = {
+        blur: readToken(node, `--pane-blur-${variant}`, 0),
+        saturation: readToken(node, "--pane-saturation", 1),
+        variant,
+        at: now,
+      };
+    }
+    const { blur, saturation } = tokens.current;
     return {
       radius,
       ...lens[variant],
-      ...tokens.current,
+      blur,
+      saturation,
       spin: light.current.spin,
       rim: specular.rim,
       edge: specular.edge,
       specular: 0.9,
     };
-  }, [light]);
+  }, [ref, light]);
 }
 
 /**

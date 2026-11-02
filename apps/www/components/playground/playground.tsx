@@ -267,11 +267,29 @@ export function Playground({ tokens }: { tokens: Tokens }) {
           100,
       ),
     });
+    // the same two sliders drive the WebGPU lens, so they work with the
+    // video on and the glass drawn by the shader
+    const lens = (variant: GlassVariant) => ({
+      ...GLASS_LENS[variant],
+      refraction: round(
+        (GLASS_LENS[variant].refraction * state.refraction) / 100,
+        1,
+      ),
+      dispersion: round(
+        (GLASS_LENS[variant].dispersion * state.aberration) / 100,
+        3,
+      ),
+    });
     return {
       displacement: {
         default: scale("default"),
         blur: scale("blur"),
         transparent: scale("transparent"),
+      },
+      lens: {
+        default: lens("default"),
+        blur: lens("blur"),
+        transparent: lens("transparent"),
       },
       spring: isDefaultSpring
         ? GLASS_SPRING
@@ -318,9 +336,9 @@ export function Playground({ tokens }: { tokens: Tokens }) {
   const ts = [
     `export const GLASS_DISPLACEMENT = ${JSON.stringify(config.displacement, null, 2)};`,
     "",
-    // not tuned here, but context.tsx imports them: the file must keep both
-    `export const GLASS_LENS = ${JSON.stringify(GLASS_LENS, null, 2)};`,
+    `export const GLASS_LENS = ${JSON.stringify(config.lens, null, 2)};`,
     "",
+    // not tuned here, but context.tsx imports it: the file must keep it
     `export const GLASS_SPECULAR = ${JSON.stringify(GLASS_SPECULAR, null, 2)};`,
     "",
     `export const GLASS_SPRING = ${JSON.stringify(springs, null, 2)};`,

@@ -23,8 +23,9 @@ export default function AccordionDemo() {
       <AccordionItem value="browsers">
         <AccordionTrigger>Which browsers get the full effect?</AccordionTrigger>
         <AccordionContent>
-          Chromium browsers get edge refraction. Everyone else gets blur, tint
-          and the pointer highlight.
+          Chromium gets edge refraction everywhere, and any browser with WebGPU
+          gets it over a GlassScene. Everyone else gets blur, tint and the rim
+          light.
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="theming">
