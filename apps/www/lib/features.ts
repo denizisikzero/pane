@@ -22,7 +22,7 @@ export const features: {
     icon: MousePointer2Icon,
     title: "Light that follows",
     description:
-      "A specular highlight tracks the pointer, and the rim catches the light as the surface moves through the page.",
+      "The rim catches the light from the pointer, and swings it around the edge as the surface moves through the page.",
   },
   {
     icon: WavesIcon,

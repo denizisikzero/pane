@@ -27,6 +27,7 @@ import {
 } from "@/lib/accents";
 import {
   GLASS_DISPLACEMENT,
+  GLASS_LENS,
   GLASS_MIN_FILTER_AREA,
   GLASS_SPECULAR,
   GLASS_SPRING,
@@ -56,7 +57,6 @@ const initial = {
   saturation: 1.7,
   refraction: 100,
   aberration: 100,
-  highlight: GLASS_SPECULAR.intensity,
   preset: "default" as Preset,
   accent: DEFAULT_ACCENT as AccentName,
   stiffness: GLASS_SPRING.press.stiffness,
@@ -89,7 +89,6 @@ const limits: Record<
   saturation: [1, 3],
   refraction: [0, 200],
   aberration: [0, 300],
-  highlight: [0, 1],
   stiffness: [50, 1000],
   damping: [5, 60],
 };
@@ -274,7 +273,6 @@ export function Playground({ tokens }: { tokens: Tokens }) {
         blur: scale("blur"),
         transparent: scale("transparent"),
       },
-      specular: { ...GLASS_SPECULAR, intensity: state.highlight },
       spring: isDefaultSpring
         ? GLASS_SPRING
         : {
@@ -294,7 +292,6 @@ export function Playground({ tokens }: { tokens: Tokens }) {
   }, [
     state.refraction,
     state.aberration,
-    state.highlight,
     state.stiffness,
     state.damping,
     isDefaultSpring,
@@ -321,7 +318,10 @@ export function Playground({ tokens }: { tokens: Tokens }) {
   const ts = [
     `export const GLASS_DISPLACEMENT = ${JSON.stringify(config.displacement, null, 2)};`,
     "",
-    `export const GLASS_SPECULAR = ${JSON.stringify(config.specular, null, 2)};`,
+    // not tuned here, but context.tsx imports them: the file must keep both
+    `export const GLASS_LENS = ${JSON.stringify(GLASS_LENS, null, 2)};`,
+    "",
+    `export const GLASS_SPECULAR = ${JSON.stringify(GLASS_SPECULAR, null, 2)};`,
     "",
     `export const GLASS_SPRING = ${JSON.stringify(springs, null, 2)};`,
     "",
@@ -455,16 +455,6 @@ export function Playground({ tokens }: { tokens: Tokens }) {
               value={[state.aberration]}
               onValueChange={([v]) => set("aberration", v)}
               aria-label="Chromatic aberration"
-            />
-          </Control>
-          <Control label="Highlight" value={state.highlight.toFixed(2)}>
-            <Slider
-              min={0}
-              max={1}
-              step={0.05}
-              value={[state.highlight]}
-              onValueChange={([v]) => set("highlight", round(v))}
-              aria-label="Highlight"
             />
           </Control>
 

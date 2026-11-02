@@ -6,7 +6,12 @@ import { CodeBlock } from "@/components/docs/code-block";
 import { PageHeader } from "@/components/docs/page-header";
 import { Pane } from "@/components/ui/pane";
 import { accentCss, accentNames } from "@/lib/accents";
-import { providerExample, tiers, tokenGroups } from "@/lib/docs-content";
+import {
+  providerExample,
+  sceneExample,
+  tiers,
+  tokenGroups,
+} from "@/lib/docs-content";
 import {
   getGlassSource,
   getStyleCssVars,
@@ -170,8 +175,8 @@ export default function ThemingPage() {
       <section className="flex flex-col gap-5">
         <h2 className="text-xl font-semibold">Refraction and springs</h2>
         <p className="text-sm leading-relaxed text-muted-foreground">
-          Anything that feeds the SVG refraction filter or the spring physics
-          has to live in JS, in{" "}
+          Anything that feeds the SVG refraction filter, the WebGPU lens or the
+          spring physics has to live in JS, in{" "}
           <code className={code}>lib/glass/config.ts</code>. Open it for more or
           less lensing, a stronger chromatic edge, or snappier or softer press
           feedback.
@@ -195,6 +200,25 @@ export default function ThemingPage() {
           .
         </p>
         <CodeBlock lang="tsx" code={providerExample} />
+      </section>
+
+      <section className="flex flex-col gap-5">
+        <h2 className="text-xl font-semibold">WebGPU glass</h2>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          Wrap a section in <code className={code}>GlassScene</code> and give it
+          the video, image or canvas behind it. Every Pane inside then draws its
+          glass in a WebGPU shader: the rim bends the backdrop like a real lens,
+          splits it into a faint color fringe and catches the light — in any
+          browser with WebGPU, Safari and Firefox included. Tune it with{" "}
+          <code className={code}>GLASS_LENS</code> in the config above.
+        </p>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          WebGPU can&apos;t see what the browser painted, so the lens bends only
+          that source: text or other elements between it and a pane aren&apos;t
+          refracted. Outside a scene, without WebGPU, or until the source has
+          loaded, panes keep the CSS glass described below.
+        </p>
+        <CodeBlock lang="tsx" code={sceneExample} />
       </section>
 
       <section className="flex flex-col gap-5">

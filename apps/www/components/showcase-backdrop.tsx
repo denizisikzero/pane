@@ -5,6 +5,7 @@ import { useTheme } from "next-themes";
 import * as React from "react";
 import { BACKGROUNDS } from "@/components/docs/preview-surface";
 import { Pane } from "@/components/ui/pane";
+import { GlassScene } from "@/lib/glass/gpu/scene";
 import { cn } from "@/lib/utils";
 
 /**
@@ -63,48 +64,53 @@ export function ShowcaseBackdrop({
           ? BACKGROUNDS.light
           : null;
 
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+
   return (
-    <div
-      className={cn(
-        "relative w-full overflow-hidden rounded-[2rem] p-3 sm:p-6",
-        // on the plain page the area still needs an edge
-        toggleKey && !video && "border border-foreground/10",
-      )}
-    >
-      {src ? (
-        // keyed to remount on theme change: swapping `src` on a playing
-        // <video> leaves the old frame up until load() is called
-        <video
-          key={src}
-          src={src}
-          autoPlay={!still}
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-      ) : null}
-      {toggleKey ? (
-        <div className="absolute top-3 right-3 z-20">
-          <Pane radius={999} className="inline-flex items-center p-1">
-            <button
-              type="button"
-              onClick={toggle}
-              className="flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {video ? (
-                <EyeIcon className="size-4" />
-              ) : (
-                <EyeOffIcon className="size-4" />
-              )}
-              <span className="sr-only">
-                {video ? "Hide video background" : "Show video background"}
-              </span>
-            </button>
-          </Pane>
-        </div>
-      ) : null}
-      <div className="relative">{children}</div>
-    </div>
+    <GlassScene source={videoRef}>
+      <div
+        className={cn(
+          "relative w-full overflow-hidden rounded-[2rem] p-3 sm:p-6",
+          // on the plain page the area still needs an edge
+          toggleKey && !video && "border border-foreground/10",
+        )}
+      >
+        {src ? (
+          // keyed to remount on theme change: swapping `src` on a playing
+          // <video> leaves the old frame up until load() is called
+          <video
+            ref={videoRef}
+            key={src}
+            src={src}
+            autoPlay={!still}
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        ) : null}
+        {toggleKey ? (
+          <div className="absolute top-3 right-3 z-20">
+            <Pane radius={999} className="inline-flex items-center p-1">
+              <button
+                type="button"
+                onClick={toggle}
+                className="flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {video ? (
+                  <EyeIcon className="size-4" />
+                ) : (
+                  <EyeOffIcon className="size-4" />
+                )}
+                <span className="sr-only">
+                  {video ? "Hide video background" : "Show video background"}
+                </span>
+              </button>
+            </Pane>
+          </div>
+        ) : null}
+        <div className="relative">{children}</div>
+      </div>
+    </GlassScene>
   );
 }

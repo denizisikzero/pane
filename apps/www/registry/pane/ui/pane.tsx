@@ -7,6 +7,8 @@ import { useGlassSupport } from "@/hooks/use-glass-support";
 import { GLASS_MIN_FILTER_AREA } from "@/lib/glass/config";
 import { useGlassConfig } from "@/lib/glass/context";
 import { GlassFilter } from "@/lib/glass/glass-filter";
+import { GlassCanvas } from "@/lib/glass/gpu/glass-canvas";
+import { type GlassPaneParams, useGlassScene } from "@/lib/glass/gpu/scene";
 import type { GlassVariant } from "@/lib/glass/types";
 import { type PaneVariantProps, paneVariants } from "@/lib/glass/variants";
 import { cn } from "@/lib/utils";
@@ -85,6 +87,56 @@ function edgeBand(thickness: number): React.CSSProperties {
   } as React.CSSProperties;
 }
 
+/** Reads a `--pane-*` length or number off the node, or `fallback`. */
+function readToken(node: HTMLElement, name: string, fallback: number) {
+  const value = Number.parseFloat(
+    getComputedStyle(node).getPropertyValue(name),
+  );
+  return Number.isFinite(value) ? value : fallback;
+}
+
+/**
+ * The lens parameters for this pane, as a stable function the scene calls once
+ * per frame. Blur and saturation stay CSS tokens, as on the CSS path, and are
+ * read off the node when the variant changes rather than every frame.
+ */
+function useLensParams(
+  ref: React.RefObject<HTMLElement | null>,
+  variant: GlassVariant,
+  radius: number,
+  light: React.RefObject<{ spin: number }>,
+) {
+  const { lens, specular } = useGlassConfig();
+  const live = React.useRef({ variant, radius, lens, specular });
+  const tokens = React.useRef({ blur: 0, saturation: 1 });
+
+  React.useEffect(() => {
+    live.current = { variant, radius, lens, specular };
+  }, [variant, radius, lens, specular]);
+
+  React.useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    tokens.current = {
+      blur: readToken(node, `--pane-blur-${variant}`, 0),
+      saturation: readToken(node, "--pane-saturation", 1),
+    };
+  }, [ref, variant]);
+
+  return React.useCallback((): GlassPaneParams => {
+    const { variant, radius, lens, specular } = live.current;
+    return {
+      radius,
+      ...lens[variant],
+      ...tokens.current,
+      spin: light.current.spin,
+      rim: specular.rim,
+      edge: specular.edge,
+      specular: 0.9,
+    };
+  }, [light]);
+}
+
 /**
  * The base glass surface every Pane component is built on: a blurred, tinted
  * body with the refraction, glow and specular sheen confined to a rim at the
@@ -103,14 +155,22 @@ export function Pane({
 }: PaneProps) {
   const reactId = React.useId().replace(/:/g, "");
   const filterId = `pane-filter-${reactId}`;
-  const { ref, active } = useGlassPointer<HTMLDivElement>();
+  const { ref, active, light } = useGlassPointer<HTMLDivElement>();
   const quality = useGlassSupport();
   const nestedContext = React.useContext(NestedPaneContext);
   const nested = nestedProp ?? nestedContext;
   const { width, height } = usePaneSize(ref);
   const { spring, specular } = useGlassConfig();
+  const scene = useGlassScene();
+  // inside a scene whose source is on the GPU, the shader carries the whole
+  // material — refraction, blur, rim light — and the CSS layers stand down
+  const gpu = !nested && quality !== "none" && scene?.ready === true;
   const canDisplace =
-    !nested && quality === "full" && width * height >= GLASS_MIN_FILTER_AREA;
+    !gpu &&
+    !nested &&
+    quality === "full" &&
+    width * height >= GLASS_MIN_FILTER_AREA;
+  const readLens = useLensParams(ref, variant, radius, light);
 
   // the glow has to stay a rim: on a 28px switch a wide band meets in the
   // middle and reads as a frosted collar rather than an edge
@@ -119,7 +179,7 @@ export function Pane({
 
   const blurVar = `var(--pane-blur-${variant})`;
   const backdropFilter =
-    nested || quality === "none"
+    gpu || nested || quality === "none"
       ? undefined
       : canDisplace
         ? `blur(${blurVar}) saturate(var(--pane-saturation)) url(#${filterId})`
@@ -156,6 +216,7 @@ export function Pane({
       transition={spring.press}
       {...props}
     >
+      {gpu ? <GlassCanvas target={ref} read={readLens} /> : null}
       {/* body — flat tint only, so content sits on an even surface */}
       <span
         aria-hidden="true"
@@ -164,38 +225,31 @@ export function Pane({
       />
       {/* inner glow: a short inset feather giving the rim thickness. Kept
           small — a wide one fogs the middle and the backdrop stops showing */}
-      <span
-        aria-hidden="true"
-        className="-z-10 pointer-events-none absolute inset-0 rounded-[inherit] mix-blend-screen transition-opacity duration-300 ease-out"
-        style={{
-          opacity: active ? 0.36 : 0.3,
-          boxShadow: `inset 0 0 ${glow}px -1px var(--pane-highlight)`,
-        }}
-      />
+      {gpu ? null : (
+        <span
+          aria-hidden="true"
+          className="-z-10 pointer-events-none absolute inset-0 rounded-[inherit] mix-blend-screen transition-opacity duration-300 ease-out"
+          style={{
+            opacity: active ? 0.36 : 0.3,
+            boxShadow: `inset 0 0 ${glow}px -1px var(--pane-highlight)`,
+          }}
+        />
+      )}
       {/* rim: bright arcs on opposite sides of the border, the way an edge
           catches a single light source. `--pane-spin` turns them as the surface
           moves through the viewport or the pointer crosses it. */}
-      <span
-        aria-hidden="true"
-        className="-z-10 pointer-events-none absolute inset-0 rounded-[inherit] mix-blend-screen"
-        style={{
-          ...edgeBand(specular.rim),
-          opacity: active ? 1 : 0.85,
-          transition: "opacity 300ms ease-out",
-          background: `conic-gradient(from var(--pane-spin, ${specular.angle}deg) at 50% 50%, transparent 0deg, var(--pane-highlight) 22deg, transparent 68deg, transparent 112deg, var(--pane-highlight) 158deg, transparent 204deg, transparent 248deg, var(--pane-highlight) 338deg, transparent 360deg)`,
-        }}
-      />
-      {/* glint: a soft blob of light pinned to the pointer, on a wider band
-          than the arcs so it reads as a reflection, not a second outline */}
-      <span
-        aria-hidden="true"
-        className="-z-10 pointer-events-none absolute inset-0 rounded-[inherit] mix-blend-screen transition-opacity duration-300 ease-out"
-        style={{
-          ...edgeBand(glow),
-          opacity: active ? specular.intensity : 0,
-          background: `radial-gradient(${specular.size}px circle at var(--pane-mx, 50%) var(--pane-my, 32%), var(--pane-highlight), transparent 70%)`,
-        }}
-      />
+      {gpu ? null : (
+        <span
+          aria-hidden="true"
+          className="-z-10 pointer-events-none absolute inset-0 rounded-[inherit] mix-blend-screen"
+          style={{
+            ...edgeBand(specular.rim),
+            opacity: active ? 1 : 0.85,
+            transition: "opacity 300ms ease-out",
+            background: `conic-gradient(from var(--pane-spin, ${specular.angle}deg) at 50% 50%, transparent 0deg, var(--pane-highlight) 22deg, transparent 68deg, transparent 112deg, var(--pane-highlight) 158deg, transparent 204deg, transparent 248deg, var(--pane-highlight) 338deg, transparent 360deg)`,
+          }}
+        />
+      )}
       <span
         aria-hidden="true"
         className="-z-10 pointer-events-none absolute inset-0 rounded-[inherit]"

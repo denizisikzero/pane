@@ -10,7 +10,7 @@
 
   /* Pane — glass material tokens. This is the static half of the "quality
      dial": blur/saturation/tint/border/shadow values that don't need JS.
-     The dynamic half (displacement, specular, spring physics) lives in
+     The dynamic half (displacement, WebGPU lens, specular, springs) lives in
      registry/pane/lib/glass/config.ts. Keep both in sync when tuning. */
   --pane-fg: var(--foreground);
 

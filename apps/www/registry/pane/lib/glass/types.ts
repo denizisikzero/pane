@@ -17,11 +17,19 @@ export interface GlassDisplacementConfig {
   blur: number;
 }
 
+/** The WebGPU lens — see `lib/glass/gpu`. */
+export interface GlassLensConfig {
+  /** px the backdrop is pulled along the outward normal at the very edge */
+  refraction: number;
+  /** width in px of the rim the glass curves over before it goes flat —
+   *  capped at about a third of the short side so small controls keep a face */
+  bezel: number;
+  /** spread between the red and blue pull, as a share of `refraction`:
+   *  0.1 is a fringe, 0.4 is a prism */
+  dispersion: number;
+}
+
 export interface GlassSpecularConfig {
-  /** peak highlight opacity, 0-1 */
-  intensity: number;
-  /** radius in px of the glint that travels along the rim with the pointer */
-  size: number;
   /** resting rotation (deg) of the two specular arcs around the rim */
   angle: number;
   /** deg the arcs rotate as the surface crosses the viewport, so scrolling

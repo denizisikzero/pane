@@ -99,9 +99,10 @@
       "name": "glass-core",
       "type": "registry:lib",
       "title": "Glass Core",
-      "description": "The glass engine behind every surface: the displacement-map generator that bends the backdrop at the rim, the SVG refraction filter, the tuning config for both variants, and the shared CVA variants.",
+      "description": "The glass engine behind every surface: the displacement-map generator that bends the backdrop at the rim, the SVG refraction filter, the WebGPU lens and GlassScene, the tuning config for every variant, and the shared CVA variants.",
       "author": "Deniz Isik (https://github.com/denizisikzero)",
       "dependencies": ["class-variance-authority"],
+      "devDependencies": ["@webgpu/types"],
       "files": [
         {
           "path": "registry/pane/lib/glass/types.ts",
@@ -126,6 +127,22 @@
         {
           "path": "registry/pane/lib/glass/variants.ts",
           "type": "registry:lib"
+        },
+        {
+          "path": "registry/pane/lib/glass/gpu/scene.tsx",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/pane/lib/glass/gpu/shaders.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/pane/lib/glass/gpu/glass-canvas.tsx",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/pane/lib/glass/gpu/webgpu.d.ts",
+          "type": "registry:lib"
         }
       ]
     },
@@ -133,7 +150,7 @@
       "name": "use-glass-pointer",
       "type": "registry:hook",
       "title": "Glass Pointer",
-      "description": "Tracks the pointer and the surface's position in the viewport, then writes the specular lighting inputs straight to the node as CSS custom properties — spring-smoothed, and without costing a React render.",
+      "description": "Tracks the pointer and the surface's position in the viewport, then writes the angle of the rim light straight to the node as a CSS custom property — spring-smoothed, and without costing a React render.",
       "author": "Deniz Isik (https://github.com/denizisikzero)",
       "dependencies": ["motion"],
       "registryDependencies": ["@pane/glass-core"],
@@ -162,7 +179,7 @@
       "name": "pane",
       "type": "registry:ui",
       "title": "Pane",
-      "description": "The glass primitive every other component is built on — a refracted rim, a tinted backdrop, and a specular highlight that follows the pointer. Ships default, blur and transparent variants, and flattens automatically when nested.",
+      "description": "The glass primitive every other component is built on — a refracted rim, a tinted backdrop, and rim light that turns toward the pointer. Ships default, blur and transparent variants, and flattens automatically when nested.",
       "author": "Deniz Isik (https://github.com/denizisikzero)",
       "categories": ["ui", "glass"],
       "docs": "Usage and props: https://pane.theui.company/docs/components/pane",

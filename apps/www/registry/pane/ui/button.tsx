@@ -87,7 +87,7 @@ const buttonVariants = cva(
 
 /**
  * What the glass itself does per variant. Filled is dense, so the label
- * reads, but the rim and glint still show; tinted is a wash of the color
+ * reads, but the rim still shows; tinted is a wash of the color
  * with the label carrying it. Default is the plain material; inverted
  * fills it with the text color instead.
  */

@@ -30,7 +30,7 @@ export const requirements: {
     icon: GlobeIcon,
     title: "Any modern browser",
     description:
-      "Full refraction in Chromium; blur and highlights everywhere else.",
+      "Full refraction in Chromium, and with WebGPU over a GlassScene; blur and rim light everywhere else.",
   },
 ];
 
@@ -77,7 +77,7 @@ export const tokenGroups: { title: string; tokens: Record<string, string> }[] =
         "pane-border-default": "Rim color of default glass.",
         "pane-border-blur": "Rim color of blur glass.",
         "pane-border-transparent": "Rim color of transparent glass.",
-        "pane-highlight": "Rim arcs and the pointer glint.",
+        "pane-highlight": "Rim arcs and the inner edge glow.",
         "pane-shadow": "Drop shadow under every pane.",
       },
     },
@@ -102,6 +102,23 @@ export const tokenGroups: { title: string; tokens: Record<string, string> }[] =
     },
   ];
 
+export const sceneExample = `import * as React from "react";
+import { Card } from "@/components/ui/card";
+import { GlassScene } from "@/lib/glass/gpu/scene";
+
+export function Hero() {
+  const video = React.useRef<HTMLVideoElement>(null);
+  return (
+    <GlassScene source={video}>
+      <div className="relative">
+        <video ref={video} src="/hero.mp4" autoPlay muted loop playsInline
+          className="absolute inset-0 size-full object-cover" />
+        <Card>…</Card>
+      </div>
+    </GlassScene>
+  );
+}`;
+
 export const providerExample = `import { GlassConfigProvider } from "@/lib/glass/context";
 
 export function SnappyToolbar({ children }: { children: React.ReactNode }) {
@@ -125,7 +142,7 @@ export const tiers = [
     name: "reduced",
     who: "Safari, Firefox and everyone else",
     description:
-      "Blur, saturation and the pointer-reactive highlight, without edge lensing.",
+      "Blur, saturation and the pointer-reactive rim light, without edge lensing.",
   },
   {
     name: "none",

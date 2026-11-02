@@ -1,9 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { GLASS_DISPLACEMENT, GLASS_SPECULAR, GLASS_SPRING } from "./config";
+import {
+  GLASS_DISPLACEMENT,
+  GLASS_LENS,
+  GLASS_SPECULAR,
+  GLASS_SPRING,
+} from "./config";
 import type {
   GlassDisplacementConfig,
+  GlassLensConfig,
   GlassSpecularConfig,
   GlassSpringConfig,
   GlassVariant,
@@ -12,12 +18,14 @@ import type {
 export interface GlassConfig {
   spring: Record<"press" | "hover" | "drag", GlassSpringConfig>;
   displacement: Record<GlassVariant, GlassDisplacementConfig>;
+  lens: Record<GlassVariant, GlassLensConfig>;
   specular: GlassSpecularConfig;
 }
 
 const defaultConfig: GlassConfig = {
   spring: GLASS_SPRING,
   displacement: GLASS_DISPLACEMENT,
+  lens: GLASS_LENS,
   specular: GLASS_SPECULAR,
 };
 
@@ -28,11 +36,12 @@ type GlassConfigOverride = {
   displacement?: {
     [K in GlassVariant]?: Partial<GlassDisplacementConfig>;
   };
+  lens?: { [K in GlassVariant]?: Partial<GlassLensConfig> };
   specular?: Partial<GlassSpecularConfig>;
 };
 
 /**
- * Overrides the JS-side tunables — springs, refraction, specular — for every
+ * Overrides the JS-side tunables — springs, refraction, lens, specular — for every
  * Pane component inside it. Optional: without a provider, components read the
  * values in `config.ts`. Overrides merge onto the nearest parent, so a subtree
  * can change just the springs and keep everything else.
@@ -62,6 +71,14 @@ export function GlassConfigProvider({
         transparent: {
           ...parent.displacement.transparent,
           ...value.displacement?.transparent,
+        },
+      },
+      lens: {
+        default: { ...parent.lens.default, ...value.lens?.default },
+        blur: { ...parent.lens.blur, ...value.lens?.blur },
+        transparent: {
+          ...parent.lens.transparent,
+          ...value.lens?.transparent,
         },
       },
       specular: { ...parent.specular, ...value.specular },
