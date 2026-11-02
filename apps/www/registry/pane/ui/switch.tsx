@@ -15,7 +15,7 @@ function Switch({
       className={cn(
         // the ring sits on the glass: the pane clips anything drawn outside
         // the switch inside it
-        "inline-flex h-7 w-14 shrink-0 items-center has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/50",
+        "inline-flex h-7 w-14 shrink-0 items-center align-middle has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/50",
         // On: the track's glass fills with the accent, rim included. Both
         // fill tokens are needed — a Pane reads `--pane-tint-*` normally but
         // `--pane-nested-*` inside another Pane, so setting only the first

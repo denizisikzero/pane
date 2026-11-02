@@ -26,7 +26,7 @@ function RadioGroupItem({
     <Pane
       radius={999}
       className={cn(
-        "inline-flex size-5 shrink-0 has-[:disabled]:opacity-50 has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/50",
+        "inline-flex size-5 shrink-0 align-middle has-[:disabled]:opacity-50 has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/50",
         // Selected: the accent fills the glass, as in Checkbox and Switch
         "has-[[data-state=checked]]:[--pane-tint-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-accent-opacity),transparent)]",
         "has-[[data-state=checked]]:[--pane-nested-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-accent-opacity),transparent)]",

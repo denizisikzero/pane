@@ -14,7 +14,7 @@ function Checkbox({
     <Pane
       radius={999}
       className={cn(
-        "inline-flex size-5 shrink-0 has-[:disabled]:opacity-50 has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/50",
+        "inline-flex size-5 shrink-0 align-middle has-[:disabled]:opacity-50 has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/50",
         // Checked or indeterminate: the glass fills with the accent, rim included — both fill
         // tokens, as in Switch, so it still fills inside a card or dialog.
         "has-[[data-state=checked]]:[--pane-tint-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-accent-opacity),transparent)]",
