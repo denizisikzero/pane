@@ -10,7 +10,7 @@ export const wwwDir = path.resolve(import.meta.dirname, "../../../../apps/www");
 export interface RegistryItem {
   name: string;
   type: string;
-  files?: { path: string; type: string }[];
+  files?: { path: string; type: string; target?: string }[];
 }
 
 export function readRegistry(): { items: RegistryItem[] } {

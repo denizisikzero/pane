@@ -50,3 +50,41 @@ export function getStyleCssVars() {
 
   return `${rule(":root", cssVars.light)}\n\n${rule(".dark", cssVars.dark)}`;
 }
+
+/**
+ * A block's files as they land in a project: the page at its target route,
+ * its parts in components/, and their imports rewritten the way the shadcn
+ * CLI rewrites them on install.
+ */
+export function getBlockFiles(name: string) {
+  const registry = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), "registry.json"), "utf-8"),
+  ) as {
+    items: {
+      name: string;
+      files?: { path: string; target?: string }[];
+    }[];
+  };
+  const block = registry.items.find((item) => item.name === name);
+  if (!block) throw new Error(`No block named ${name} in registry.json`);
+
+  return (block.files ?? []).map((file) => ({
+    path: file.target ?? `components/${path.basename(file.path)}`,
+    // read through the blocks folder, so the bundler traces just that folder
+    // and not the whole project
+    code: fs
+      .readFileSync(
+        path.join(
+          REGISTRY_ROOT,
+          "blocks",
+          path.relative("registry/pane/blocks", file.path),
+        ),
+        "utf-8",
+      )
+      .trimEnd()
+      .replace(
+        /@\/registry\/pane\/blocks\/[^/]+\/components\//g,
+        "@/components/",
+      ),
+  }));
+}

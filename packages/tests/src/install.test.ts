@@ -24,9 +24,11 @@ const registry = readRegistry();
 const components = registry.items.filter(
   (item) => item.type === "registry:ui",
 );
-const files = registry.items.flatMap((item) =>
-  (item.files ?? []).map((file) => file.path),
-);
+const blocks = registry.items.filter((item) => item.type === "registry:block");
+// blocks are left out: the CLI rewrites their imports on purpose (see below)
+const files = registry.items
+  .filter((item) => item.type !== "registry:block")
+  .flatMap((item) => (item.files ?? []).map((file) => file.path));
 
 describe("install into a base-nova project", () => {
   let appDir: string;
@@ -46,7 +48,7 @@ describe("install into a base-nova project", () => {
         "-y",
         "shadcn@latest",
         "add",
-        ...components.map((item) => `@pane/${item.name}`),
+        ...[...components, ...blocks].map((item) => `@pane/${item.name}`),
         "--yes",
         "--overwrite",
       ],
@@ -66,6 +68,22 @@ describe("install into a base-nova project", () => {
     expect(fs.readFileSync(target, "utf8")).toBe(
       fs.readFileSync(path.join(wwwDir, file), "utf8"),
     );
+  });
+
+  // A block imports its own parts by their registry path; the CLI turns that
+  // into the project's components alias. Anything left pointing at
+  // registry/ would not resolve in a real project.
+  it.each(
+    blocks.flatMap((block) =>
+      (block.files ?? []).map((file) => ({ block: block.name, file })),
+    ),
+  )("installs $file.path with project imports", ({ file }) => {
+    const target = path.join(
+      appDir,
+      file.target ?? `components/${path.basename(file.path)}`,
+    );
+    expect(fs.existsSync(target), `${file.path} was not installed`).toBe(true);
+    expect(fs.readFileSync(target, "utf8")).not.toMatch(/@\/registry\//);
   });
 
   it("type-checks", async () => {

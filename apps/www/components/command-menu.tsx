@@ -4,6 +4,7 @@ import { useCommandState } from "cmdk";
 import {
   ArrowRightIcon,
   BlocksIcon,
+  LayoutTemplateIcon,
   MonitorIcon,
   MoonIcon,
   SearchIcon,
@@ -21,6 +22,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import { blocks } from "@/lib/blocks";
 import { docsNav } from "@/lib/site-config";
 
 const installCommand = (name: string) => `npx shadcn@latest add @pane/${name}`;
@@ -177,6 +179,18 @@ export function CommandMenu() {
               >
                 <BlocksIcon />
                 {item.title}
+              </CommandItem>
+            ))}
+          </CommandGroup>
+          <CommandGroup heading="Blocks">
+            {blocks.map((block) => (
+              <CommandItem
+                key={block.name}
+                value={block.title}
+                onSelect={() => run(() => router.push(`/blocks#${block.name}`))}
+              >
+                <LayoutTemplateIcon />
+                {block.title}
               </CommandItem>
             ))}
           </CommandGroup>

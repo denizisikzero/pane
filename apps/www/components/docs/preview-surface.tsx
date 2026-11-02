@@ -5,9 +5,8 @@ import { useTheme } from "next-themes";
 import * as React from "react";
 import { Pane } from "@/components/ui/pane";
 import { GlassScene } from "@/lib/glass/gpu/scene";
+import { usePreviewVideo } from "@/lib/use-preview-video";
 import { cn } from "@/lib/utils";
-
-const STORAGE_KEY = "pane-preview-video";
 
 /** one clip per theme — each is graded for the UI that sits on it */
 export const BACKGROUNDS = {
@@ -23,18 +22,8 @@ export function PreviewSurface({
   compact?: boolean;
   children: React.ReactNode;
 }) {
-  const [video, setVideo] = React.useState(false);
+  const [video, toggle] = usePreviewVideo();
   const { resolvedTheme } = useTheme();
-
-  React.useEffect(() => {
-    setVideo(localStorage.getItem(STORAGE_KEY) === "true");
-  }, []);
-
-  const toggle = () => {
-    const next = !video;
-    setVideo(next);
-    localStorage.setItem(STORAGE_KEY, String(next));
-  };
 
   // `resolvedTheme` is undefined until next-themes reads the DOM; staying null
   // through the first paint avoids flashing the light clip at dark-theme users
