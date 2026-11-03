@@ -12,12 +12,15 @@ import {
   getStyleCssVars,
   getStyleTokens,
 } from "@/lib/registry-source";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Theming",
   description:
     "Fine-tune the Pane glass with the --pane-* CSS variables, the accent color and the glass configuration.",
-};
+  path: "/docs/theming",
+  markdown: true,
+});
 
 const code = "rounded bg-foreground/[0.06] px-1.5 py-0.5 text-foreground";
 const link = "font-medium text-foreground underline underline-offset-4";

@@ -4,12 +4,16 @@ import Link from "next/link";
 import { PageHeader } from "@/components/docs/page-header";
 import { Surface } from "@/components/surface";
 import { componentsMeta } from "@/lib/components-meta";
+import { pageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Components",
-  description: "All available liquid-glass components.",
-};
+  description:
+    "Every Pane component — buttons, cards, dialogs, menus, sliders, glass text and more — with live previews and the code to install.",
+  path: "/docs/components",
+  markdown: true,
+});
 
 export default function ComponentsPage() {
   return (

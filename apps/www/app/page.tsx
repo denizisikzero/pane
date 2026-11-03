@@ -1,4 +1,5 @@
 import { ArrowRightIcon } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
@@ -7,7 +8,16 @@ import { PhotoTiles } from "@/components/home/photo-tiles";
 import { InstallCommand } from "@/components/install-command";
 import { Button } from "@/components/ui/button";
 import { componentsMeta } from "@/lib/components-meta";
+import { pageMetadata } from "@/lib/seo";
+import { getSiteUrl, siteConfig } from "@/lib/site-config";
 import packageJson from "../package.json";
+
+export const metadata: Metadata = pageMetadata({
+  title: `${siteConfig.name} · ${siteConfig.tagline}`,
+  description: siteConfig.description,
+  path: "/",
+  absoluteTitle: true,
+});
 
 const next = [
   {
@@ -27,9 +37,45 @@ const next = [
   },
 ];
 
+/** Structured data: the site, and the library as open-source code. */
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      name: siteConfig.name,
+      url: getSiteUrl(),
+      description: siteConfig.description,
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      name: siteConfig.name,
+      description: siteConfig.description,
+      url: getSiteUrl(),
+      codeRepository: siteConfig.links.github,
+      programmingLanguage: ["TypeScript", "React"],
+      runtimePlatform: "Web browser",
+      license: "https://opensource.org/licenses/MIT",
+      version: packageJson.version,
+      author: {
+        "@type": "Person",
+        name: siteConfig.author.name,
+        url: siteConfig.author.url,
+      },
+    },
+  ],
+};
+
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: our own static JSON; `<` escaped so it can't close the script tag
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <Header />
 
       <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-28 px-4 pt-16 sm:gap-36 sm:pt-24">

@@ -33,18 +33,31 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
+  authors: [siteConfig.author],
+  creator: siteConfig.author.name,
+  category: "technology",
   keywords: [
     "liquid glass",
+    "liquid glass React",
+    "liquid glass CSS",
+    "Apple liquid glass",
     "glassmorphism",
+    "glass UI",
     "React components",
+    "Next.js components",
     "shadcn",
+    "shadcn/ui",
     "shadcn registry",
+    "Radix UI",
     "Tailwind CSS",
+    "WebGPU",
     "UI components",
-    "Apple design",
   ],
+  // no canonical here: every page sets its own (lib/seo.ts), and one on the
+  // layout would point all of them at the home page
   openGraph: {
     type: "website",
+    locale: "en_US",
     url: getSiteUrl(),
     siteName: siteConfig.name,
     title: `${siteConfig.name} · ${siteConfig.tagline}`,
@@ -58,6 +71,12 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 

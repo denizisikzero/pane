@@ -3,12 +3,15 @@ import { PageHeader } from "@/components/docs/page-header";
 import { Surface } from "@/components/surface";
 import { Badge } from "@/components/ui/badge";
 import { getReleases } from "@/lib/releases";
+import { pageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Changelog",
   description: "Every Pane release, newest first.",
-};
+  path: "/docs/changelog",
+  markdown: true,
+});
 
 /** Release notes are plain text with `code` spans, as GitHub renders them. */
 function Inline({ text }: { text: string }) {

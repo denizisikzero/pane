@@ -5,12 +5,14 @@ import { Header } from "@/components/header";
 import { Playground } from "@/components/playground/playground";
 import { componentsMeta } from "@/lib/components-meta";
 import { getBlockFiles } from "@/lib/registry-source";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Playground",
   description:
-    "Pick a look for Pane: tune the glass on a real landing page and on every component at once, then install it with one command.",
-};
+    "Tune liquid glass live: accent, border, radius, density, refraction and springs, on a design studio's site and every Pane component at once — then copy one install line.",
+  path: "/playground",
+});
 
 export default function PlaygroundPage() {
   const files = getBlockFiles("landing-01").map((file) => ({

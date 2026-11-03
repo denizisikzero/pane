@@ -5,12 +5,15 @@ import { PageHeader } from "@/components/docs/page-header";
 import { Step, Steps } from "@/components/docs/steps";
 import { Surface } from "@/components/surface";
 import { mcpClients, mcpPrompts, registryConfig } from "@/lib/docs-content";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "MCP server",
   description:
     "Use the Pane registry with the shadcn MCP server, and let your AI assistant browse and install components for you.",
-};
+  path: "/docs/mcp",
+  markdown: true,
+});
 
 const code = "rounded bg-foreground/[0.06] px-1.5 py-0.5 text-foreground";
 const link = "font-medium text-foreground underline underline-offset-4";

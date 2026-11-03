@@ -8,11 +8,14 @@ import { Step, Steps } from "@/components/docs/steps";
 import { Surface } from "@/components/surface";
 import { Pane } from "@/components/ui/pane";
 import { installUsage, requirements } from "@/lib/docs-content";
-export const metadata: Metadata = {
+import { pageMetadata } from "@/lib/seo";
+export const metadata: Metadata = pageMetadata({
   title: "Installation",
   description:
-    "Install Pane components with the shadcn CLI using the @pane namespace.",
-};
+    "Install Pane in four steps: set up shadcn/ui, set the look, add a component with the @pane namespace, use it.",
+  path: "/docs/installation",
+  markdown: true,
+});
 
 const code = "rounded bg-foreground/[0.06] px-1.5 py-0.5 text-foreground";
 const link = "font-medium text-foreground underline underline-offset-4";

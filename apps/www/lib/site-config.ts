@@ -2,7 +2,8 @@ export const siteConfig = {
   name: "Pane",
   tagline: "Liquid glass components for React.",
   description:
-    "A shadcn-compatible component registry recreating Apple's liquid glass material. Copy the code or install with the shadcn CLI — no npm package required.",
+    "Liquid glass components for React: a shadcn registry that recreates Apple's material with real refraction, rim light and spring physics. Install with the shadcn CLI and own the code.",
+  author: { name: "Deniz Isik", url: "https://github.com/denizisikzero" },
   links: {
     github: "https://github.com/denizisikzero/pane",
   },

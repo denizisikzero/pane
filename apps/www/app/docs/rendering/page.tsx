@@ -5,12 +5,15 @@ import { LinkCard } from "@/components/docs/link-card";
 import { PageHeader } from "@/components/docs/page-header";
 import { Surface } from "@/components/surface";
 import { renderers, sceneExample, tiers } from "@/lib/docs-content";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Rendering",
   description:
     "How Pane draws its glass: the WebGPU lens inside a GlassScene, SVG refraction in Chromium, and the CSS fallback — and how to tune each one.",
-};
+  path: "/docs/rendering",
+  markdown: true,
+});
 
 const code = "rounded bg-foreground/[0.06] px-1.5 py-0.5 text-foreground";
 

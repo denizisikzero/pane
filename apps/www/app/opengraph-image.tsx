@@ -11,16 +11,21 @@ export const size = {
 
 export const contentType = "image/png";
 
+const dataUrl = (bytes: Buffer, type: string) =>
+  `data:${type};base64,${bytes.toString("base64")}`;
+
+/**
+ * The card links get: the logo, the wordmark in Instrument Serif with the
+ * header's glass gradient, the tagline — and a render beside them, as on the
+ * site.
+ */
 export default async function Image() {
-  const logo = await readFile(join(process.cwd(), "public/logo.png"));
-  const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
-  // A frame of the site's dark backdrop clip. ImageResponse can't blur what's
-  // behind an element, so the frost under the card is baked into this image —
-  // the card below must keep the same size to sit exactly on it.
-  const background = await readFile(
-    join(process.cwd(), "public/og-background.jpg"),
-  );
-  const backgroundSrc = `data:image/jpeg;base64,${background.toString("base64")}`;
+  // literal paths, so the build traces just these three files
+  const [serif, logo, render] = await Promise.all([
+    readFile(join(process.cwd(), "lib/fonts/instrument-serif-italic.ttf")),
+    readFile(join(process.cwd(), "app/icon.svg")),
+    readFile(join(process.cwd(), "public/previews/chrome.jpg")),
+  ]);
 
   return new ImageResponse(
     <div
@@ -29,9 +34,10 @@ export default async function Image() {
         height: "100%",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
-        backgroundImage: `url(${backgroundSrc})`,
-        backgroundSize: "1200px 630px",
+        justifyContent: "space-between",
+        gap: 56,
+        padding: 56,
+        background: "#f5f5f7",
         fontFamily: "sans-serif",
       }}
     >
@@ -39,56 +45,70 @@ export default async function Image() {
         style={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
           gap: 28,
-          width: 760,
-          height: 440,
-          borderRadius: 48,
-          background: "rgba(28, 28, 32, 0.35)",
-          border: "1px solid rgba(255, 255, 255, 0.28)",
-          boxShadow: "0 24px 80px rgba(0, 0, 0, 0.45)",
+          paddingLeft: 24,
+          flex: 1,
         }}
       >
         {/* biome-ignore lint/performance/noImgElement: ImageResponse renders JSX to a static PNG — next/image does not exist here */}
         <img
-          src={logoSrc}
-          width={200}
-          height={200}
+          src={dataUrl(logo, "image/svg+xml")}
+          width={84}
+          height={84}
           alt=""
-          style={{ borderRadius: 48 }}
         />
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 10,
+            fontFamily: "Instrument Serif",
+            fontStyle: "italic",
+            fontSize: 196,
+            lineHeight: 1,
+            letterSpacing: "-0.015em",
+            paddingRight: 16,
+            // the header's glass-text gradient
+            backgroundImage:
+              "linear-gradient(115deg, #7e7e80 0%, #1d1d1f 35%, #c9c9cc 50%, #1d1d1f 65%, #7e7e80 100%)",
+            backgroundClip: "text",
+            color: "transparent",
           }}
         >
-          <div
-            style={{
-              fontSize: 88,
-              fontWeight: 700,
-              letterSpacing: "-0.03em",
-              color: "#ffffff",
-              textShadow: "0 2px 24px rgba(0, 0, 0, 0.35)",
-            }}
-          >
-            {siteConfig.name}
-          </div>
-          <div
-            style={{
-              fontSize: 36,
-              fontWeight: 500,
-              color: "rgba(255, 255, 255, 0.85)",
-            }}
-          >
-            {siteConfig.tagline}
-          </div>
+          {siteConfig.name}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            fontSize: 38,
+            lineHeight: 1.25,
+            color: "#1d1d1f",
+            maxWidth: 520,
+          }}
+        >
+          {siteConfig.tagline}
+        </div>
+        <div style={{ display: "flex", fontSize: 26, color: "#6e6e73" }}>
+          pane.theui.company
         </div>
       </div>
+      {/* biome-ignore lint/performance/noImgElement: ImageResponse renders JSX to a static PNG — next/image does not exist here */}
+      <img
+        src={dataUrl(render, "image/jpeg")}
+        width={460}
+        height={518}
+        alt=""
+        style={{ borderRadius: 44, objectFit: "cover" }}
+      />
     </div>,
-    size,
+    {
+      ...size,
+      fonts: [
+        {
+          name: "Instrument Serif",
+          data: serif,
+          style: "italic",
+          weight: 400,
+        },
+      ],
+    },
   );
 }

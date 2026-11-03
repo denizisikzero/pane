@@ -8,12 +8,16 @@ import { Surface } from "@/components/surface";
 import { componentsMeta } from "@/lib/components-meta";
 import { introSections } from "@/lib/docs-content";
 import { features } from "@/lib/features";
+import { pageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Introduction",
-  description: siteConfig.description,
-};
+  description:
+    "What Pane is: liquid-glass React components on one glass primitive, installed with the shadcn CLI, with three renderers from WebGPU to CSS.",
+  path: "/docs",
+  markdown: true,
+});
 
 const link = "font-medium text-foreground underline underline-offset-4";
 
