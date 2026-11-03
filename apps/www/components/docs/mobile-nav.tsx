@@ -18,7 +18,7 @@ export function MobileNav() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button size="icon" aria-label="Open navigation">
+        <Button size="icon" variant="ghost" aria-label="Open navigation">
           <MenuIcon />
         </Button>
       </SheetTrigger>
@@ -27,7 +27,7 @@ export function MobileNav() {
           <SheetTitle>Documentation</SheetTitle>
         </SheetHeader>
         <div className="overflow-y-auto">
-          <DocsNav panel mobile onNavigate={() => setOpen(false)} />
+          <DocsNav mobile onNavigate={() => setOpen(false)} />
         </div>
       </SheetContent>
     </Sheet>

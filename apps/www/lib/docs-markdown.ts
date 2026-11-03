@@ -2,13 +2,19 @@ import { accentCss, accentNames, DEFAULT_ACCENT } from "@/lib/accents";
 import { componentsMeta, getComponentMeta } from "@/lib/components-meta";
 import {
   installUsage,
+  introSections,
+  mcpClients,
+  mcpPrompts,
   providerExample,
+  registryConfig,
+  renderers,
   requirements,
   sceneExample,
   tiers,
   tokenGroups,
 } from "@/lib/docs-content";
 import { features } from "@/lib/features";
+import { options } from "@/lib/glass-theme";
 import {
   getExampleSource,
   getGlassSource,
@@ -42,39 +48,27 @@ const url = (path: string) => `${getSiteUrl()}${path}`;
 function introduction() {
   return [
     "# Introduction",
-    `${siteConfig.name} is a set of liquid-glass components for React, distributed as a shadcn registry. Every one of them is built on a single primitive, \`<Pane>\`, so they refract, tint and respond as one material.`,
+    `${siteConfig.name} is an open source library of liquid-glass components for React, distributed as a shadcn registry. Every one of them is built on a single primitive, \`<Pane>\`, so they refract, tint and respond as one material.`,
+    ...introSections.flatMap((section) => [
+      `## ${section.title}`,
+      ...section.body,
+    ]),
+    `See [Rendering](${url("/docs/rendering.md")}) for each renderer and how to opt into the WebGPU lens.`,
     "## What makes it glass",
     features.map((f) => `- **${f.title}.** ${f.description}`).join("\n"),
     "## Next steps",
     [
       `- [Installation](${url("/docs/installation.md")}): add your first component with the shadcn CLI.`,
-      `- [Theming](${url("/docs/theming.md")}): tune tint, blur, refraction and springs.`,
+      `- [Theming](${url("/docs/theming.md")}): the tokens, the accent color and the glass config.`,
+      `- [Rendering](${url("/docs/rendering.md")}): the WebGPU lens, SVG refraction and the CSS fallback.`,
+      `- [MCP server](${url("/docs/mcp.md")}): let your AI assistant browse and install components.`,
       `- [Components](${url("/docs/components.md")}): all ${componentsMeta.length} components.`,
+      `- [Playground](${url("/playground")}): pick a look, see a studio site and every component take it, and copy the install line.`,
     ].join("\n"),
   ];
 }
 
-function installation() {
-  return [
-    "# Installation",
-    "Pane ships as a shadcn registry. Add components with the shadcn CLI, or copy the source from any component page — both put the same code in your project.",
-    "## 1. Set up shadcn/ui",
-    "Skip this if your project already has a `components.json`. Otherwise initialize shadcn in it first:",
-    fence("bash", "npx shadcn@latest init"),
-    "## 2. Add a component",
-    fence("bash", "npx shadcn@latest add @pane/button"),
-    `Swap \`button\` for any name from the [components](${url("/docs/components.md")}) list. Dependencies come along automatically: the \`Pane\` primitive, the glass engine, and the \`--pane-*\` variables in your \`globals.css\`.`,
-    "## 3. Use it",
-    fence("tsx", installUsage),
-    `Glass shows best over something colorful. To change how it looks, see [Theming](${url("/docs/theming.md")}).`,
-    "## Already using shadcn/ui?",
-    "Pane components install into `components/ui/` under their own names, so adding `@pane/button` to a project that has the shadcn `button` asks to overwrite it. Keep both by pointing the `ui` alias elsewhere, or rename the file after install.",
-    "## Requirements",
-    requirements.map((r) => `- **${r.title}.** ${r.description}`).join("\n"),
-  ];
-}
-
-function theming() {
+function tokens() {
   const { light, dark } = getStyleTokens();
   const described = new Set(tokenGroups.flatMap((g) => Object.keys(g.tokens)));
   const other = Object.keys(light).filter((name) => !described.has(name));
@@ -87,24 +81,51 @@ function theming() {
         },
       ]
     : tokenGroups;
+  return groups.flatMap((group) => [
+    `### ${group.title}`,
+    table(
+      ["Token", "Light", "Dark", "Description"],
+      Object.entries(group.tokens).map(([name, description]) => [
+        `\`--${name}\``,
+        `\`${light[name] ?? "—"}\``,
+        `\`${dark[name] ?? light[name] ?? "—"}\``,
+        description,
+      ]),
+    ),
+  ]);
+}
 
+function installation() {
+  return [
+    "# Installation",
+    "Four steps from an empty project to glass on the page. Pane ships as a shadcn registry, so the code lands in your project and stays yours.",
+    "## 1. Set up shadcn/ui",
+    "Skip this if your project already has a `components.json`. Otherwise initialize shadcn in it first:",
+    fence("bash", "npx shadcn@latest init"),
+    "## 2. Set the look",
+    `Pick a border, an accent, a radius and a density in the [playground](${url("/playground")}) and run the command it gives you. Skip it to keep the default glass — the first component you add brings that along.`,
+    fence("bash", "npx shadcn@latest add @pane/styles/glow-green-round-thin"),
+    "## 3. Add a component",
+    fence("bash", "npx shadcn@latest add @pane/button"),
+    `Swap \`button\` for any name from the [components](${url("/docs/components.md")}) list, or a whole page from the [playground](${url("/playground")}). Dependencies come along automatically: the \`Pane\` primitive, the glass engine, and the \`--pane-*\` variables in your \`globals.css\`.`,
+    "## 4. Use it",
+    fence("tsx", installUsage),
+    `Glass shows best over something colorful. For real lensing over a video, see [Rendering](${url("/docs/rendering.md")}).`,
+    "## Already using shadcn/ui?",
+    "Pane components install into `components/ui/` under their own names, so adding `@pane/button` to a project that has the shadcn `button` asks to overwrite it. Keep both by pointing the `ui` alias elsewhere, or rename the file after install.",
+    "## Requirements",
+    requirements.map((r) => `- **${r.title}.** ${r.description}`).join("\n"),
+  ];
+}
+
+function theming() {
   return [
     "# Theming",
-    "The glass is driven by CSS variables and one config file. Change them once and every component built on `<Pane>` follows.",
+    `The glass is driven by CSS variables and one config file. Pick a look in the [playground](${url("/playground")}), or change them by hand — every component built on \`<Pane>\` follows.`,
+    `Choose a border (${options.border.map((o) => o.value).join(", ")}), an accent (${accentNames.join(", ")}), a radius (${options.radius.map((o) => o.value).join(", ")}) and a density (${options.density.map((o) => o.value).join(", ")}) in the [playground](${url("/playground")}). It gives you a command such as \`npx shadcn@latest add @pane/styles/hairline-blue-sharp-thick\` — the slug is \`<border>-<accent>-<radius>-<density>\`. Any color works as the accent too: its six hex digits go in the slug, as in \`glow-ff5500-default-regular\`.`,
     "## Glass tokens",
     "Installation adds these `--pane-*` variables to the stylesheet set in `components.json`, usually `app/globals.css`. Light values live on `:root`, and `.dark` overrides them in dark mode. Focus rings use your theme's `--ring`, as shadcn/ui components do.",
-    ...groups.flatMap((group) => [
-      `### ${group.title}`,
-      table(
-        ["Token", "Light", "Dark", "Description"],
-        Object.entries(group.tokens).map(([name, description]) => [
-          `\`--${name}\``,
-          `\`${light[name] ?? "—"}\``,
-          `\`${dark[name] ?? light[name] ?? "—"}\``,
-          description,
-        ]),
-      ),
-    ]),
+    ...tokens(),
     "### Full CSS",
     fence("css", getStyleCssVars()),
     "## Accent color",
@@ -112,20 +133,63 @@ function theming() {
     `Ready-made presets: ${accentNames.map((n) => `\`${n}\``).join(", ")}. The default, ${DEFAULT_ACCENT}:`,
     fence("css", accentCss(DEFAULT_ACCENT)),
     "## Refraction and springs",
-    "Anything that feeds the SVG refraction filter, the WebGPU lens or the spring physics has to live in JS, in `lib/glass/config.ts`. Open it for more or less lensing, a stronger chromatic edge, or snappier or softer press feedback.",
+    `Anything that feeds the SVG filter, the WebGPU lens or the spring physics lives in JS, in \`lib/glass/config.ts\`. Open it for more or less lensing, a stronger chromatic edge, or snappier or softer press feedback — or tune it by eye in the [playground](${url("/playground")}) and copy the result.`,
     fence("tsx", getGlassSource("config")),
     "## Overrides for one section",
-    `To change the springs or the refraction for part of a page only, wrap it in \`GlassConfigProvider\`. It merges onto the values above, so pass just what differs. Try values live in the [playground](${url("/playground")}).`,
+    "To change the springs or the refraction for part of a page only, wrap it in `GlassConfigProvider`. It merges onto the values above, so pass just what differs.",
     fence("tsx", providerExample),
-    "## WebGPU glass",
-    "Wrap a section in `GlassScene` and give it the video, image or canvas behind it. Every Pane inside then draws its glass in a WebGPU shader: the rim bends the backdrop like a real lens, splits it into a faint color fringe and catches the light — in any browser with WebGPU, Safari and Firefox included. Tune it with `GLASS_LENS` in the config above.",
-    "WebGPU can't see what the browser painted, so the lens bends only that source: text or other elements between it and a pane aren't refracted. Outside a scene, without WebGPU, or until the source has loaded, panes keep the CSS glass described below.",
+  ];
+}
+
+function rendering() {
+  return [
+    "# Rendering",
+    "One material, three ways to draw it. Every component has the same props and looks the same in all of them; Pane picks the best one the browser can do, and you choose where the WebGPU lens runs.",
+    "## Choosing a renderer",
+    "You don't pick per component. Outside a `GlassScene` a pane uses SVG refraction where the browser supports it and CSS glass where it doesn't; inside one, it draws with the WebGPU lens.",
+    table(
+      ["", ...renderers.map((r) => r.name)],
+      (
+        [
+          ["Used", "where"],
+          ["Browsers", "browsers"],
+          ["Refraction", "refraction"],
+          ["Bends", "source"],
+          ["Cost", "cost"],
+        ] as const
+      ).map(([label, key]) => [label, ...renderers.map((r) => r[key])]),
+    ),
+    "## The WebGPU lens",
+    "Wrap a section in `GlassScene` and give it the video, image or canvas behind it. Every Pane inside then draws its glass in a WebGPU shader: the rim bends the backdrop like a real lens, splits it into a faint color fringe and catches the light — in any browser with WebGPU, Safari and Firefox included.",
     fence("tsx", sceneExample),
+    "WebGPU can't see what the browser painted, so the lens bends only that source: text or other elements between it and a pane aren't refracted. Outside a scene, without WebGPU, or until the source has loaded, panes keep the glass described below.",
+    "## SVG refraction",
+    "Everywhere else in Chromium, each pane builds a displacement map for its exact size and corner radius and runs the backdrop through an SVG filter, so the rim warps whatever the page painted behind it. Panes too small to show it skip the filter, and a pane inside another pane swaps to a flat tint — glass can't stack.",
     "## Quality tiers",
     "`use-glass-support` checks what the browser can do, honors `prefers-reduced-transparency`, and picks one of three tiers. Nothing to configure — it's automatic.",
     tiers
       .map((t) => `- **\`${t.name}\`** (${t.who}): ${t.description}`)
       .join("\n"),
+  ];
+}
+
+function mcp() {
+  return [
+    "# MCP server",
+    "Use the Pane registry with the shadcn MCP server, and let your AI assistant browse, search and install components for you.",
+    "## 1. Configure the registry",
+    "The `@pane` namespace works with or without MCP. To pin it in your project, add it to `components.json`:",
+    fence("json", registryConfig),
+    "## 2. Set up your client",
+    ...mcpClients.flatMap((c) => [
+      `### ${c.name}`,
+      fence("bash", c.command),
+      c.after,
+    ]),
+    "## 3. Ask for what you want",
+    mcpPrompts.map((p) => `- "${p}"`).join("\n"),
+    "## Docs for LLMs",
+    "Every docs page has a Markdown twin at the same address plus `.md`, and the plain address returns it to clients that ask for `text/markdown`.",
   ];
 }
 
@@ -205,6 +269,8 @@ export function docsMarkdownSlugs(): string[][] {
     [],
     ["installation"],
     ["theming"],
+    ["rendering"],
+    ["mcp"],
     ["changelog"],
     ["components"],
     ...componentsMeta.map((c) => ["components", c.slug]),
@@ -220,13 +286,17 @@ export async function getDocMarkdown(slug: string[]) {
         ? installation()
         : key === "theming"
           ? theming()
-          : key === "changelog"
-            ? await changelog()
-            : key === "components"
-              ? components()
-              : slug.length === 2 && slug[0] === "components"
-                ? component(slug[1])
-                : null;
+          : key === "rendering"
+            ? rendering()
+            : key === "mcp"
+              ? mcp()
+              : key === "changelog"
+                ? await changelog()
+                : key === "components"
+                  ? components()
+                  : slug.length === 2 && slug[0] === "components"
+                    ? component(slug[1])
+                    : null;
   return blocks ? `${blocks.join("\n\n")}\n` : null;
 }
 

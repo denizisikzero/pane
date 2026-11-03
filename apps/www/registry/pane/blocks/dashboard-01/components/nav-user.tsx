@@ -35,7 +35,7 @@ export function NavUser({
         <DropdownMenu>
           {/* styled on the trigger itself rather than through asChild, which
               Base UI installs rewrite */}
-          <DropdownMenuTrigger className="flex h-12 w-full items-center gap-2 rounded-[12px] p-2 text-left text-sm outline-none transition-colors hover:bg-foreground/[0.05] focus-visible:ring-[3px] focus-visible:ring-ring/50 data-[state=open]:bg-foreground/[0.05] group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:p-0">
+          <DropdownMenuTrigger className="flex h-12 w-full items-center gap-2 rounded-[calc(12px*var(--pane-radius-scale,1))] p-2 text-left text-sm outline-none transition-colors hover:bg-foreground/[0.05] focus-visible:ring-[3px] focus-visible:ring-ring/50 data-[state=open]:bg-foreground/[0.05] group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:p-0">
             <Avatar>
               <AvatarFallback>{initials}</AvatarFallback>
             </Avatar>

@@ -15,19 +15,19 @@ import type {
 
 export const GLASS_DISPLACEMENT: Record<GlassVariant, GlassDisplacementConfig> =
   {
-    default: {
+    regular: {
       strength: 15,
       edge: 17,
       chromaticAberration: 1.4,
       blur: 0.6,
     },
-    blur: {
+    thick: {
       strength: 11,
       edge: 13,
       chromaticAberration: 0.9,
       blur: 0.6,
     },
-    transparent: {
+    thin: {
       strength: 15,
       edge: 17,
       chromaticAberration: 1.4,
@@ -36,9 +36,9 @@ export const GLASS_DISPLACEMENT: Record<GlassVariant, GlassDisplacementConfig> =
   };
 
 export const GLASS_LENS: Record<GlassVariant, GlassLensConfig> = {
-  default: { refraction: 22, bezel: 24, dispersion: 0.12 },
-  blur: { refraction: 16, bezel: 18, dispersion: 0.08 },
-  transparent: { refraction: 22, bezel: 24, dispersion: 0.12 },
+  regular: { refraction: 22, bezel: 24, dispersion: 0.12 },
+  thick: { refraction: 16, bezel: 18, dispersion: 0.08 },
+  thin: { refraction: 22, bezel: 24, dispersion: 0.12 },
 };
 
 export const GLASS_SPECULAR: GlassSpecularConfig = {

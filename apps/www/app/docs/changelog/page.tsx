@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/docs/page-header";
+import { Surface } from "@/components/surface";
 import { Badge } from "@/components/ui/badge";
-import { Pane } from "@/components/ui/pane";
 import { getReleases } from "@/lib/releases";
 import { siteConfig } from "@/lib/site-config";
 
@@ -72,11 +72,7 @@ export default async function ChangelogPage() {
       <ol className="flex flex-col gap-8">
         {releases.map((release, index) => (
           <li key={release.version}>
-            <Pane
-              variant="blur"
-              radius={20}
-              className="flex flex-col gap-4 p-6"
-            >
+            <Surface radius={20} className="flex flex-col gap-4 p-6">
               <div className="flex flex-wrap items-center gap-2.5">
                 <h2 className="mr-1 text-xl font-semibold">
                   <a
@@ -88,7 +84,7 @@ export default async function ChangelogPage() {
                     v{release.version}
                   </a>
                 </h2>
-                {index === 0 ? <Badge variant="prominent">Latest</Badge> : null}
+                {index === 0 ? <Badge variant="inverted">Latest</Badge> : null}
                 {release.prerelease ? <Badge>Pre-release</Badge> : null}
                 <time
                   dateTime={release.date}
@@ -125,7 +121,7 @@ export default async function ChangelogPage() {
                   </ul>
                 </div>
               ))}
-            </Pane>
+            </Surface>
           </li>
         ))}
       </ol>

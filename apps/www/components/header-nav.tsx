@@ -1,15 +1,14 @@
 "use client";
 
+import { motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Pane } from "@/components/ui/pane";
 import { GLASS_SPRING } from "@/lib/glass/config";
 import { cn } from "@/lib/utils";
 
 const links = [
   { title: "Docs", href: "/docs" },
   { title: "Components", href: "/docs/components" },
-  { title: "Blocks", href: "/blocks" },
   { title: "Playground", href: "/playground" },
 ];
 
@@ -42,11 +41,10 @@ export function HeaderNav() {
             )}
           >
             {active ? (
-              <Pane
+              <motion.span
                 layoutId="header-nav-indicator"
                 transition={GLASS_SPRING.hover}
-                radius={999}
-                className="-z-10 absolute inset-0"
+                className="-z-10 absolute inset-0 rounded-full bg-foreground/[0.07]"
               />
             ) : null}
             {link.title}

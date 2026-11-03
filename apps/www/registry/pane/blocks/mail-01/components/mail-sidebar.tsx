@@ -65,7 +65,7 @@ export function MailSidebar({
               onClick={onCompose}
               className="font-medium text-foreground"
             >
-              <span className="flex size-8 shrink-0 items-center justify-center rounded-[10px] bg-foreground text-background">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-[calc(10px*var(--pane-radius-scale,1))] bg-foreground text-background">
                 <PenSquareIcon className="size-4" />
               </span>
               <span>Compose</span>

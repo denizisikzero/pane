@@ -2,7 +2,7 @@
 
 import { CheckIcon, CopyIcon } from "lucide-react";
 import { useState } from "react";
-import { Pane } from "@/components/ui/pane";
+import { Surface } from "@/components/surface";
 import { cn } from "@/lib/utils";
 
 export function InstallCommand({
@@ -15,7 +15,7 @@ export function InstallCommand({
   const [copied, setCopied] = useState(false);
 
   return (
-    <Pane
+    <Surface
       radius={compact ? 16 : 20}
       interactive
       className="inline-flex max-w-full"
@@ -41,6 +41,6 @@ export function InstallCommand({
           <CopyIcon className="size-4 text-muted-foreground" />
         )}
       </button>
-    </Pane>
+    </Surface>
   );
 }

@@ -11,6 +11,7 @@ export interface RegistryItem {
   name: string;
   type: string;
   files?: { path: string; type: string; target?: string }[];
+  cssVars?: { light?: Record<string, string>; dark?: Record<string, string> };
 }
 
 export function readRegistry(): { items: RegistryItem[] } {

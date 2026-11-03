@@ -2,13 +2,18 @@ import fs from "node:fs";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import {
+  type GlassTheme,
+  themeSlug,
+  themeStyleItem,
+} from "../../../apps/www/lib/glass-theme";
+import {
   createNextApp,
   installedPath,
   readRegistry,
   run,
   serveRegistry,
-  wwwDir,
   writeComponentsJson,
+  wwwDir,
 } from "./utils/helpers";
 
 /**
@@ -21,9 +26,7 @@ import {
 
 const PORT = 4321;
 const registry = readRegistry();
-const components = registry.items.filter(
-  (item) => item.type === "registry:ui",
-);
+const components = registry.items.filter((item) => item.type === "registry:ui");
 const blocks = registry.items.filter((item) => item.type === "registry:block");
 // blocks are left out: the CLI rewrites their imports on purpose (see below)
 const files = registry.items
@@ -88,5 +91,64 @@ describe("install into a base-nova project", () => {
 
   it("type-checks", async () => {
     await run("npx", ["tsc", "--noEmit", "-p", "."], appDir);
+  });
+
+  // The playground hands out `shadcn add <site>/r/styles/<slug>.json`
+  // for a project that already has the components. That only works if the CLI
+  // overwrites the tokens the default pane-style wrote, rather than keeping them.
+  it("applies a playground theme over the installed tokens", async () => {
+    const theme: GlassTheme = {
+      border: "hairline",
+      accent: "blue",
+      radius: "sharp",
+      density: "thick",
+    };
+    const slug = themeSlug(theme);
+    const base = registry.items.find((item) => item.name === "pane-style");
+    const dir = path.join(wwwDir, "public", "r", "styles");
+    const file = path.join(dir, `${slug}.json`);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(file, JSON.stringify(themeStyleItem(base ?? {}, theme)));
+    try {
+      await run(
+        "npx",
+        [
+          "-y",
+          "shadcn@latest",
+          "add",
+          // the short form the playground shows: the @pane namespace resolves
+          // `{name}` to styles/<slug>, which is where the theme is served
+          `@pane/styles/${slug}`,
+          "--yes",
+          "--overwrite",
+        ],
+        appDir,
+      );
+    } finally {
+      fs.rmSync(file);
+    }
+    const check = () => {
+      const css = fs.readFileSync(path.join(appDir, "app/globals.css"), "utf8");
+      const value = (scope: string, name: string) =>
+        css
+          .slice(css.indexOf(`${scope} {`))
+          .match(new RegExp(`--${name}:\\s*([^;]+);`))?.[1]
+          .trim();
+      expect(value(":root", "pane-radius-scale")).toBe("0.3");
+      expect(value(":root", "pane-rim")).toBe("0");
+      expect(value(":root", "pane-blur-thick")).toBe("20px");
+      expect(value(":root", "pane-accent")).toBe("#007aff");
+      expect(value(".dark", "pane-accent")).toBe("#0a84ff");
+    };
+    check();
+
+    // adding a component afterwards pulls in the default pane-style again as a
+    // dependency; the theme has to survive that
+    await run(
+      "npx",
+      ["-y", "shadcn@latest", "add", "@pane/badge", "--yes"],
+      appDir,
+    );
+    check();
   });
 });

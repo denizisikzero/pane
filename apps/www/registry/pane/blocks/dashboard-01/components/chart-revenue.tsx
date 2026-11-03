@@ -108,7 +108,7 @@ export function ChartRevenue() {
   };
 
   return (
-    <Card variant="blur" radius={24} className="mx-4 lg:mx-6">
+    <Card variant="thick" radius={24} className="mx-4 lg:mx-6">
       <CardHeader>
         <CardTitle>Revenue</CardTitle>
         <CardDescription>
@@ -214,7 +214,7 @@ export function ChartRevenue() {
                 }}
               />
               <div
-                className="pointer-events-none absolute top-2 z-10 min-w-36 rounded-xl border border-foreground/10 bg-background/80 px-3 py-2 text-xs shadow-lg backdrop-blur-md"
+                className="pointer-events-none absolute top-2 z-10 min-w-36 rounded-[calc(12px*var(--pane-radius-scale,1))] border border-foreground/10 bg-background/80 px-3 py-2 text-xs shadow-lg backdrop-blur-md"
                 style={{
                   left: `${(chart.current[hover][0] / WIDTH) * 100}%`,
                   transform:

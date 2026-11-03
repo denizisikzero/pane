@@ -63,22 +63,22 @@ export function GlassConfigProvider({
         drag: { ...parent.spring.drag, ...value.spring?.drag },
       },
       displacement: {
-        default: {
-          ...parent.displacement.default,
-          ...value.displacement?.default,
+        regular: {
+          ...parent.displacement.regular,
+          ...value.displacement?.regular,
         },
-        blur: { ...parent.displacement.blur, ...value.displacement?.blur },
-        transparent: {
-          ...parent.displacement.transparent,
-          ...value.displacement?.transparent,
+        thick: { ...parent.displacement.thick, ...value.displacement?.thick },
+        thin: {
+          ...parent.displacement.thin,
+          ...value.displacement?.thin,
         },
       },
       lens: {
-        default: { ...parent.lens.default, ...value.lens?.default },
-        blur: { ...parent.lens.blur, ...value.lens?.blur },
-        transparent: {
-          ...parent.lens.transparent,
-          ...value.lens?.transparent,
+        regular: { ...parent.lens.regular, ...value.lens?.regular },
+        thick: { ...parent.lens.thick, ...value.lens?.thick },
+        thin: {
+          ...parent.lens.thin,
+          ...value.lens?.thin,
         },
       },
       specular: { ...parent.specular, ...value.specular },

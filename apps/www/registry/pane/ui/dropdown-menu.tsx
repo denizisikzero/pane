@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 // the menu's own tint (see NestedPaneContext in pane.tsx). Not the nested tint
 // either — that is white in light mode and vanishes on a light menu.
 const itemClassName =
-  "relative flex cursor-default select-none items-center gap-2 rounded-[10px] px-2.5 py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[highlighted]:bg-foreground/[0.07] data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 [&_svg:not([class*='text-'])]:text-muted-foreground";
+  "relative flex cursor-default select-none items-center gap-2 rounded-[calc(10px*var(--pane-radius-scale,1))] px-2.5 py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[highlighted]:bg-foreground/[0.07] data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 [&_svg:not([class*='text-'])]:text-muted-foreground";
 
 const surfaceClassName =
   "z-50 min-w-[10rem] outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95";
@@ -58,7 +58,7 @@ function DropdownMenuContent({
         )}
         {...props}
       >
-        <Pane nested={false} variant="blur" radius={18}>
+        <Pane nested={false} variant="thick" radius={18}>
           {/* scrolls inside the pane: the pane clips its rim layers with
               overflow-hidden, so it can't be the scroll container itself */}
           <div
@@ -257,7 +257,7 @@ function DropdownMenuSubContent({
         )}
         {...props}
       >
-        <Pane nested={false} variant="blur" radius={18}>
+        <Pane nested={false} variant="thick" radius={18}>
           <div
             className={cn(
               "max-h-(--radix-dropdown-menu-content-available-height) overflow-y-auto p-1.5",

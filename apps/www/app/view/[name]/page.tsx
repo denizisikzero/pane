@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlockBackdrop } from "@/components/blocks/block-backdrop";
+import { FrameBridge } from "@/components/playground/frame-bridge";
 import { blocks, getBlock } from "@/lib/blocks";
 
-// A block on its own, for the preview iframes on /blocks.
+// A block on its own: the pages of the playground's template site.
 
 export function generateStaticParams() {
   return blocks.map((block) => ({ name: block.name }));
@@ -32,9 +33,17 @@ export default async function BlockViewPage({
   if (!block) notFound();
 
   const Page = block.page;
+  if (block.backdrop === false)
+    return (
+      <FrameBridge>
+        <Page />
+      </FrameBridge>
+    );
   return (
     <BlockBackdrop>
-      <Page />
+      <FrameBridge>
+        <Page />
+      </FrameBridge>
     </BlockBackdrop>
   );
 }

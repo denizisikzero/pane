@@ -7,7 +7,7 @@ export default function Page() {
     <div className="grid min-h-svh gap-4 p-4 lg:grid-cols-2">
       <div className="flex flex-col gap-4">
         <a href="/" className="flex items-center gap-2 p-2 font-semibold">
-          <span className="flex size-8 items-center justify-center rounded-[10px] bg-foreground text-background text-sm">
+          <span className="flex size-8 items-center justify-center rounded-[calc(10px*var(--pane-radius-scale,1))] bg-foreground text-background text-sm">
             U
           </span>
           Uniform Interface
@@ -15,9 +15,9 @@ export default function Page() {
         <div className="flex flex-1 items-center justify-center">
           {/* the dense material Dialog uses: a form is read, not seen through */}
           <Card
-            variant="blur"
+            variant="thick"
             radius={28}
-            className="w-full max-w-sm px-8 py-8 [--pane-blur-blur:var(--pane-blur-overlay)] [--pane-tint-blur:var(--pane-tint-overlay)]"
+            className="w-full max-w-sm px-8 py-8 [--pane-blur-thick:var(--pane-blur-overlay)] [--pane-tint-thick:var(--pane-tint-overlay)]"
           >
             <SignInForm />
           </Card>

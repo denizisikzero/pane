@@ -63,8 +63,8 @@ export function SettingsPanel() {
 
   return (
     <Card
-      variant="blur"
-      className="[--pane-blur-blur:var(--pane-blur-overlay)] [--pane-tint-blur:var(--pane-tint-overlay)]"
+      variant="thick"
+      className="[--pane-blur-thick:var(--pane-blur-overlay)] [--pane-tint-thick:var(--pane-tint-overlay)]"
     >
       <CardHeader>
         <CardTitle className="text-xl">Settings</CardTitle>

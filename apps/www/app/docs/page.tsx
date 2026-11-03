@@ -1,10 +1,12 @@
-import { BlocksIcon, DownloadIcon, PaletteIcon } from "lucide-react";
+import { BotIcon, CpuIcon, DownloadIcon, PaletteIcon } from "lucide-react";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ComponentPreview } from "@/components/docs/component-preview";
 import { LinkCard } from "@/components/docs/link-card";
 import { PageHeader } from "@/components/docs/page-header";
-import { Pane } from "@/components/ui/pane";
+import { Surface } from "@/components/surface";
 import { componentsMeta } from "@/lib/components-meta";
+import { introSections } from "@/lib/docs-content";
 import { features } from "@/lib/features";
 import { siteConfig } from "@/lib/site-config";
 
@@ -13,28 +15,52 @@ export const metadata: Metadata = {
   description: siteConfig.description,
 };
 
+const link = "font-medium text-foreground underline underline-offset-4";
+
 export default function DocsIntroductionPage() {
   const pane = componentsMeta.find((component) => component.slug === "pane");
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col gap-14">
       <PageHeader slug={[]} title="Introduction">
-        {siteConfig.name} is a set of liquid-glass components for React,
-        distributed as a shadcn registry. Every one of them is built on a single
-        primitive, <code className="text-foreground">{"<Pane>"}</code>, so they
-        refract, tint and respond as one material.
+        {siteConfig.name} is an open source library of liquid-glass components
+        for React, distributed as a shadcn registry. Every one of them is built
+        on a single primitive,{" "}
+        <code className="text-foreground">{"<Pane>"}</code>, so they refract,
+        tint and respond as one material.
       </PageHeader>
 
       {pane ? (
         <ComponentPreview name={`${pane.registryName}-demo`} demo={pane.demo} />
       ) : null}
 
+      {introSections.map((section) => (
+        <section key={section.title} className="flex flex-col gap-3">
+          <h2 className="display text-3xl">{section.title}</h2>
+          {section.body.map((paragraph) => (
+            <p
+              key={paragraph}
+              className="text-muted-foreground leading-relaxed"
+            >
+              {paragraph}
+            </p>
+          ))}
+          {section.title === "Three renderers" ? (
+            <p className="text-muted-foreground leading-relaxed">
+              <Link href="/docs/rendering" className={link}>
+                Rendering
+              </Link>{" "}
+              explains each one and how to opt into the WebGPU lens.
+            </p>
+          ) : null}
+        </section>
+      ))}
+
       <section className="flex flex-col gap-5">
-        <h2 className="text-xl font-semibold">What makes it glass</h2>
+        <h2 className="display text-3xl">What makes it glass</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {features.map(({ icon: Icon, title, description }) => (
-            <Pane
-              variant="blur"
+            <Surface
               key={title}
               radius={20}
               className="flex flex-col gap-3 p-5"
@@ -44,14 +70,14 @@ export default function DocsIntroductionPage() {
                 <h3 className="font-medium">{title}</h3>
                 <p className="text-sm text-muted-foreground">{description}</p>
               </div>
-            </Pane>
+            </Surface>
           ))}
         </div>
       </section>
 
       <section className="flex flex-col gap-5">
-        <h2 className="text-xl font-semibold">Next steps</h2>
-        <div className="grid gap-4 sm:grid-cols-3">
+        <h2 className="display text-3xl">Next steps</h2>
+        <div className="grid gap-4 sm:grid-cols-2">
           <LinkCard
             href="/docs/installation"
             icon={DownloadIcon}
@@ -59,16 +85,22 @@ export default function DocsIntroductionPage() {
             description="Add your first component with the shadcn CLI."
           />
           <LinkCard
+            href="/docs/rendering"
+            icon={CpuIcon}
+            title="Rendering"
+            description="The WebGPU lens, SVG refraction and the CSS fallback."
+          />
+          <LinkCard
+            href="/docs/mcp"
+            icon={BotIcon}
+            title="MCP server"
+            description="Let your AI assistant browse and install components."
+          />
+          <LinkCard
             href="/docs/theming"
             icon={PaletteIcon}
             title="Theming"
-            description="Tune tint, blur, refraction and springs."
-          />
-          <LinkCard
-            href="/docs/components"
-            icon={BlocksIcon}
-            title="Components"
-            description={`Browse all ${componentsMeta.length} with live previews.`}
+            description="The tokens, the accent color and the glass config."
           />
         </div>
       </section>

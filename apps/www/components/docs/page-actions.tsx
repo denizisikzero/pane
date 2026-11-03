@@ -102,6 +102,7 @@ export function PageActions({
     <div className="flex shrink-0 items-center gap-1.5">
       <Button
         size="sm"
+        variant="ghost"
         onClick={async () => {
           await navigator.clipboard.writeText(markdown);
           setCopied(true);
@@ -113,7 +114,7 @@ export function PageActions({
       </Button>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button size="icon-sm" aria-label="More options">
+          <Button size="icon-sm" variant="ghost" aria-label="More options">
             <ChevronDownIcon />
           </Button>
         </DropdownMenuTrigger>

@@ -2,7 +2,7 @@ import { ArrowRightIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/docs/page-header";
-import { Pane } from "@/components/ui/pane";
+import { Surface } from "@/components/surface";
 import { componentsMeta } from "@/lib/components-meta";
 import { siteConfig } from "@/lib/site-config";
 
@@ -21,8 +21,7 @@ export default function ComponentsPage() {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {componentsMeta.map(({ slug, title, description, demo: Demo }) => (
-          <Pane
-            variant="blur"
+          <Surface
             key={slug}
             radius={24}
             className="group relative flex flex-col"
@@ -51,7 +50,7 @@ export default function ComponentsPage() {
               aria-label={title}
               className="absolute inset-0 z-10 rounded-[inherit] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:ring-inset"
             />
-          </Pane>
+          </Surface>
         ))}
       </div>
     </div>

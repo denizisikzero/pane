@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 import DashboardPage from "@/registry/pane/blocks/dashboard-01/page";
+import LandingPage from "@/registry/pane/blocks/landing-01/page";
 import LoginPage from "@/registry/pane/blocks/login-01/page";
 import MailPage from "@/registry/pane/blocks/mail-01/page";
 import SettingsPage from "@/registry/pane/blocks/settings-01/page";
@@ -12,9 +13,20 @@ export interface BlockMeta {
   page: ComponentType;
   /** height of the preview frame in px */
   height: number;
+  /** false for a page with its own background, that skips the site's backdrop */
+  backdrop?: boolean;
 }
 
 export const blocks: BlockMeta[] = [
+  {
+    name: "landing-01",
+    title: "Studio",
+    description:
+      "The site of a small design studio, built with every Pane component.",
+    page: LandingPage,
+    height: 2400,
+    backdrop: false,
+  },
   {
     name: "dashboard-01",
     title: "Dashboard",

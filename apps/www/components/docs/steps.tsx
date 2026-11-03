@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Pane } from "@/components/ui/pane";
+import { Surface } from "@/components/surface";
 
 /** Numbered steps joined by a rail; each title is an h2 so the TOC lists it. */
 export function Steps({ children }: { children: ReactNode }) {
@@ -22,12 +22,12 @@ export function Step({
         aria-hidden="true"
         className="absolute top-9 bottom-1 left-[15px] w-px bg-foreground/10 group-last/step:hidden"
       />
-      <Pane
+      <Surface
         radius={999}
         className="flex size-[31px] shrink-0 items-center justify-center font-medium text-sm"
       >
         {number}
-      </Pane>
+      </Surface>
       <div className="flex min-w-0 flex-1 flex-col gap-3 pt-0.5">
         <h2 className="font-semibold text-lg">{title}</h2>
         {children}

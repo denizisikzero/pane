@@ -70,7 +70,7 @@ export function MailView({
 
   return (
     <Card
-      variant="blur"
+      variant="thick"
       radius={24}
       className={cn("min-h-0 gap-0 py-0", className)}
     >
@@ -144,7 +144,7 @@ export function MailView({
             <DropdownMenuTrigger
               aria-label="More"
               disabled={!mail}
-              className="flex size-9 items-center justify-center rounded-[16px] outline-none transition-colors hover:bg-foreground/[0.07] focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-foreground/[0.07]"
+              className="flex size-9 items-center justify-center rounded-[calc(16px*var(--pane-radius-scale,1))] outline-none transition-colors hover:bg-foreground/[0.07] focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-foreground/[0.07]"
             >
               <EllipsisVerticalIcon className="size-4" />
             </DropdownMenuTrigger>

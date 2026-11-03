@@ -52,7 +52,7 @@ export function MailList({
 }) {
   return (
     <Card
-      variant="blur"
+      variant="thick"
       radius={24}
       className={cn("min-h-0 gap-0 py-0", className)}
     >
@@ -96,7 +96,7 @@ export function MailList({
                 type="button"
                 onClick={() => onSelect(mail.id)}
                 data-selected={selected === mail.id}
-                className="flex w-full flex-col gap-1 rounded-[16px] px-3 py-2.5 text-left outline-none transition-colors hover:bg-foreground/[0.04] focus-visible:ring-[3px] focus-visible:ring-ring/50 data-[selected=true]:bg-foreground/[0.07]"
+                className="flex w-full flex-col gap-1 rounded-[calc(16px*var(--pane-radius-scale,1))] px-3 py-2.5 text-left outline-none transition-colors hover:bg-foreground/[0.04] focus-visible:ring-[3px] focus-visible:ring-ring/50 data-[selected=true]:bg-foreground/[0.07]"
               >
                 <span className="flex items-center gap-2">
                   {mail.read ? null : (

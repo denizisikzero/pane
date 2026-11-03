@@ -3,7 +3,7 @@ import { Pane } from "@/components/ui/pane";
 export default function PaneInteractive() {
   return (
     <Pane
-      variant="blur"
+      variant="thick"
       interactive
       radius={24}
       className="flex h-28 w-48 items-center justify-center"

@@ -89,14 +89,14 @@ function Slider({
             transition={spring.press}
           >
             <Pane
-              variant="blur"
+              variant="thick"
               radius={999}
               className={cn(
                 "h-6 w-9 transition-colors in-data-[orientation=vertical]:h-9 in-data-[orientation=vertical]:w-6",
                 // both fills, as in Switch: inside a Card the thumb is a
                 // nested pane and reads `--pane-nested-*` instead
                 !dragging &&
-                  "[--pane-nested-blur:var(--pane-knob)] [--pane-tint-blur:var(--pane-knob)]",
+                  "[--pane-nested-thick:var(--pane-knob)] [--pane-tint-thick:var(--pane-knob)]",
               )}
             />
           </motion.span>

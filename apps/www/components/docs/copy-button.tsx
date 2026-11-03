@@ -10,6 +10,7 @@ export function CopyButton({ text }: { text: string }) {
   return (
     <Button
       size="icon"
+      variant="ghost"
       aria-label="Copy code"
       onClick={async () => {
         await navigator.clipboard.writeText(text);

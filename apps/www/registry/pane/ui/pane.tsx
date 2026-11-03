@@ -87,6 +87,25 @@ function edgeBand(thickness: number): React.CSSProperties {
   } as React.CSSProperties;
 }
 
+/** A radius this large is a pill or a circle, and stays one at any scale. */
+const PILL = 999;
+
+/**
+ * `--pane-radius-scale` off the node, read once it mounts. The CSS corner
+ * follows the token live through calc(); this number is for the refraction
+ * map and the WebGPU lens, which need the corner in px.
+ */
+function useRadiusScale(ref: React.RefObject<HTMLElement | null>) {
+  const [scale, setScale] = React.useState(1);
+  React.useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    const next = Math.max(0, readToken(node, "--pane-radius-scale", 1));
+    setScale((prev) => (prev === next ? prev : next));
+  }, [ref]);
+  return scale;
+}
+
 /** How often, in ms, the WebGPU lens re-reads the blur and saturation tokens. */
 const TOKEN_REFRESH = 250;
 
@@ -100,7 +119,7 @@ function readToken(node: HTMLElement, name: string, fallback: number) {
 
 /**
  * The lens parameters for this pane, as a stable function the scene calls once
- * per frame. Blur and saturation stay CSS tokens, as on the CSS path. They are
+ * per frame. Blur, saturation and rim stay CSS tokens, as on the CSS path. They are
  * read off the node at most every TOKEN_REFRESH ms rather than every frame —
  * often enough that a token changed on a parent, by a theme switch or a live
  * tuning panel, reaches the shader without a visible lag.
@@ -116,6 +135,8 @@ function useLensParams(
   const tokens = React.useRef({
     blur: 0,
     saturation: 1,
+    rim: 1,
+    radiusScale: 1,
     variant: "" as string,
     at: -Infinity,
   });
@@ -136,20 +157,24 @@ function useLensParams(
       tokens.current = {
         blur: readToken(node, `--pane-blur-${variant}`, 0),
         saturation: readToken(node, "--pane-saturation", 1),
+        rim: Math.min(1, Math.max(0, readToken(node, "--pane-rim", 1))),
+        radiusScale: Math.max(0, readToken(node, "--pane-radius-scale", 1)),
         variant,
         at: now,
       };
     }
-    const { blur, saturation } = tokens.current;
+    const { blur, saturation, rim, radiusScale } = tokens.current;
     return {
-      radius,
+      // read live here, so the shader follows a change of the token without
+      // the pane remounting
+      radius: radius >= PILL ? radius : radius * radiusScale,
       ...lens[variant],
       blur,
       saturation,
       spin: light.current.spin,
       rim: specular.rim,
       edge: specular.edge,
-      specular: 0.9,
+      specular: 0.9 * rim,
     };
   }, [ref, light]);
 }
@@ -161,7 +186,7 @@ function useLensParams(
  * arbitrary content in glass.
  */
 export function Pane({
-  variant = "default",
+  variant = "regular",
   interactive = false,
   radius = 28,
   nested: nestedProp,
@@ -187,6 +212,9 @@ export function Pane({
     !nested &&
     quality === "full" &&
     width * height >= GLASS_MIN_FILTER_AREA;
+  const radiusScale = useRadiusScale(ref);
+  // the corner the filter and the lens are built for: scaled, unless a pill
+  const shapeRadius = radius >= PILL ? radius : radius * radiusScale;
   const readLens = useLensParams(ref, variant, radius, light);
 
   // the glow has to stay a rim: on a 28px switch a wide band meets in the
@@ -218,7 +246,10 @@ export function Pane({
       style={
         {
           ...style,
-          "--pane-radius": `${radius}px`,
+          "--pane-radius":
+            radius >= PILL
+              ? `${radius}px`
+              : `calc(${radius}px * var(--pane-radius-scale, 1))`,
           backdropFilter,
           WebkitBackdropFilter: backdropFilter,
           // Tailwind's ring utilities are box-shadows too, so the pane's own
@@ -247,7 +278,7 @@ export function Pane({
           aria-hidden="true"
           className="-z-10 pointer-events-none absolute inset-0 rounded-[inherit] mix-blend-screen transition-opacity duration-300 ease-out"
           style={{
-            opacity: active ? 0.36 : 0.3,
+            opacity: `calc(var(--pane-rim, 1) * ${active ? 0.36 : 0.3})`,
             boxShadow: `inset 0 0 ${glow}px -1px var(--pane-highlight)`,
           }}
         />
@@ -261,7 +292,7 @@ export function Pane({
           className="-z-10 pointer-events-none absolute inset-0 rounded-[inherit] mix-blend-screen"
           style={{
             ...edgeBand(specular.rim),
-            opacity: active ? 1 : 0.85,
+            opacity: `calc(var(--pane-rim, 1) * ${active ? 1 : 0.85})`,
             transition: "opacity 300ms ease-out",
             background: `conic-gradient(from var(--pane-spin, ${specular.angle}deg) at 50% 50%, transparent 0deg, var(--pane-highlight) 22deg, transparent 68deg, transparent 112deg, var(--pane-highlight) 158deg, transparent 204deg, transparent 248deg, var(--pane-highlight) 338deg, transparent 360deg)`,
           }}
@@ -283,7 +314,7 @@ export function Pane({
           variant={variant}
           width={width}
           height={height}
-          radius={radius}
+          radius={shapeRadius}
         />
       ) : null}
     </motion.div>

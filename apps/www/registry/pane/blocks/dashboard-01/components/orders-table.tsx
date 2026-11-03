@@ -80,7 +80,7 @@ function RowActions({ order }: { order: Order }) {
           Base UI installs rewrite */}
       <DropdownMenuTrigger
         aria-label={`Actions for ${order.id}`}
-        className="flex size-8 items-center justify-center rounded-[10px] text-muted-foreground outline-none transition-colors hover:bg-foreground/[0.06] hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 data-[state=open]:bg-foreground/[0.06] data-[state=open]:text-foreground"
+        className="flex size-8 items-center justify-center rounded-[calc(10px*var(--pane-radius-scale,1))] text-muted-foreground outline-none transition-colors hover:bg-foreground/[0.06] hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 data-[state=open]:bg-foreground/[0.06] data-[state=open]:text-foreground"
       >
         <EllipsisIcon className="size-4" />
       </DropdownMenuTrigger>
@@ -161,7 +161,7 @@ export function OrdersTable() {
     });
 
   return (
-    <Card variant="blur" radius={24} className="mx-4 lg:mx-6">
+    <Card variant="thick" radius={24} className="mx-4 lg:mx-6">
       <CardHeader>
         <CardTitle>Recent orders</CardTitle>
         <CardDescription>Invoices from the last 30 days.</CardDescription>

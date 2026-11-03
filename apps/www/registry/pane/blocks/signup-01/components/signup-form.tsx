@@ -35,9 +35,9 @@ export function SignupForm() {
   return (
     // the dense material Dialog uses: a form is read, not seen through
     <Card
-      variant="blur"
+      variant="thick"
       radius={28}
-      className="[--pane-blur-blur:var(--pane-blur-overlay)] [--pane-tint-blur:var(--pane-tint-overlay)]"
+      className="[--pane-blur-thick:var(--pane-blur-overlay)] [--pane-tint-thick:var(--pane-tint-overlay)]"
     >
       <CardHeader className="text-center">
         <CardTitle className="text-xl">Create your account</CardTitle>

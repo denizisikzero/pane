@@ -14,7 +14,7 @@ export function DocsShell({ children }: { children: ReactNode }) {
       <aside className="hidden w-56 shrink-0 lg:block">
         {/* scrolls on its own: twenty links outgrow a short viewport */}
         <div className="sticky top-24 -mx-1 max-h-[calc(100svh-7rem)] overflow-y-auto px-1 pb-6">
-          <DocsNav panel />
+          <DocsNav />
         </div>
       </aside>
       <main className="min-w-0 flex-1">

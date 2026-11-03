@@ -94,7 +94,7 @@ export function DashboardSidebar(props: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" className="font-semibold">
-              <span className="flex size-8 shrink-0 items-center justify-center rounded-[10px] bg-foreground text-background text-sm">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-[calc(10px*var(--pane-radius-scale,1))] bg-foreground text-background text-sm">
                 U
               </span>
               <span className="flex flex-col gap-0.5 leading-none">

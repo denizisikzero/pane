@@ -26,6 +26,7 @@ export function ThemeToggle() {
   return (
     <Button
       size="icon"
+      variant="ghost"
       aria-label={`${active.label} theme. Switch to ${next.label}`}
       title={`${active.label} theme`}
       onClick={() => setTheme(next.value)}

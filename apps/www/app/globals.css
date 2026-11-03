@@ -5,6 +5,7 @@
   --background: #f5f5f7;
   --foreground: #1d1d1f;
   --muted-foreground: #6e6e73;
+  --hairline: rgba(24, 24, 26, 0.08);
   /* focus rings, as in shadcn/ui's neutral theme */
   --ring: oklch(0.708 0 0);
 
@@ -16,14 +17,14 @@
 
   /* Blur past ~12px with a tint past ~0.3 tips over into opaque plastic and
      leaves the refraction nothing to refract. */
-  --pane-blur-blur: 12px;
-  --pane-blur-default: 5px;
-  --pane-blur-transparent: 0px;
+  --pane-blur-thick: 12px;
+  --pane-blur-regular: 5px;
+  --pane-blur-thin: 0px;
   --pane-saturation: 1.7;
 
-  --pane-tint-blur: rgba(255, 255, 255, 0.26);
-  --pane-tint-default: rgba(255, 255, 255, 0.08);
-  --pane-tint-transparent: rgba(255, 255, 255, 0);
+  --pane-tint-thick: rgba(255, 255, 255, 0.26);
+  --pane-tint-regular: rgba(255, 255, 255, 0.08);
+  --pane-tint-thin: rgba(255, 255, 255, 0);
 
   /* overlay — dialogs and sheets hold text to read and forms to fill, so they
      trade most of the see-through for legibility. Deliberately past the
@@ -34,14 +35,21 @@
 
   /* glass on glass: a Pane inside a Pane can't blur anything new, so it swaps
      its backdrop for these flat translucent layers instead */
-  --pane-nested-blur: rgba(255, 255, 255, 0.4);
-  --pane-nested-default: rgba(255, 255, 255, 0.2);
-  --pane-nested-transparent: rgba(255, 255, 255, 0);
+  --pane-nested-thick: rgba(255, 255, 255, 0.4);
+  --pane-nested-regular: rgba(255, 255, 255, 0.2);
+  --pane-nested-thin: rgba(255, 255, 255, 0);
+
+  /* shape and edge, for every component at once: --pane-radius-scale
+     multiplies each corner (1 as designed, 0 square; pills stay pills), and
+     --pane-rim sets the glowing rim — the light catching the edge — from 0
+     (a plain hairline) to 1. A border width of 0 drops the hairline too. */
+  --pane-radius-scale: 1;
+  --pane-rim: 1;
 
   --pane-border-width: 0.5px;
-  --pane-border-blur: rgba(255, 255, 255, 0.85);
-  --pane-border-default: rgba(255, 255, 255, 0.6);
-  --pane-border-transparent: rgba(255, 255, 255, 0.6);
+  --pane-border-thick: rgba(255, 255, 255, 0.85);
+  --pane-border-regular: rgba(255, 255, 255, 0.6);
+  --pane-border-thin: rgba(255, 255, 255, 0.6);
 
   /* accent — the one brand color: controls in their "on" state and the
      prominent Button. Components mix in --pane-accent-opacity themselves, so
@@ -66,25 +74,37 @@
   --pane-shadow: rgba(0, 0, 0, 0.1);
 }
 
+/* The site itself runs on the "round" radius. Kept out of the :root block on
+   purpose: scripts/sync-registry-vars.mjs copies that block into the
+   registry, and what installs ships 1. The higher specificity wins over
+   :root here; the playground still sets its own, inline and on its board. */
+:root:not([data-shipped-tokens]) {
+  --pane-radius-scale: 1.4;
+}
+
 .dark {
   --background: #000000;
   --foreground: #f5f5f7;
   --muted-foreground: #98989d;
+  /* re-pointed here too, so a `.dark` set on part of the page (a photo
+     frame) flips the text on its glass, not only one set on <html> */
+  --pane-fg: var(--foreground);
+  --hairline: rgba(255, 255, 255, 0.08);
   --ring: oklch(0.556 0 0);
 
-  --pane-tint-blur: rgba(28, 28, 32, 0.3);
-  --pane-tint-default: rgba(18, 18, 22, 0.12);
-  --pane-tint-transparent: rgba(18, 18, 22, 0);
+  --pane-tint-thick: rgba(28, 28, 32, 0.3);
+  --pane-tint-regular: rgba(18, 18, 22, 0.12);
+  --pane-tint-thin: rgba(18, 18, 22, 0);
 
   --pane-tint-overlay: rgba(28, 28, 32, 0.76);
 
-  --pane-nested-blur: rgba(255, 255, 255, 0.12);
-  --pane-nested-default: rgba(255, 255, 255, 0.07);
-  --pane-nested-transparent: rgba(255, 255, 255, 0);
+  --pane-nested-thick: rgba(255, 255, 255, 0.12);
+  --pane-nested-regular: rgba(255, 255, 255, 0.07);
+  --pane-nested-thin: rgba(255, 255, 255, 0);
 
-  --pane-border-blur: rgba(255, 255, 255, 0.14);
-  --pane-border-default: rgba(255, 255, 255, 0.1);
-  --pane-border-transparent: rgba(255, 255, 255, 0.1);
+  --pane-border-thick: rgba(255, 255, 255, 0.14);
+  --pane-border-regular: rgba(255, 255, 255, 0.1);
+  --pane-border-thin: rgba(255, 255, 255, 0.1);
 
   --pane-accent: #30d158;
   --pane-accent-foreground: #ffffff;
@@ -107,6 +127,8 @@
   --color-ring: var(--ring);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-instrument-serif);
+  --color-hairline: var(--hairline);
 }
 
 body {
@@ -139,4 +161,65 @@ body {
   color: var(--muted-foreground);
   opacity: 0.6;
   user-select: none;
+}
+
+/* the Pane wordmark, as it reads on theui.company */
+.font-serif-display {
+  font-family: var(--font-instrument-serif), Georgia, serif;
+}
+
+/* display type: the serif the wordmark is set in, for headlines */
+.display {
+  font-family: var(--font-instrument-serif), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.02;
+}
+
+/* small mono labels over sections: "01 — Install" */
+.eyebrow {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.glass-text {
+  --glass-base: color-mix(in oklch, var(--foreground) 55%, transparent);
+  --glass-shine: color-mix(in oklch, var(--background) 90%, transparent);
+  padding-inline: 0.06em;
+  background-image: linear-gradient(
+    115deg,
+    var(--glass-base) 0%,
+    var(--foreground) 35%,
+    var(--glass-shine) 50%,
+    var(--foreground) 65%,
+    var(--glass-base) 100%
+  );
+  background-size: 250% 100%;
+  background-position: 100% 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 0.6px
+    color-mix(in oklch, var(--foreground) 35%, transparent);
+  filter: drop-shadow(
+      0 1px 0 color-mix(in oklch, var(--background) 80%, transparent)
+    )
+    drop-shadow(
+      0 4px 10px color-mix(in oklch, var(--foreground) 18%, transparent)
+    );
+  transition: background-position 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.glass-text:hover,
+.group:hover .glass-text {
+  background-position: 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-text {
+    transition: none;
+  }
 }

@@ -3,7 +3,7 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Pane } from "@/components/ui/pane";
+import { Surface } from "@/components/surface";
 import { docsNav } from "@/lib/site-config";
 
 // only docs pages: mobile-only links lead out of the docs
@@ -23,7 +23,7 @@ export function DocsPager() {
   return (
     <nav aria-label="Docs pages" className="mt-12 grid gap-3 sm:grid-cols-2">
       {prev ? (
-        <Pane interactive radius={20}>
+        <Surface interactive radius={20}>
           <Link href={prev.href} className="flex flex-col gap-1 p-5 text-sm">
             <span className="flex items-center gap-1 text-muted-foreground">
               <ChevronLeftIcon className="size-4" />
@@ -31,12 +31,12 @@ export function DocsPager() {
             </span>
             <span className="font-medium">{prev.title}</span>
           </Link>
-        </Pane>
+        </Surface>
       ) : (
         <span aria-hidden className="hidden sm:block" />
       )}
       {next ? (
-        <Pane interactive radius={20}>
+        <Surface interactive radius={20}>
           <Link
             href={next.href}
             className="flex flex-col items-end gap-1 p-5 text-sm"
@@ -47,7 +47,7 @@ export function DocsPager() {
             </span>
             <span className="font-medium">{next.title}</span>
           </Link>
-        </Pane>
+        </Surface>
       ) : null}
     </nav>
   );
