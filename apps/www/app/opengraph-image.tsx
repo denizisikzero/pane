@@ -15,15 +15,14 @@ const dataUrl = (bytes: Buffer, type: string) =>
   `data:${type};base64,${bytes.toString("base64")}`;
 
 /**
- * The card links get: the logo, the wordmark in Instrument Serif with the
+ * The card links get: the wordmark in Instrument Serif with the
  * header's glass gradient, the tagline — and a render beside them, as on the
  * site.
  */
 export default async function Image() {
-  // literal paths, so the build traces just these three files
-  const [serif, logo, render] = await Promise.all([
+  // literal paths, so the build traces just these two files
+  const [serif, render] = await Promise.all([
     readFile(join(process.cwd(), "lib/fonts/instrument-serif-italic.ttf")),
-    readFile(join(process.cwd(), "app/icon.svg")),
     readFile(join(process.cwd(), "public/previews/chrome.jpg")),
   ]);
 
@@ -50,13 +49,6 @@ export default async function Image() {
           flex: 1,
         }}
       >
-        {/* biome-ignore lint/performance/noImgElement: ImageResponse renders JSX to a static PNG — next/image does not exist here */}
-        <img
-          src={dataUrl(logo, "image/svg+xml")}
-          width={84}
-          height={84}
-          alt=""
-        />
         <div
           style={{
             display: "flex",
