@@ -653,7 +653,7 @@
     {
       "name": "landing-01",
       "type": "registry:block",
-      "title": "Studio",
+      "title": "Acme",
       "description": "The site of Acme, a made-up design studio, built with Pane: a glass navbar with a menu and ⌘K search, a headline cut from glass, work with captions on glass, services, pricing with a currency menu, a booking dialog and a project brief in a sheet.",
       "author": "Deniz Isik (https://github.com/denizisikzero)",
       "categories": ["marketing", "landing"],

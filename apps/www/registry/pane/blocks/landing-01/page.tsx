@@ -50,36 +50,20 @@ function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
 }
 
 /**
- * The opening screen: a render, edge to edge under the floating navbar, with
- * the headline cut from glass in the middle of it.
+ * The opening screen: the pitch in plain type on the page, where it reads
+ * first, then a wide, calm render with one word cut from glass across it.
  */
 function Hero() {
   return (
-    // pulled up under the sticky header, so the navbar's glass sits on the
-    // render from the first frame
-    <section className="-mt-[4.25rem] px-4">
-      <div className="relative isolate mx-auto flex min-h-[min(54rem,92svh)] max-w-6xl flex-col items-center justify-center gap-8 overflow-hidden rounded-[calc(28px*var(--pane-radius-scale,1))] p-6 pt-28 text-center sm:p-10 sm:pt-32">
-        <ThemedImage
-          src={images.hero}
-          className="-z-10 absolute inset-0 size-full object-cover object-[60%_45%]"
-        />
-        {/* a soft wash behind the words below the headline, so they read on
-            any part of the render; the glass headline keeps the bare render */}
-        <div
-          aria-hidden="true"
-          className="-z-10 absolute inset-0 bg-[radial-gradient(ellipse_55%_30%_at_50%_68%,color-mix(in_oklab,var(--background)_70%,transparent),transparent)]"
-        />
+    <section className="mx-auto flex max-w-6xl flex-col items-center gap-14 px-4 pt-20 sm:pt-28">
+      <div className="flex max-w-3xl flex-col items-center gap-6 text-center">
         <Badge variant="prominent" tinted>
           Booking Q1 2027
         </Badge>
-        {/* glass type is one line per Text, so the headline is two */}
-        {/* sized to the width: glass lines don't wrap, so the longer one has
-            to fit the frame on a phone too */}
-        <h1 className="flex flex-col items-center font-semibold text-[10vw] leading-none tracking-tighter xl:text-9xl">
-          <Text variant="thick">We design</Text>
-          <Text variant="thick">calmer interfaces.</Text>
+        <h1 className="text-balance font-semibold text-5xl tracking-tight sm:text-7xl">
+          We design calmer interfaces.
         </h1>
-        <p className="max-w-md text-balance font-medium text-lg">
+        <p className="max-w-xl text-balance text-lg text-muted-foreground">
           A five-person studio for product design, design systems and brand. A
           few teams at a time, start to finish.
         </p>
@@ -93,6 +77,20 @@ function Hero() {
           <BookCall />
         </div>
       </div>
+      <div className="relative isolate flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-[calc(28px*var(--pane-radius-scale,1))] sm:aspect-[16/7]">
+        <ThemedImage
+          src={images.hero}
+          className="-z-10 absolute inset-0 size-full object-cover object-[50%_60%]"
+        />
+        {/* one word, sized to the frame: glass lines don't wrap */}
+        <Text
+          as="p"
+          variant="thick"
+          className="font-semibold text-[26vw] leading-none tracking-tighter lg:text-[16rem]"
+        >
+          calm.
+        </Text>
+      </div>
     </section>
   );
 }
@@ -100,8 +98,8 @@ function Hero() {
 /**
  * The site of Acme, a made-up design studio, built with Pane: the glass sits
  * where an interface would — the navbar, captions over work, menus, dialogs
- * and the brief — on a plain page with type and renders, and the headline is
- * cut from glass over the hero.
+ * and the brief — on a plain page with type and renders, and one word cut
+ * from glass over the hero's render.
  */
 export default function Page() {
   return (

@@ -12,9 +12,8 @@ const render = (name: string): ThemedSrc => ({
 });
 
 export const images = {
-  hero: render("chrome"),
+  hero: render("silk"),
   contact: render("chrome"),
-  closing: render("silk"),
 };
 
 export const services = [

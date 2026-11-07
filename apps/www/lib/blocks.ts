@@ -20,7 +20,7 @@ export interface BlockMeta {
 export const blocks: BlockMeta[] = [
   {
     name: "landing-01",
-    title: "Studio",
+    title: "Acme",
     description: "The site of Acme, a made-up design studio, built with Pane.",
     page: LandingPage,
     height: 2400,
