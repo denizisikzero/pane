@@ -69,7 +69,7 @@ export function ContactForm({
             id={`${id}-email`}
             name="email"
             type="email"
-            placeholder="ada@company.com"
+            placeholder="ada@example.com"
             required
           />
         </div>

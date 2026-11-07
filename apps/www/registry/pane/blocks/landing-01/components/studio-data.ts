@@ -83,45 +83,6 @@ export const projects: {
   },
 ];
 
-/** Each person's tile is a crop of a render: a portrait, of sorts. */
-export const team = [
-  {
-    initials: "DI",
-    name: "Deniz Isik",
-    role: "Founder, design",
-    image: render("chrome"),
-    position: "30% 40%",
-  },
-  {
-    initials: "MK",
-    name: "Mika Kovac",
-    role: "Design systems",
-    image: render("chrome"),
-    position: "50% 50%",
-  },
-  {
-    initials: "AL",
-    name: "Ana Lima",
-    role: "Brand",
-    image: render("silk"),
-    position: "40% 45%",
-  },
-  {
-    initials: "JT",
-    name: "Jonas Tal",
-    role: "Motion",
-    image: render("vinyl"),
-    position: "30% 40%",
-  },
-  {
-    initials: "SR",
-    name: "Sara Roy",
-    role: "Engineering",
-    image: render("chrome"),
-    position: "80% 80%",
-  },
-];
-
 export const currencies = {
   usd: { label: "USD", symbol: "$", rate: 1 },
   eur: { label: "EUR", symbol: "€", rate: 0.92 },
@@ -210,6 +171,6 @@ export const steps = [
 ];
 
 export const footer = [
-  { title: "Studio", links: ["Work", "Services", "Team", "Careers"] },
+  { title: "Company", links: ["Work", "Services", "Pricing", "Contact"] },
   { title: "Elsewhere", links: ["Dribbble", "GitHub", "LinkedIn", "Read.cv"] },
 ];

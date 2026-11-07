@@ -793,7 +793,7 @@ export function Playground({
               </div>
               <div className="order-last flex w-full min-w-0 items-center gap-2 rounded-full bg-foreground/[0.05] px-3.5 py-1.5 font-mono text-muted-foreground text-xs sm:order-none sm:w-auto sm:flex-1">
                 <LockIcon className="size-3 shrink-0" />
-                <span className="truncate">theui.company</span>
+                <span className="truncate">example.com</span>
               </div>
               <div className="ml-auto flex items-center gap-1.5">
                 <div
@@ -865,7 +865,7 @@ export function Playground({
               <iframe
                 ref={frame}
                 src={`/view/${BLOCK}`}
-                title="theui.company"
+                title="example.com"
                 onLoad={send}
                 className={cn(
                   "block h-[min(860px,calc(100svh-12rem))] min-h-[560px] w-full transition-[max-width] duration-300 ease-out motion-reduce:transition-none",

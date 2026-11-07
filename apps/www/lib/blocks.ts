@@ -21,8 +21,7 @@ export const blocks: BlockMeta[] = [
   {
     name: "landing-01",
     title: "Studio",
-    description:
-      "The site of a small design studio, built with every Pane component.",
+    description: "The site of Acme, a made-up design studio, built with Pane.",
     page: LandingPage,
     height: 2400,
     backdrop: false,

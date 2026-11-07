@@ -51,7 +51,7 @@ const asChild = { asChild: true } as const;
 export function Wordmark() {
   return (
     <a href="#top" className="font-semibold text-lg tracking-tight">
-      theui<span className="text-muted-foreground">.company</span>
+      Acme
     </a>
   );
 }
@@ -196,14 +196,6 @@ export function StudioHeader() {
                   ))}
                 </ul>
               </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                href="#studio"
-                className={navigationMenuTriggerStyle()}
-              >
-                Studio
-              </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink
