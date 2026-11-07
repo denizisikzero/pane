@@ -49,7 +49,7 @@ import {
   themeSlug,
   themeVars,
 } from "@/lib/glass-theme";
-import { renders } from "@/lib/previews";
+import { type RenderId, renders, useScheme } from "@/lib/previews";
 import { cn } from "@/lib/utils";
 
 /** Motion presets, applied to both the press and the hover spring. */
@@ -410,15 +410,14 @@ const wide = new Set([
 const tall = new Set(["pane", "card", "command", "accordion"]);
 
 /**
- * The cells take turns on the four renders, each cropped to a part the type
- * reads on: the pale ground around chrome and satin, anywhere on frost, and
- * mesh, which is dark, in the dark scheme.
+ * The cells take turns on the four renders, each in its version for the
+ * site's theme and cropped to a few parts of the image.
  */
-const cellBackgrounds = [
-  { ...renders.frost, positions: ["30% 30%", "70% 80%", "50% 55%"] },
-  { ...renders.chrome, positions: ["5% 60%", "8% 15%", "100% 95%"] },
-  { ...renders.satin, positions: ["95% 20%", "10% 90%", "60% 98%"] },
-  { ...renders.mesh, positions: ["20% 20%", "60% 40%", "35% 70%"] },
+const cellBackgrounds: { render: RenderId; positions: string[] }[] = [
+  { render: "chrome", positions: ["30% 30%", "70% 80%", "50% 55%"] },
+  { render: "reed", positions: ["20% 40%", "60% 20%", "35% 80%"] },
+  { render: "silk", positions: ["95% 20%", "10% 90%", "60% 98%"] },
+  { render: "vinyl", positions: ["20% 20%", "60% 40%", "35% 70%"] },
 ];
 
 /**
@@ -438,6 +437,7 @@ function ComponentBoard({
   config: GlassOverride;
   radiusKey: string;
 }) {
+  const scheme = useScheme() ?? "light";
   return (
     <GlassConfigProvider value={config}>
       {/* remounted on a radius change: the refraction map is built for a
@@ -461,12 +461,11 @@ function ComponentBoard({
                 "relative isolate overflow-hidden rounded-[20px]",
                 wide.has(component.slug) && "col-span-2",
                 tall.has(component.slug) && "row-span-2",
-                background.dark && "dark text-foreground",
               )}
             >
               {/* biome-ignore lint/performance/noImgElement: a plain img for the glass to refract; next/image would hand it a placeholder first */}
               <img
-                src={background.src}
+                src={renders[background.render][scheme]}
                 alt=""
                 loading="lazy"
                 style={{ objectPosition: position }}

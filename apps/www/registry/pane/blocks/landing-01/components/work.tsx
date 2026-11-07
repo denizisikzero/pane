@@ -10,6 +10,7 @@ import {
   type Discipline,
   projects,
 } from "@/registry/pane/blocks/landing-01/components/studio-data";
+import { ThemedImage } from "@/registry/pane/blocks/landing-01/components/themed-image";
 
 const filters: { value: Discipline | "all"; label: string }[] = [
   { value: "all", label: "All" },
@@ -53,23 +54,18 @@ export function Work() {
               index > 0 && "lg:aspect-[16/10]",
             )}
           >
-            {/* biome-ignore lint/performance/noImgElement: a plain img keeps the block free of next.config image settings */}
-            <img
+            <ThemedImage
               src={project.image}
-              alt=""
               loading="lazy"
               className="-z-10 absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
             />
-            <div className={cn("flex justify-end", project.dark && "dark")}>
+            <div className="flex justify-end">
               <Badge className="capitalize">{project.discipline}</Badge>
             </div>
             <Pane
               variant="thick"
               radius={16}
-              className={cn(
-                "flex items-center justify-between gap-3 p-3.5",
-                project.dark && "dark text-foreground",
-              )}
+              className="flex items-center justify-between gap-3 p-3.5"
             >
               <div className="min-w-0">
                 <div className="truncate font-medium text-sm">

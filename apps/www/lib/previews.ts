@@ -1,43 +1,104 @@
 "use client";
 
+import { useTheme } from "next-themes";
 import * as React from "react";
 
+type Scheme = "light" | "dark";
+
 /**
- * The four renders the site puts glass on: the home page, the playground and
- * the component previews. `dark` renders want white type on top, so whatever
- * sits on them takes the dark scheme.
+ * Every render the site puts glass on, in a light and a dark version of the
+ * same image. Whatever sits on a render follows the site's theme, and the
+ * photo follows it too — never the other way round.
  */
 export const renders = {
-  chrome: { label: "Chrome", src: "/previews/chrome.jpg", dark: false },
-  frost: { label: "Frost", src: "/previews/frost.jpg", dark: true },
-  mesh: { label: "Mesh", src: "/previews/mesh.jpg", dark: true },
-  satin: { label: "Satin", src: "/previews/satin.jpg", dark: false },
+  chrome: {
+    label: "Chrome",
+    light: "/previews/chrome-light.jpg",
+    dark: "/previews/chrome-dark.jpg",
+  },
+  reed: {
+    label: "Reed",
+    light: "/previews/reed-light.jpg",
+    dark: "/previews/reed-dark.jpg",
+  },
+  vinyl: {
+    label: "Vinyl",
+    light: "/previews/vinyl-light.jpg",
+    dark: "/previews/vinyl-dark.jpg",
+  },
+  silk: {
+    label: "Silk",
+    light: "/previews/silk-light.jpg",
+    dark: "/previews/silk-dark.jpg",
+  },
 } as const;
 
-/** What a component preview can sit on: one of the renders, or none. */
-export const previewBackgrounds = [
-  ...(Object.keys(renders) as (keyof typeof renders)[]).map((id) => ({
-    id,
-    ...renders[id],
-  })),
-  { id: "none", label: "No background", src: null, dark: false },
-] as const;
+export type RenderId = keyof typeof renders;
 
-export type PreviewBackground = (typeof previewBackgrounds)[number]["id"];
-
-const BACKGROUND_KEY = "pane-preview-background";
-const DEFAULT_BACKGROUND: PreviewBackground = "chrome";
+const subscribeNever = () => () => {};
 
 /**
- * Which render the component previews sit on, remembered in localStorage and
- * shared live, so picking one in any preview changes them all.
+ * The site's theme once it's known on the client, and null before. The
+ * server can't know it, so neither does the hydrating render: next-themes
+ * already has it on the client, and using it straight away would render
+ * something else than the server did.
+ */
+export function useScheme(): Scheme | null {
+  const { resolvedTheme } = useTheme();
+  const hydrated = React.useSyncExternalStore(
+    subscribeNever,
+    () => true,
+    () => false,
+  );
+  if (!hydrated) return null;
+  return resolvedTheme === "dark"
+    ? "dark"
+    : resolvedTheme === "light"
+      ? "light"
+      : null;
+}
+
+/** A render in the version for the site's theme; light until it's known. */
+export function useRender(id: RenderId) {
+  return renders[id][useScheme() ?? "light"];
+}
+
+export interface PreviewBackground {
+  id: RenderId | "none";
+  label: string;
+  src: string | null;
+}
+
+/** What a component preview can sit on in one theme: every render, or none. */
+export function previewBackgrounds(scheme: Scheme): PreviewBackground[] {
+  return [
+    ...(Object.keys(renders) as RenderId[]).map((id) => ({
+      id,
+      label: renders[id].label,
+      src: renders[id][scheme],
+    })),
+    { id: "none", label: "No background", src: null },
+  ];
+}
+
+const BACKGROUND_KEY = "pane-preview-background";
+const DEFAULT_BACKGROUND: PreviewBackground["id"] = "chrome";
+
+/**
+ * The background the component previews sit on, and the ones to pick from.
+ * The pick is remembered in localStorage and shared live, so choosing one in
+ * any preview changes them all; it stays the same render in both themes.
+ * `background` is null until the theme is known on the client.
  */
 export function usePreviewBackground() {
-  const read = React.useCallback((): PreviewBackground => {
+  const scheme = useScheme();
+  const options = previewBackgrounds(scheme ?? "light");
+
+  const read = React.useCallback((): PreviewBackground["id"] => {
     try {
       const value = localStorage.getItem(BACKGROUND_KEY);
-      return previewBackgrounds.some((b) => b.id === value)
-        ? (value as PreviewBackground)
+      return previewBackgrounds("light").some((b) => b.id === value)
+        ? (value as PreviewBackground["id"])
         : DEFAULT_BACKGROUND;
     } catch {
       return DEFAULT_BACKGROUND;
@@ -53,18 +114,19 @@ export function usePreviewBackground() {
     };
   }, []);
 
-  const value = React.useSyncExternalStore(
+  const id = React.useSyncExternalStore(
     subscribe,
     read,
     () => DEFAULT_BACKGROUND,
   );
 
-  const set = React.useCallback((next: PreviewBackground) => {
+  const set = React.useCallback((next: PreviewBackground["id"]) => {
     try {
       localStorage.setItem(BACKGROUND_KEY, next);
     } catch {}
     window.dispatchEvent(new Event(BACKGROUND_KEY));
   }, []);
 
-  return [value, set] as const;
+  const background = options.find((b) => b.id === id) ?? options[0];
+  return { background: scheme ? background : null, options, set };
 }

@@ -19,7 +19,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
 import { BookCall } from "@/registry/pane/blocks/landing-01/components/book-call";
 import { ContactForm } from "@/registry/pane/blocks/landing-01/components/contact-form";
 import { Pricing } from "@/registry/pane/blocks/landing-01/components/pricing";
@@ -36,6 +35,7 @@ import {
   StudioHeader,
   Wordmark,
 } from "@/registry/pane/blocks/landing-01/components/studio-header";
+import { ThemedImage } from "@/registry/pane/blocks/landing-01/components/themed-image";
 import { Work } from "@/registry/pane/blocks/landing-01/components/work";
 
 /**
@@ -105,7 +105,7 @@ function NowCard() {
 
 /**
  * The opening screen: a render, edge to edge under the floating navbar, the
- * headline set on its pale side, a word of glass type over its dark side
+ * headline set on a wash of the page's background, a word of glass type
  * and what the studio is working on, on glass in the corner.
  */
 function Hero() {
@@ -114,17 +114,16 @@ function Hero() {
     // render from the first frame
     <section className="-mt-[4.25rem] px-4">
       <div className="relative isolate mx-auto flex min-h-[min(54rem,92svh)] max-w-6xl flex-col justify-end gap-10 overflow-hidden rounded-[calc(28px*var(--pane-radius-scale,1))] p-6 pt-28 sm:p-10 sm:pt-32">
-        {/* biome-ignore lint/performance/noImgElement: a plain img keeps the block free of next.config image settings */}
-        <img
+        <ThemedImage
           src={images.hero}
-          alt=""
           className="-z-10 absolute inset-0 size-full object-cover object-[78%_45%]"
         />
-        {/* a pale wash on the headline's side only, so the type reads on
-            every part of the render; the glass word keeps the bare render */}
+        {/* a wash in the page's background on the headline's side only, so
+            the type reads on every part of the render, light or dark; the
+            glass word keeps the bare render */}
         <div
           aria-hidden="true"
-          className="-z-10 absolute inset-0 bg-[linear-gradient(to_right,rgb(245_245_247/0.92),rgb(245_245_247/0.6)_38%,transparent_62%)]"
+          className="-z-10 absolute inset-0 bg-[linear-gradient(to_right,color-mix(in_oklab,var(--background)_92%,transparent),color-mix(in_oklab,var(--background)_60%,transparent)_38%,transparent_62%)]"
         />
         <Text
           as="p"
@@ -134,15 +133,15 @@ function Hero() {
           calm.
         </Text>
         <div className="flex flex-wrap items-end justify-between gap-8">
-          {/* set on the render's pale side: dark in either theme */}
-          <div className="flex max-w-xl flex-col items-start gap-6 text-neutral-950">
+          {/* on the wash: the page's own colors, in either theme */}
+          <div className="flex max-w-xl flex-col items-start gap-6">
             <Badge variant="prominent" tinted>
               Booking Q1 2027
             </Badge>
             <h1 className="text-balance font-semibold text-5xl tracking-tight sm:text-7xl">
               We design calmer interfaces.
             </h1>
-            <p className="max-w-md text-balance text-lg text-neutral-600">
+            <p className="max-w-md text-balance text-lg text-muted-foreground">
               A five-person studio for product design, design systems and brand.
               A few teams at a time, start to finish.
             </p>
@@ -240,10 +239,8 @@ export default function Page() {
                     type="button"
                     className="group relative isolate flex aspect-[3/4] items-end overflow-hidden rounded-[calc(20px*var(--pane-radius-scale,1))] p-2.5 text-left outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
                   >
-                    {/* biome-ignore lint/performance/noImgElement: a plain img keeps the block free of next.config image settings */}
-                    <img
+                    <ThemedImage
                       src={person.image}
-                      alt=""
                       loading="lazy"
                       style={{ objectPosition: person.position }}
                       className="-z-10 absolute inset-0 size-full scale-125 object-cover transition-transform duration-700 group-hover:scale-[1.32]"
@@ -251,10 +248,7 @@ export default function Page() {
                     <Pane
                       variant="thick"
                       radius={14}
-                      className={cn(
-                        "w-full px-3 py-2",
-                        person.dark && "dark text-foreground",
-                      )}
+                      className="w-full px-3 py-2"
                     >
                       <div className="font-medium text-sm">
                         {person.name.split(" ")[0]}
@@ -319,10 +313,8 @@ export default function Page() {
             </p>
           </div>
           <div className="relative isolate overflow-hidden rounded-[calc(28px*var(--pane-radius-scale,1))] p-3 sm:p-5">
-            {/* biome-ignore lint/performance/noImgElement: a plain img keeps the block free of next.config image settings */}
-            <img
+            <ThemedImage
               src={images.contact}
-              alt=""
               loading="lazy"
               className="-z-10 absolute inset-0 size-full object-cover"
             />
@@ -338,10 +330,8 @@ export default function Page() {
         aria-label="theui.company"
       >
         <div className="relative isolate flex h-56 items-center justify-center overflow-hidden rounded-[calc(28px*var(--pane-radius-scale,1))] sm:h-80">
-          {/* biome-ignore lint/performance/noImgElement: a plain img keeps the block free of next.config image settings */}
-          <img
+          <ThemedImage
             src={images.closing}
-            alt=""
             loading="lazy"
             className="-z-10 absolute inset-0 size-full object-cover object-[50%_40%]"
           />

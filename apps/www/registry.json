@@ -716,6 +716,10 @@
         {
           "path": "registry/pane/blocks/landing-01/components/studio-data.ts",
           "type": "registry:component"
+        },
+        {
+          "path": "registry/pane/blocks/landing-01/components/themed-image.tsx",
+          "type": "registry:component"
         }
       ]
     },

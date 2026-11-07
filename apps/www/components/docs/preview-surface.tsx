@@ -4,17 +4,17 @@ import { BanIcon } from "lucide-react";
 import * as React from "react";
 import { Pane } from "@/components/ui/pane";
 import { GlassScene, type GlassSource } from "@/lib/glass/gpu/scene";
-import { previewBackgrounds, usePreviewBackground } from "@/lib/previews";
+import { usePreviewBackground } from "@/lib/previews";
 import { cn } from "@/lib/utils";
 
-/** Five small swatches: four photos and none. The choice is shared by every preview. */
+/** The renders that suit the theme, and none. The choice is shared by every preview. */
 export function BackgroundPicker() {
-  const [current, setCurrent] = usePreviewBackground();
+  const { background: current, options, set } = usePreviewBackground();
 
   return (
     <Pane radius={999} className="flex items-center gap-1 p-1">
-      {previewBackgrounds.map((background) => {
-        const active = background.id === current;
+      {options.map((background) => {
+        const active = background.id === current?.id;
         return (
           <button
             key={background.id}
@@ -22,7 +22,7 @@ export function BackgroundPicker() {
             aria-pressed={active}
             aria-label={background.label}
             title={background.label}
-            onClick={() => setCurrent(background.id)}
+            onClick={() => set(background.id)}
             className={cn(
               "flex size-6 items-center justify-center overflow-hidden rounded-full bg-foreground/[0.06] bg-center bg-cover text-muted-foreground outline-none ring-offset-1 ring-offset-transparent transition-[box-shadow,opacity] hover:opacity-100 focus-visible:ring-2 focus-visible:ring-ring",
               active ? "ring-2 ring-foreground" : "opacity-70",
@@ -49,8 +49,7 @@ export function PreviewSurface({
   compact?: boolean;
   children: React.ReactNode;
 }) {
-  const [current] = usePreviewBackground();
-  const background = previewBackgrounds.find((b) => b.id === current);
+  const { background } = usePreviewBackground();
   const photo = background?.src ?? null;
   const source = React.useRef<GlassSource | null>(null);
 
@@ -61,7 +60,6 @@ export function PreviewSurface({
           "relative flex items-center justify-center overflow-hidden rounded-3xl p-4 pt-14 sm:p-10",
           compact ? "min-h-[200px]" : "min-h-[320px]",
           !photo && "border border-foreground/10",
-          background?.dark && "dark text-foreground",
         )}
       >
         {photo ? (

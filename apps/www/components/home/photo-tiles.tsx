@@ -9,22 +9,21 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Pane } from "@/components/ui/pane";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { renders } from "@/lib/previews";
+import type { RenderId } from "@/lib/previews";
 
 function Tile({
-  photo,
+  render,
   links,
   children,
 }: {
-  photo: { src: string; dark: boolean };
+  render: RenderId;
   links: { title: string; slug: string }[];
   children: React.ReactNode;
 }) {
   return (
     <figure className="flex flex-col gap-3">
       <GlassStage
-        photo={photo.src}
-        dark={photo.dark}
+        render={render}
         className="flex aspect-[4/5] items-end rounded-[28px] p-4"
       >
         <div className="w-full">{children}</div>
@@ -52,7 +51,7 @@ function InviteCard() {
       onSubmit={(event) => {
         event.preventDefault();
         const email = new FormData(event.currentTarget).get("email");
-        toast("Invite sent", { description: `${email} can edit frost.scene` });
+        toast("Invite sent", { description: `${email} can edit reed.scene` });
         event.currentTarget.reset();
       }}
     >
@@ -76,7 +75,7 @@ const passes = [
   { id: "dof", label: "Depth of field", on: false },
 ];
 
-/** Mesh: which render passes run, and what that costs. */
+/** Vinyl: which render passes run, and what that costs. */
 function PassesCard() {
   const [on, setOn] = React.useState(
     () => new Set(passes.filter((p) => p.on).map((p) => p.id)),
@@ -118,7 +117,7 @@ const lights = {
   night: "A single cool rim light.",
 } as const;
 
-/** Satin: the lighting setup, as tabs. */
+/** Silk: the lighting setup, as tabs. */
 function LightingCard() {
   const [light, setLight] = React.useState<keyof typeof lights>("studio");
   return (
@@ -145,7 +144,7 @@ export function PhotoTiles() {
   return (
     <div className="grid gap-6 md:grid-cols-3">
       <Tile
-        photo={renders.frost}
+        render="reed"
         links={[
           { title: "Input", slug: "input" },
           { title: "Button", slug: "button" },
@@ -155,7 +154,7 @@ export function PhotoTiles() {
         <InviteCard />
       </Tile>
       <Tile
-        photo={renders.mesh}
+        render="vinyl"
         links={[
           { title: "Checkbox", slug: "checkbox" },
           { title: "Pane", slug: "pane" },
@@ -164,7 +163,7 @@ export function PhotoTiles() {
         <PassesCard />
       </Tile>
       <Tile
-        photo={renders.satin}
+        render="silk"
         links={[
           { title: "Tabs", slug: "tabs" },
           { title: "Pane", slug: "pane" },

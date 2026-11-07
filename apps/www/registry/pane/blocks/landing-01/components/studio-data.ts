@@ -1,12 +1,20 @@
 /**
  * Everything the studio site says, in one place. The images are the Pane
- * site's own renders, from /previews — swap them for your work.
+ * site's own renders, from /previews, each in a light and a dark version —
+ * swap them for your work.
  */
 
+import type { ThemedSrc } from "@/registry/pane/blocks/landing-01/components/themed-image";
+
+const render = (name: string): ThemedSrc => ({
+  light: `/previews/${name}-light.jpg`,
+  dark: `/previews/${name}-dark.jpg`,
+});
+
 export const images = {
-  hero: "/previews/chrome.jpg",
-  contact: "/previews/frost.jpg",
-  closing: "/previews/satin.jpg",
+  hero: render("chrome"),
+  contact: render("chrome"),
+  closing: render("silk"),
 };
 
 export const services = [
@@ -50,30 +58,28 @@ export const projects: {
   client: string;
   year: string;
   discipline: Discipline;
-  image: string;
-  dark?: boolean;
+  image: ThemedSrc;
 }[] = [
   {
     title: "A liquid glass library",
     client: "Pane",
     year: "2026",
     discipline: "product",
-    image: "/previews/chrome.jpg",
+    image: render("chrome"),
   },
   {
     title: "Night mode for a camera",
     client: "Lumen",
     year: "2026",
     discipline: "motion",
-    image: "/previews/mesh.jpg",
-    dark: true,
+    image: render("vinyl"),
   },
   {
     title: "Identity for a bank",
     client: "Halcyon",
     year: "2025",
     discipline: "brand",
-    image: "/previews/satin.jpg",
+    image: render("silk"),
   },
 ];
 
@@ -83,36 +89,35 @@ export const team = [
     initials: "DI",
     name: "Deniz Isik",
     role: "Founder, design",
-    image: "/previews/chrome.jpg",
+    image: render("chrome"),
     position: "30% 40%",
   },
   {
     initials: "MK",
     name: "Mika Kovac",
     role: "Design systems",
-    image: "/previews/frost.jpg",
+    image: render("chrome"),
     position: "50% 50%",
   },
   {
     initials: "AL",
     name: "Ana Lima",
     role: "Brand",
-    image: "/previews/satin.jpg",
+    image: render("silk"),
     position: "40% 45%",
   },
   {
     initials: "JT",
     name: "Jonas Tal",
     role: "Motion",
-    image: "/previews/mesh.jpg",
+    image: render("vinyl"),
     position: "30% 40%",
-    dark: true,
   },
   {
     initials: "SR",
     name: "Sara Roy",
     role: "Engineering",
-    image: "/previews/chrome.jpg",
+    image: render("chrome"),
     position: "80% 80%",
   },
 ];

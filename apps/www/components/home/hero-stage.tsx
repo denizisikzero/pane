@@ -37,7 +37,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { renders } from "@/lib/previews";
+import { type RenderId, renders } from "@/lib/previews";
+import { cn } from "@/lib/utils";
 
 const tools = [
   { value: "move", label: "Move", key: "G", icon: Move3dIcon },
@@ -46,26 +47,41 @@ const tools = [
 ] as const;
 
 /**
- * The hero: a 3D editor's chrome laid over a chrome render, kept to the
- * edges so the render stays the picture. Every piece is a live component —
- * hover the tools, open the menus, search.
+ * The hero: a 3D editor's chrome laid over a render, kept to the edges so
+ * the render stays the picture. Every piece is a live component: the
+ * material menu swaps the render behind the glass, the search narrows it,
+ * export names the file after it.
  */
 export function HeroStage() {
   const [tool, setTool] = React.useState<string>("rotate");
+  const [material, setMaterial] = React.useState<RenderId>("chrome");
+  const [query, setQuery] = React.useState("");
+  const materials = (Object.keys(renders) as RenderId[]).filter((id) =>
+    renders[id].label.toLowerCase().includes(query.trim().toLowerCase()),
+  );
 
   return (
     <GlassStage
-      photo={renders.chrome.src}
+      render={material}
       imageClassName="object-[50%_35%]"
       className="flex min-h-[30rem] flex-col justify-between gap-6 rounded-[2.25rem] p-4 sm:min-h-[36rem] sm:p-6"
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="relative w-full max-w-60">
           <SearchIcon className="-translate-y-1/2 pointer-events-none absolute top-1/2 left-3 z-10 size-4 text-muted-foreground" />
+          {/* filters the materials below; Enter picks the first match */}
           <Input
             placeholder="Search materials"
             aria-label="Search materials"
             className="pl-9"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" && materials[0]) {
+                setMaterial(materials[0]);
+                setQuery("");
+              }
+            }}
           />
         </div>
         <Pane
@@ -87,15 +103,26 @@ export function HeroStage() {
       </div>
 
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <Select defaultValue="chrome">
+        <Select
+          value={material}
+          onValueChange={(value) => setMaterial(value as RenderId)}
+        >
           <SelectTrigger className="w-40" aria-label="Material">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="chrome">Chrome</SelectItem>
-            <SelectItem value="frost">Frost</SelectItem>
-            <SelectItem value="mesh">Mesh</SelectItem>
-            <SelectItem value="satin">Satin</SelectItem>
+            {(Object.keys(renders) as RenderId[]).map((id) => (
+              <SelectItem
+                key={id}
+                value={id}
+                // the search above narrows the list without losing the pick
+                className={cn(
+                  !materials.includes(id) && id !== material && "hidden",
+                )}
+              >
+                {renders[id].label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
 
@@ -154,7 +181,9 @@ export function HeroStage() {
               <DropdownMenuItem
                 key={format}
                 onSelect={() =>
-                  toast("Export started", { description: `chrome.${format}` })
+                  toast("Export started", {
+                    description: `${material}.${format.split(" ")[0].toLowerCase()} · ${format.split(" · ")[1]}`,
+                  })
                 }
               >
                 {format}

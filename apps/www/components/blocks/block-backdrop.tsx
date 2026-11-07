@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { GlassScene, type GlassSource } from "@/lib/glass/gpu/scene";
-import { previewBackgrounds, usePreviewBackground } from "@/lib/previews";
+import { usePreviewBackground } from "@/lib/previews";
 
 /**
  * The background picked for the component previews, fixed behind a whole
@@ -10,8 +10,7 @@ import { previewBackgrounds, usePreviewBackground } from "@/lib/previews";
  * source, so they refract it with the WebGPU lens.
  */
 export function BlockBackdrop({ children }: { children: React.ReactNode }) {
-  const [current] = usePreviewBackground();
-  const photo = previewBackgrounds.find((b) => b.id === current)?.src ?? null;
+  const photo = usePreviewBackground().background?.src ?? null;
   const ref = React.useRef<GlassSource | null>(null);
 
   return (

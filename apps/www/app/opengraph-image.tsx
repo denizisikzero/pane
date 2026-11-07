@@ -23,7 +23,7 @@ export default async function Image() {
   // literal paths, so the build traces just these two files
   const [serif, render] = await Promise.all([
     readFile(join(process.cwd(), "lib/fonts/instrument-serif-italic.ttf")),
-    readFile(join(process.cwd(), "public/previews/chrome.jpg")),
+    readFile(join(process.cwd(), "public/previews/chrome-light.jpg")),
   ]);
 
   return new ImageResponse(
