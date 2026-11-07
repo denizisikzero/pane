@@ -47,21 +47,21 @@ const glassByVariant = {
   // the opposite of the theme: dark on light, light on dark
   inverted: {
     filled:
-      "[--pane-tint-default:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
+      "[--pane-tint-regular:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-regular:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
     tinted:
-      "[--pane-tint-default:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
+      "[--pane-tint-regular:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-regular:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
   },
   prominent: {
     filled:
-      "[--pane-tint-default:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-border-default:var(--pane-border-accent)]",
+      "[--pane-tint-regular:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-nested-regular:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-border-regular:var(--pane-border-accent)]",
     tinted:
-      "[--pane-tint-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-tinted-opacity),transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-tinted-opacity),transparent)]",
+      "[--pane-tint-regular:color-mix(in_oklab,var(--pane-accent)_var(--pane-tinted-opacity),transparent)] [--pane-nested-regular:color-mix(in_oklab,var(--pane-accent)_var(--pane-tinted-opacity),transparent)]",
   },
   destructive: {
     filled:
-      "[--pane-tint-default:color-mix(in_oklab,var(--pane-destructive)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-destructive)_92%,transparent)] [--pane-border-default:var(--pane-border-accent)]",
+      "[--pane-tint-regular:color-mix(in_oklab,var(--pane-destructive)_92%,transparent)] [--pane-nested-regular:color-mix(in_oklab,var(--pane-destructive)_92%,transparent)] [--pane-border-regular:var(--pane-border-accent)]",
     tinted:
-      "[--pane-tint-default:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)]",
+      "[--pane-tint-regular:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)] [--pane-nested-regular:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)]",
   },
 };
 

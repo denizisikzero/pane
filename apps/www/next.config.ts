@@ -5,6 +5,10 @@ const wantsMarkdown = [
 ];
 
 const nextConfig: NextConfig = {
+  // blocks became the playground's template site
+  async redirects() {
+    return [{ source: "/blocks", destination: "/playground", permanent: true }];
+  },
   // every docs page has a Markdown twin at the same URL plus `.md`, and at
   // the plain URL for clients that ask for text/markdown
   async rewrites() {

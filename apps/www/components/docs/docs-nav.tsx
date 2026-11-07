@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Sidebar,
-  SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -16,20 +14,11 @@ import {
 import { docsNav } from "@/lib/site-config";
 
 /**
- * The docs navigation, built from the registry's own Sidebar so the site
- * dogfoods it. On desktop it sits on a glass panel; in the mobile sheet,
- * which is glass already, the groups go straight in.
+ * The docs navigation, built from the registry's own Sidebar menu so the
+ * site dogfoods it. It sits straight on the page: the site keeps glass for
+ * the components it shows, not its own chrome.
  */
-export function DocsNav({
-  onNavigate,
-  panel = false,
-  mobile = false,
-}: {
-  onNavigate?: () => void;
-  panel?: boolean;
-  /** include links meant for the mobile menu only */
-  mobile?: boolean;
-}) {
+export function DocsNav({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
 
   const groups = docsNav.map((group) => (
@@ -37,24 +26,22 @@ export function DocsNav({
       <SidebarGroupLabel>{group.title}</SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu className="gap-0.5">
-          {group.items
-            .filter((item) => mobile || !item.mobileOnly)
-            .map((item) => {
-              const active = pathname === item.href;
-              return (
-                <SidebarMenuItem key={item.href}>
-                  <SidebarMenuButton asChild isActive={active}>
-                    <Link
-                      href={item.href}
-                      onClick={onNavigate}
-                      aria-current={active ? "page" : undefined}
-                    >
-                      {item.title}
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              );
-            })}
+          {group.items.map((item) => {
+            const active = pathname === item.href;
+            return (
+              <SidebarMenuItem key={item.href}>
+                <SidebarMenuButton asChild isActive={active}>
+                  <Link
+                    href={item.href}
+                    onClick={onNavigate}
+                    aria-current={active ? "page" : undefined}
+                  >
+                    {item.title}
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            );
+          })}
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
@@ -63,17 +50,9 @@ export function DocsNav({
   return (
     // only here for the menu's context; the layout around it is the docs'
     <SidebarProvider className="min-h-0">
-      {panel ? (
-        <Sidebar collapsible="none" className="h-auto w-full">
-          <SidebarContent className="gap-0">
-            <nav aria-label="Documentation">{groups}</nav>
-          </SidebarContent>
-        </Sidebar>
-      ) : (
-        <nav aria-label="Documentation" className="flex w-full flex-col">
-          {groups}
-        </nav>
-      )}
+      <nav aria-label="Documentation" className="flex w-full flex-col">
+        {groups}
+      </nav>
     </SidebarProvider>
   );
 }

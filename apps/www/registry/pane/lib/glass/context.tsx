@@ -1,9 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { GLASS_DISPLACEMENT, GLASS_SPECULAR, GLASS_SPRING } from "./config";
+import {
+  GLASS_DISPLACEMENT,
+  GLASS_LENS,
+  GLASS_SPECULAR,
+  GLASS_SPRING,
+} from "./config";
 import type {
   GlassDisplacementConfig,
+  GlassLensConfig,
   GlassSpecularConfig,
   GlassSpringConfig,
   GlassVariant,
@@ -12,12 +18,14 @@ import type {
 export interface GlassConfig {
   spring: Record<"press" | "hover" | "drag", GlassSpringConfig>;
   displacement: Record<GlassVariant, GlassDisplacementConfig>;
+  lens: Record<GlassVariant, GlassLensConfig>;
   specular: GlassSpecularConfig;
 }
 
 const defaultConfig: GlassConfig = {
   spring: GLASS_SPRING,
   displacement: GLASS_DISPLACEMENT,
+  lens: GLASS_LENS,
   specular: GLASS_SPECULAR,
 };
 
@@ -28,11 +36,12 @@ type GlassConfigOverride = {
   displacement?: {
     [K in GlassVariant]?: Partial<GlassDisplacementConfig>;
   };
+  lens?: { [K in GlassVariant]?: Partial<GlassLensConfig> };
   specular?: Partial<GlassSpecularConfig>;
 };
 
 /**
- * Overrides the JS-side tunables — springs, refraction, specular — for every
+ * Overrides the JS-side tunables — springs, refraction, lens, specular — for every
  * Pane component inside it. Optional: without a provider, components read the
  * values in `config.ts`. Overrides merge onto the nearest parent, so a subtree
  * can change just the springs and keep everything else.
@@ -54,14 +63,22 @@ export function GlassConfigProvider({
         drag: { ...parent.spring.drag, ...value.spring?.drag },
       },
       displacement: {
-        default: {
-          ...parent.displacement.default,
-          ...value.displacement?.default,
+        regular: {
+          ...parent.displacement.regular,
+          ...value.displacement?.regular,
         },
-        blur: { ...parent.displacement.blur, ...value.displacement?.blur },
-        transparent: {
-          ...parent.displacement.transparent,
-          ...value.displacement?.transparent,
+        thick: { ...parent.displacement.thick, ...value.displacement?.thick },
+        thin: {
+          ...parent.displacement.thin,
+          ...value.displacement?.thin,
+        },
+      },
+      lens: {
+        regular: { ...parent.lens.regular, ...value.lens?.regular },
+        thick: { ...parent.lens.thick, ...value.lens?.thick },
+        thin: {
+          ...parent.lens.thin,
+          ...value.lens?.thin,
         },
       },
       specular: { ...parent.specular, ...value.specular },

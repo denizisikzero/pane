@@ -4,6 +4,7 @@ import { useCommandState } from "cmdk";
 import {
   ArrowRightIcon,
   BlocksIcon,
+  LayoutTemplateIcon,
   MonitorIcon,
   MoonIcon,
   SearchIcon,
@@ -32,8 +33,9 @@ const installCommand = (name: string) => `npx shadcn@latest add @pane/${name}`;
  */
 // titles and links come from the nav: components-meta would pull every
 // demo into this bundle, which ships with the header on every page
-const components =
-  docsNav.find((group) => group.title === "Components")?.items ?? [];
+const components = (
+  docsNav.find((group) => group.title === "Components")?.items ?? []
+).filter((item) => item.href !== "/docs/components");
 const componentByTitle = new Map(
   components.map((item) => [
     item.title.toLowerCase(),
@@ -43,7 +45,7 @@ const componentByTitle = new Map(
 
 function Kbd({ children }: { children: React.ReactNode }) {
   return (
-    <kbd className="inline-flex h-5 min-w-5 items-center justify-center rounded-[6px] bg-foreground/[0.07] px-1 font-sans text-[11px] font-medium text-muted-foreground">
+    <kbd className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-foreground/[0.07] px-1.5 font-sans text-[11px] font-medium text-muted-foreground">
       {children}
     </kbd>
   );
@@ -77,7 +79,13 @@ function Footer({ mod }: { mod: string }) {
   }, [name]);
 
   return (
-    <div className="flex h-11 items-center gap-4 border-foreground/10 border-t px-4 text-muted-foreground text-xs">
+    <div
+      // same inset as the palette's items, so the hints line up with them
+      style={{
+        paddingInline: "calc(8px * var(--pane-radius-scale, 1) + 10px)",
+      }}
+      className="flex h-11 items-center gap-4 border-foreground/10 border-t text-muted-foreground text-xs"
+    >
       <span className="flex items-center gap-1.5">
         <Kbd>↵</Kbd> Go to page
       </span>
@@ -133,9 +141,10 @@ export function CommandMenu() {
   return (
     <>
       <Button
+        variant="ghost"
         onClick={() => setOpen(true)}
         aria-label="Search documentation"
-        className="w-9 justify-center px-0 font-normal text-muted-foreground lg:w-52 lg:justify-between lg:px-3"
+        className="w-9 justify-center px-0 font-normal text-muted-foreground lg:w-48 lg:justify-between lg:rounded-full lg:bg-foreground/[0.05] lg:pr-2 lg:pl-3"
       >
         <span className="flex items-center gap-2">
           <SearchIcon />
@@ -179,6 +188,15 @@ export function CommandMenu() {
                 {item.title}
               </CommandItem>
             ))}
+          </CommandGroup>
+          <CommandGroup heading="Playground">
+            <CommandItem
+              value="Playground template site"
+              onSelect={() => run(() => router.push("/playground"))}
+            >
+              <LayoutTemplateIcon />
+              Playground
+            </CommandItem>
           </CommandGroup>
           <CommandGroup heading="Theme">
             <CommandItem

@@ -1,7 +1,6 @@
 # dependencies
 node_modules/
 .pnpm-store/
-.claude
 
 # build outputs
 .next/

@@ -24,6 +24,7 @@ apps
     ├── lib
     └── registry
         └── pane
+            ├── blocks
             ├── examples
             ├── hooks
             ├── lib
@@ -39,6 +40,7 @@ packages
 | `apps/www/lib`                  | Site config, component metadata and docs navigation.               |
 | `apps/www/registry/pane/ui`     | The registry components — what `shadcn add @pane/...` installs.    |
 | `apps/www/registry/pane/examples` | The demos shown on each component page.                          |
+| `apps/www/registry/pane/blocks` | Whole screens built from the components; `landing-01` is the studio site in /playground. |
 | `apps/www/registry/pane/lib`    | The glass engine: refraction filter, springs and shared config.    |
 | `apps/www/registry.json`        | The registry manifest.                                             |
 | `packages/tests`                | Integration tests that install the registry with the shadcn CLI.   |
@@ -121,7 +123,7 @@ When you create a commit we kindly ask you to follow the convention `category(sc
 - `build`: all changes regarding the build of the software, changes to dependencies or the addition of new dependencies
 - `chore`: all changes to the repository that do not fit into any of the above categories
 
-e.g. `feat(www): add a playground page` or `fix: keep the switch thumb in place`
+e.g. `feat(www): add a blocks page` or `fix: keep the switch thumb in place`
 
 ## Requests for new components
 

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { PageActions } from "@/components/docs/page-actions";
 import { docsUrls, getDocMarkdown } from "@/lib/docs-markdown";
+import { docsNav } from "@/lib/site-config";
 
 /**
  * Title, lead and the copy-page menu of a docs page. `slug` is the path
@@ -16,18 +17,25 @@ export async function PageHeader({
   children: ReactNode;
 }) {
   const markdown = await getDocMarkdown(slug);
+  const href = ["/docs", ...slug].join("/");
+  const group =
+    docsNav.find((g) => g.items.some((item) => item.href === href))?.title ??
+    (slug[0] === "components" ? "Components" : "Docs");
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex items-start justify-between gap-4">
-        <h1 className="text-4xl font-semibold tracking-tight">{title}</h1>
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center justify-between gap-4">
+        <span className="eyebrow">{group}</span>
         {markdown ? (
-          <div className="pt-1.5">
+          <div>
             <PageActions markdown={markdown} {...docsUrls(slug)} />
           </div>
         ) : null}
       </div>
-      <p className="max-w-2xl text-lg text-muted-foreground">{children}</p>
+      <h1 className="display text-5xl sm:text-6xl">{title}</h1>
+      <p className="max-w-2xl text-balance text-lg text-muted-foreground">
+        {children}
+      </p>
     </div>
   );
 }

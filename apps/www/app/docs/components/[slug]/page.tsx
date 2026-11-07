@@ -5,6 +5,7 @@ import { ComponentPreview } from "@/components/docs/component-preview";
 import { PageHeader } from "@/components/docs/page-header";
 import { PropsTable } from "@/components/docs/props-table";
 import { componentsMeta, getComponentMeta } from "@/lib/components-meta";
+import { pageMetadata } from "@/lib/seo";
 
 /** Backtick spans in a description, as code. */
 function InlineCode({ text }: { text: string }) {
@@ -35,10 +36,12 @@ export async function generateMetadata({
   const component = getComponentMeta(slug);
   if (!component) return {};
 
-  return {
+  return pageMetadata({
     title: component.title,
     description: component.description,
-  };
+    path: `/docs/components/${component.slug}`,
+    markdown: true,
+  });
 }
 
 export default async function ComponentPage({

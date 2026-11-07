@@ -73,10 +73,10 @@ function SheetContent({
       >
         <Pane
           nested={false}
-          variant="blur"
+          variant="thick"
           radius={26}
           // the dense overlay material: a sheet is read, not seen through
-          className="flex h-full w-full flex-col gap-5 p-6 [--pane-blur-blur:var(--pane-blur-overlay)] [--pane-tint-blur:var(--pane-tint-overlay)]"
+          className="flex h-full w-full flex-col gap-5 p-6 [--pane-blur-thick:var(--pane-blur-overlay)] [--pane-tint-thick:var(--pane-tint-overlay)]"
         >
           {children}
           <Pane

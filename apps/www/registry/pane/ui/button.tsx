@@ -87,7 +87,7 @@ const buttonVariants = cva(
 
 /**
  * What the glass itself does per variant. Filled is dense, so the label
- * reads, but the rim and glint still show; tinted is a wash of the color
+ * reads, but the rim still shows; tinted is a wash of the color
  * with the label carrying it. Default is the plain material; inverted
  * fills it with the text color instead.
  */
@@ -96,29 +96,29 @@ const glassByVariant = {
   // the opposite of the theme: dark on light, light on dark
   inverted: {
     filled:
-      "[--pane-tint-default:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
+      "[--pane-tint-regular:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-regular:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
     tinted:
-      "[--pane-tint-default:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
+      "[--pane-tint-regular:color-mix(in_oklab,var(--foreground)_92%,transparent)] [--pane-nested-regular:color-mix(in_oklab,var(--foreground)_92%,transparent)]",
   },
   // no glass until it is touched: for buttons that sit on another surface,
   // where glass on glass would stack
   ghost: {
     filled:
-      "[--pane-nested-default:transparent] [--pane-border-default:transparent] [--pane-highlight:transparent] [--pane-shadow:transparent] hover:[--pane-nested-default:color-mix(in_oklab,var(--foreground)_7%,transparent)] has-[:active]:[--pane-nested-default:color-mix(in_oklab,var(--foreground)_12%,transparent)]",
+      "[--pane-nested-regular:transparent] [--pane-border-regular:transparent] [--pane-highlight:transparent] [--pane-shadow:transparent] hover:[--pane-nested-regular:color-mix(in_oklab,var(--foreground)_7%,transparent)] has-[:active]:[--pane-nested-regular:color-mix(in_oklab,var(--foreground)_12%,transparent)]",
     tinted:
-      "[--pane-nested-default:transparent] [--pane-border-default:transparent] [--pane-highlight:transparent] [--pane-shadow:transparent] hover:[--pane-nested-default:color-mix(in_oklab,var(--foreground)_7%,transparent)] has-[:active]:[--pane-nested-default:color-mix(in_oklab,var(--foreground)_12%,transparent)]",
+      "[--pane-nested-regular:transparent] [--pane-border-regular:transparent] [--pane-highlight:transparent] [--pane-shadow:transparent] hover:[--pane-nested-regular:color-mix(in_oklab,var(--foreground)_7%,transparent)] has-[:active]:[--pane-nested-regular:color-mix(in_oklab,var(--foreground)_12%,transparent)]",
   },
   prominent: {
     filled:
-      "[--pane-tint-default:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-border-default:var(--pane-border-accent)]",
+      "[--pane-tint-regular:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-nested-regular:color-mix(in_oklab,var(--pane-accent)_92%,transparent)] [--pane-border-regular:var(--pane-border-accent)]",
     tinted:
-      "[--pane-tint-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-tinted-opacity),transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-accent)_var(--pane-tinted-opacity),transparent)]",
+      "[--pane-tint-regular:color-mix(in_oklab,var(--pane-accent)_var(--pane-tinted-opacity),transparent)] [--pane-nested-regular:color-mix(in_oklab,var(--pane-accent)_var(--pane-tinted-opacity),transparent)]",
   },
   destructive: {
     filled:
-      "[--pane-tint-default:color-mix(in_oklab,var(--pane-destructive)_92%,transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-destructive)_92%,transparent)] [--pane-border-default:var(--pane-border-accent)]",
+      "[--pane-tint-regular:color-mix(in_oklab,var(--pane-destructive)_92%,transparent)] [--pane-nested-regular:color-mix(in_oklab,var(--pane-destructive)_92%,transparent)] [--pane-border-regular:var(--pane-border-accent)]",
     tinted:
-      "[--pane-tint-default:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)] [--pane-nested-default:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)]",
+      "[--pane-tint-regular:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)] [--pane-nested-regular:color-mix(in_oklab,var(--pane-destructive)_var(--pane-tinted-opacity),transparent)]",
   },
 };
 

@@ -13,19 +13,19 @@ import { Progress } from "@/components/ui/progress";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
-import { type AccentName, DEFAULT_ACCENT } from "@/lib/accents";
+import { type Accent, accentCss, DEFAULT_ACCENT } from "@/lib/accents";
 
 /**
- * Pick a ready-made accent, see it on every control that uses it, and copy
- * the CSS. The snippets are highlighted on the server and handed in, one per
- * color.
+ * Pick a ready-made accent or any color, see it on every control that uses
+ * it, and copy the CSS. Preset snippets are highlighted on the server and
+ * handed in; a custom color's is worked out here, as plain text.
  */
 export function AccentPicker({
   snippets,
 }: {
   snippets: Record<string, React.ReactNode>;
 }) {
-  const [accent, setAccent] = React.useState<AccentName>(DEFAULT_ACCENT);
+  const [accent, setAccent] = React.useState<Accent>(DEFAULT_ACCENT);
 
   return (
     <div className="flex flex-col gap-4">
@@ -57,7 +57,11 @@ export function AccentPicker({
           </div>
         </PreviewSurface>
       </div>
-      {snippets[accent]}
+      {snippets[accent] ?? (
+        <pre className="overflow-x-auto rounded-[20px] border border-hairline bg-foreground/[0.02] p-5 font-mono text-[13px] leading-relaxed">
+          {accentCss(accent)}
+        </pre>
+      )}
     </div>
   );
 }

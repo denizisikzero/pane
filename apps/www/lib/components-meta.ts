@@ -70,6 +70,9 @@ import SwitchDisabled from "@/registry/pane/examples/switch-disabled";
 import TabsDemo from "@/registry/pane/examples/tabs-demo";
 import TabsDisabled from "@/registry/pane/examples/tabs-disabled";
 import TabsWithIcons from "@/registry/pane/examples/tabs-icons";
+import TextDemo from "@/registry/pane/examples/text-demo";
+import TextRefraction from "@/registry/pane/examples/text-refraction";
+import TextVariants from "@/registry/pane/examples/text-variants";
 import TextareaWithButton from "@/registry/pane/examples/textarea-button";
 import TextareaDemo from "@/registry/pane/examples/textarea-demo";
 import TextareaDisabled from "@/registry/pane/examples/textarea-disabled";
@@ -158,10 +161,10 @@ export function Example() {
     props: [
       {
         name: "variant",
-        type: '"default" | "blur" | "transparent"',
-        default: '"default"',
+        type: '"regular" | "thick" | "thin"',
+        default: '"regular"',
         description:
-          "default is light, see-through glass; blur frosts the backdrop for text over a busy background; transparent keeps only the rim and the refraction.",
+          "How thick the glass is, as Apple names its materials: regular is light and see-through; thick frosts the backdrop, for text over a busy background; thin keeps only the rim and the refraction.",
       },
       {
         name: "radius",
@@ -180,6 +183,66 @@ export function Example() {
         type: "boolean",
         description:
           "Overrides nesting detection. Pass false on a pane rendered through a portal so it keeps its own backdrop when opened from inside another pane.",
+      },
+    ],
+  },
+  {
+    slug: "text",
+    title: "Text",
+    description:
+      "Type cut from glass. Each letter is a window onto what's behind it — blurred, saturated, bent in Chromium — with light catching its edge.",
+    registryName: "text",
+    demo: TextDemo,
+    usage: `import { Text } from "@/components/ui/text";
+
+export function Example() {
+  return (
+    <Text as="h1" className="text-8xl font-semibold tracking-tight">
+      Liquid
+    </Text>
+  );
+}`,
+    examples: [
+      {
+        title: "Variants",
+        name: "text-variants",
+        demo: TextVariants,
+        description:
+          "The same three thicknesses as Pane: `regular` blurs a little, `thick` is frosted, `thin` is barely there. Each takes its blur and tint from the same `--pane-*` tokens.",
+      },
+      {
+        title: "Refraction",
+        name: "text-refraction",
+        demo: TextRefraction,
+        description:
+          "`refraction` sets how far the letters bend the backdrop, in px. `0` keeps it still. Only Chromium bends; elsewhere the glass is blurred and lit, not bent.",
+      },
+    ],
+    props: [
+      {
+        name: "children",
+        type: "string",
+        description:
+          "The words, on one line. Glass type is for headlines over an image, not for paragraphs.",
+      },
+      {
+        name: "as",
+        type: "React.ElementType",
+        default: '"span"',
+        description: "The element to render, such as `h1`.",
+      },
+      {
+        name: "variant",
+        type: '"regular" | "thick" | "thin"',
+        default: '"regular"',
+        description: "How much the glass blurs and tints what shows through.",
+      },
+      {
+        name: "refraction",
+        type: "number",
+        default: "8",
+        description:
+          "How far the letters bend the backdrop, in px. Chromium only.",
       },
     ],
   },
@@ -267,7 +330,7 @@ export function Example() {
         name: "card-variants",
         demo: CardVariants,
         description:
-          "`default` is light and see-through. `blur` frosts the backdrop, for text that sits over a busy background.",
+          "`regular` is light and see-through. `thick` frosts the backdrop, for text that sits over a busy background.",
       },
       {
         title: "With action",
@@ -285,9 +348,9 @@ export function Example() {
     props: [
       {
         name: "variant",
-        type: '"default" | "blur" | "transparent"',
-        default: '"default"',
-        description: "Glass material of the card.",
+        type: '"regular" | "thick" | "thin"',
+        default: '"regular"',
+        description: "How thick the card's glass is, as on Pane.",
       },
       {
         name: "radius",

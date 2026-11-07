@@ -16,13 +16,13 @@ export const features: {
     icon: SparklesIcon,
     title: "Real refraction",
     description:
-      "An SVG displacement filter bends the backdrop at the edges, with a touch of chromatic aberration — not just a blurred background.",
+      "The rim bends the backdrop like a lens, with a touch of chromatic aberration — an SVG filter in Chromium, a WebGPU shader over a GlassScene. Not just a blurred background.",
   },
   {
     icon: MousePointer2Icon,
     title: "Light that follows",
     description:
-      "A specular highlight tracks the pointer, and the rim catches the light as the surface moves through the page.",
+      "The rim catches the light from the pointer, and swings it around the edge as the surface moves through the page.",
   },
   {
     icon: WavesIcon,

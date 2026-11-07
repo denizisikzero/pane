@@ -81,7 +81,10 @@ function ToggleGroupItem({
       value={value}
       data-slot="toggle-group-item"
       className={cn(
-        "relative inline-flex h-8 flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl px-3 text-sm font-medium text-muted-foreground outline-none transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:text-foreground [&_svg]:size-4 [&_svg]:shrink-0",
+        "relative inline-flex h-8 flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-[calc(12px*var(--pane-radius-scale,1))] px-3 text-sm font-medium text-muted-foreground outline-none transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
+        // from the group's own state, not `data-state`: a wrapper such as
+        // `TooltipTrigger asChild` overwrites that attribute with its own
+        isActive && "text-foreground",
         className,
       )}
       {...props}

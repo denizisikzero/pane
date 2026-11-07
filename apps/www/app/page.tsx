@@ -1,142 +1,143 @@
 import { ArrowRightIcon } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { HeroStage } from "@/components/home/hero-stage";
+import { PhotoTiles } from "@/components/home/photo-tiles";
 import { InstallCommand } from "@/components/install-command";
-import { ShowcaseBackdrop } from "@/components/showcase-backdrop";
-import { ShowcaseGrid } from "@/components/showcase-grid";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Pane } from "@/components/ui/pane";
 import { componentsMeta } from "@/lib/components-meta";
-import { features } from "@/lib/features";
-import { siteConfig } from "@/lib/site-config";
+import { pageMetadata } from "@/lib/seo";
+import { getSiteUrl, siteConfig } from "@/lib/site-config";
 import packageJson from "../package.json";
 
-function SectionHeader({ title, sub }: { title: string; sub: string }) {
-  return (
-    <div className="flex max-w-xl flex-col items-center gap-3 text-center">
-      <h2 className="text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
-        {title}
-      </h2>
-      <p className="text-balance text-muted-foreground">{sub}</p>
-    </div>
-  );
-}
+export const metadata: Metadata = pageMetadata({
+  title: `${siteConfig.name} · ${siteConfig.tagline}`,
+  description: siteConfig.description,
+  path: "/",
+  absoluteTitle: true,
+});
+
+const next = [
+  {
+    title: "Docs",
+    description: "Install, pick a look, learn how it renders.",
+    href: "/docs",
+  },
+  {
+    title: "Components",
+    description: `All ${componentsMeta.length}, with live previews.`,
+    href: "/docs/components",
+  },
+  {
+    title: "Playground",
+    description: "Pick a look and see every component take it.",
+    href: "/playground",
+  },
+];
+
+/** Structured data: the site, and the library as open-source code. */
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      name: siteConfig.name,
+      url: getSiteUrl(),
+      description: siteConfig.description,
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      name: siteConfig.name,
+      description: siteConfig.description,
+      url: getSiteUrl(),
+      codeRepository: siteConfig.links.github,
+      programmingLanguage: ["TypeScript", "React"],
+      runtimePlatform: "Web browser",
+      license: "https://opensource.org/licenses/MIT",
+      version: packageJson.version,
+      author: {
+        "@type": "Person",
+        name: siteConfig.author.name,
+        url: siteConfig.author.url,
+      },
+    },
+  ],
+};
 
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: our own static JSON; `<` escaped so it can't close the script tag
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <Header />
 
-      <main className="flex flex-1 flex-col items-center gap-20 px-4 pt-12 pb-24 sm:gap-28 sm:pt-20 sm:pb-32">
-        <section className="flex max-w-2xl flex-col items-center gap-6 text-center">
-          <Badge asChild>
+      <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-28 px-4 pt-16 sm:gap-36 sm:pt-24">
+        <section className="flex flex-col items-center gap-14">
+          <div className="flex flex-col items-center gap-6 text-center">
             <Link
               href="/docs/changelog"
-              className="transition-opacity hover:opacity-80"
+              className="text-muted-foreground text-sm underline-offset-4 transition-colors hover:text-foreground hover:underline"
             >
-              v{packageJson.version}
+              v{packageJson.version} · {componentsMeta.length} components
             </Link>
-          </Badge>
-          <h1 className="text-5xl font-semibold tracking-tight text-balance sm:text-6xl">
-            Liquid glass, for React.
-          </h1>
-          <p className="max-w-xl text-lg text-balance text-muted-foreground">
-            A component registry that recreates Apple&apos;s liquid glass
-            material — real refraction, pointer-reactive light, spring physics.
-            Install with the shadcn CLI or copy the code.
-          </p>
-          <div className="flex flex-col items-center gap-3 sm:flex-row">
-            <Button variant="inverted" size="lg" asChild>
-              <Link href="/docs">Get started</Link>
-            </Button>
-            <InstallCommand />
-          </div>
-          <p className="text-xs text-muted-foreground">
-            <Link
-              href="/docs/components"
-              className="underline-offset-4 hover:text-foreground hover:underline"
-            >
-              {componentsMeta.length} components
-            </Link>{" "}
-            ·{" "}
-            <a
-              href={`${siteConfig.links.github}/blob/main/LICENSE`}
-              target="_blank"
-              rel="noreferrer"
-              className="underline-offset-4 hover:text-foreground hover:underline"
-            >
-              MIT licensed
-            </a>{" "}
-            · React 19 + Tailwind v4
-          </p>
-        </section>
-
-        <section className="flex w-full max-w-5xl flex-col items-center gap-10">
-          <SectionHeader
-            title="One material, every component"
-            sub="Everything is built on a single <Pane> primitive, so buttons, inputs and dialogs refract, tint and respond as one surface. Try them — they're live."
-          />
-          <ShowcaseBackdrop>
-            <ShowcaseGrid />
-          </ShowcaseBackdrop>
-        </section>
-
-        <section className="flex w-full max-w-5xl flex-col items-center gap-10">
-          <SectionHeader
-            title="Not just a blur"
-            sub="Most glass effects stop at a frosted background. Pane goes further, and stays code you own."
-          />
-          <div className="grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {features.map(({ icon: Icon, title, description }) => (
-              <Pane
-                variant="blur"
-                key={title}
-                radius={22}
-                className="flex flex-col gap-3 p-5"
-              >
-                <Icon className="size-5 text-muted-foreground" />
-                <div className="flex flex-col gap-1">
-                  <h3 className="font-medium">{title}</h3>
-                  <p className="text-sm text-muted-foreground">{description}</p>
-                </div>
-              </Pane>
-            ))}
-          </div>
-        </section>
-
-        <section className="flex w-full max-w-3xl flex-col items-center gap-10">
-          <SectionHeader
-            title={`${componentsMeta.length} components, one command away`}
-            sub="Each one has a live preview, the full source and its install command."
-          />
-          <div className="flex flex-wrap justify-center gap-2.5">
-            {componentsMeta.map((component) => (
-              <Pane
-                key={component.slug}
-                radius={999}
-                interactive
-                className="inline-flex"
-              >
-                <Link
-                  href={`/docs/components/${component.slug}`}
-                  className="px-4 py-2 text-sm font-medium"
-                >
-                  {component.title}
+            <h1 className="display max-w-3xl text-balance text-6xl sm:text-8xl">
+              Liquid glass, <em>ready to ship.</em>
+            </h1>
+            <p className="max-w-lg text-balance text-lg text-muted-foreground">
+              Liquid-glass components for React that bend the light behind them.
+              Installed with the shadcn CLI, owned by you.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <Button asChild variant="inverted" size="lg">
+                <Link href="/docs/installation">
+                  Get started
+                  <ArrowRightIcon />
                 </Link>
-              </Pane>
-            ))}
+              </Button>
+              <InstallCommand command="npx shadcn@latest add @pane/button" />
+            </div>
           </div>
-          <div className="flex flex-col items-center gap-3 sm:flex-row">
-            <Button variant="inverted" size="lg" asChild>
-              <Link href="/docs/components">
-                Browse components
-                <ArrowRightIcon />
-              </Link>
-            </Button>
-            <InstallCommand />
+          <div className="w-full">
+            <HeroStage />
           </div>
+        </section>
+
+        <section className="flex flex-col gap-10">
+          <div className="flex flex-col gap-3">
+            <h2 className="display text-5xl sm:text-6xl">
+              Glass over <em>anything.</em>
+            </h2>
+            <p className="max-w-md text-muted-foreground">
+              Put it on a photo, a video or a gradient — every piece below is a
+              live component. Press it, drag it, switch it.
+            </p>
+          </div>
+          <PhotoTiles />
+        </section>
+
+        <section className="grid border-hairline border-t sm:grid-cols-3">
+          {next.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="group flex flex-col gap-2 border-hairline border-b py-8 sm:border-b-0 sm:px-6 sm:not-first:border-l sm:first:pl-0"
+            >
+              <span className="flex items-center justify-between">
+                <span className="display text-4xl">{item.title}</span>
+                <ArrowRightIcon className="size-5 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-foreground" />
+              </span>
+              <span className="text-muted-foreground text-sm">
+                {item.description}
+              </span>
+            </Link>
+          ))}
         </section>
       </main>
 

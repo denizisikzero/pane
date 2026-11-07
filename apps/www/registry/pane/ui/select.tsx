@@ -79,7 +79,7 @@ function SelectContent({
       >
         <Pane
           nested={false}
-          variant="blur"
+          variant="thick"
           radius={18}
           className="flex max-h-[inherit] flex-col"
         >
@@ -121,7 +121,7 @@ function SelectItem({
       className={cn(
         // highlighted with a flat wash, not a Pane: the list is already glass,
         // and glass doesn't stack
-        "relative flex w-full cursor-default select-none items-center gap-2 rounded-[10px] py-1.5 pr-8 pl-2.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[highlighted]:bg-foreground/[0.07] data-[disabled]:opacity-50 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+        "relative flex w-full cursor-default select-none items-center gap-2 rounded-[calc(10px*var(--pane-radius-scale,1))] py-1.5 pr-8 pl-2.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[highlighted]:bg-foreground/[0.07] data-[disabled]:opacity-50 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
         className,
       )}
       {...props}

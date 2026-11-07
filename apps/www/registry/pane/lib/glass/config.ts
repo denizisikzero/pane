@@ -1,5 +1,6 @@
 import type {
   GlassDisplacementConfig,
+  GlassLensConfig,
   GlassSpecularConfig,
   GlassSpringConfig,
   GlassVariant,
@@ -7,25 +8,26 @@ import type {
 
 /**
  * Tuning surface for the glass engine — every Pane-based component reads from
- * here. Only values feeding the SVG filter or the spring physics live in JS;
+ * here. Only values feeding the SVG filter, the WebGPU lens or the spring physics
+ * live in JS;
  * static color/blur tokens are `--pane-*` properties in `app/globals.css`.
  */
 
 export const GLASS_DISPLACEMENT: Record<GlassVariant, GlassDisplacementConfig> =
   {
-    default: {
+    regular: {
       strength: 15,
       edge: 17,
       chromaticAberration: 1.4,
       blur: 0.6,
     },
-    blur: {
+    thick: {
       strength: 11,
       edge: 13,
       chromaticAberration: 0.9,
       blur: 0.6,
     },
-    transparent: {
+    thin: {
       strength: 15,
       edge: 17,
       chromaticAberration: 1.4,
@@ -33,9 +35,13 @@ export const GLASS_DISPLACEMENT: Record<GlassVariant, GlassDisplacementConfig> =
     },
   };
 
+export const GLASS_LENS: Record<GlassVariant, GlassLensConfig> = {
+  regular: { refraction: 22, bezel: 24, dispersion: 0.12 },
+  thick: { refraction: 16, bezel: 18, dispersion: 0.08 },
+  thin: { refraction: 22, bezel: 24, dispersion: 0.12 },
+};
+
 export const GLASS_SPECULAR: GlassSpecularConfig = {
-  intensity: 0.55,
-  size: 180,
   angle: 115,
   travel: 200,
   edge: 7,

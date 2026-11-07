@@ -35,10 +35,10 @@ export default function NavigationMenuDemo() {
                   </NavigationMenuLink>
                 </li>
                 <li>
-                  <NavigationMenuLink href="/docs/theming">
-                    <div className="font-medium">Theming</div>
+                  <NavigationMenuLink href="/docs/rendering">
+                    <div className="font-medium">Rendering</div>
                     <p className="text-muted-foreground">
-                      Tune tint, blur, refraction and springs.
+                      The WebGPU lens, refraction and quality tiers.
                     </p>
                   </NavigationMenuLink>
                 </li>

@@ -15,12 +15,19 @@ import { cn } from "@/lib/utils";
 
 const commandClassName = "flex h-full w-full flex-col overflow-hidden";
 
+/**
+ * The gap between the palette's corner and an item's: the outer radius (18)
+ * minus the item's (10), both scaled, so the corners stay concentric — on
+ * "round" the items get more room instead of crowding the edge.
+ */
+const inset = "calc(8px*var(--pane-radius-scale,1))";
+
 function Command({
   className,
   ...props
 }: React.ComponentProps<typeof CommandPrimitive>) {
   return (
-    <Pane variant="blur" radius={18} className={cn("w-full", className)}>
+    <Pane variant="thick" radius={18} className={cn("w-full", className)}>
       <CommandPrimitive
         data-slot="command"
         className={commandClassName}
@@ -61,7 +68,7 @@ function CommandDialog({
           className={cn(
             commandClassName,
             showCloseButton && "**:data-[slot=command-input-wrapper]:pr-14",
-            "**:data-[slot=command-input-wrapper]:h-14 [&_[cmdk-group]]:px-2 [&_[cmdk-item]]:py-2.5",
+            "**:data-[slot=command-input-wrapper]:h-14 [&_[cmdk-group]]:px-[calc(8px*var(--pane-radius-scale,1))] [&_[cmdk-item]]:py-2.5",
           )}
         >
           {children}
@@ -78,7 +85,9 @@ function CommandInput({
   return (
     <div
       data-slot="command-input-wrapper"
-      className="flex h-11 items-center gap-2 border-foreground/10 border-b px-3.5"
+      className="flex h-12 items-center gap-2 border-foreground/10 border-b"
+      // lines the icon up with the items' icons below
+      style={{ paddingInline: `calc(${inset} + 10px)` }}
     >
       <SearchIcon className="size-4 shrink-0 text-muted-foreground" />
       <CommandPrimitive.Input
@@ -129,7 +138,7 @@ function CommandGroup({
     <CommandPrimitive.Group
       data-slot="command-group"
       className={cn(
-        "overflow-hidden p-1.5 text-foreground [&_[cmdk-group-heading]]:px-2.5 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group-heading]]:text-xs",
+        "overflow-hidden p-[calc(8px*var(--pane-radius-scale,1))] text-foreground [&_[cmdk-group-heading]]:px-2.5 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group-heading]]:text-xs",
         className,
       )}
       {...props}
@@ -159,7 +168,7 @@ function CommandItem({
       data-slot="command-item"
       className={cn(
         // the same highlight as Dropdown Menu and Select items
-        "relative flex cursor-default select-none items-center gap-2 rounded-[10px] px-2.5 py-1.5 text-sm outline-none transition-colors data-[disabled=true]:pointer-events-none data-[selected=true]:bg-foreground/[0.07] data-[disabled=true]:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "relative flex cursor-default select-none items-center gap-2 rounded-[calc(10px*var(--pane-radius-scale,1))] px-2.5 py-1.5 text-sm outline-none transition-colors data-[disabled=true]:pointer-events-none data-[selected=true]:bg-foreground/[0.07] data-[disabled=true]:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className,
       )}
       {...props}

@@ -5,9 +5,9 @@ export const paneVariants = cva(
   {
     variants: {
       variant: {
-        default: "",
-        blur: "",
-        transparent: "",
+        regular: "",
+        thick: "",
+        thin: "",
       },
       interactive: {
         true: "cursor-pointer select-none",
@@ -15,7 +15,7 @@ export const paneVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "regular",
       interactive: false,
     },
   },
