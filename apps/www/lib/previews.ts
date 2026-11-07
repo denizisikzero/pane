@@ -3,14 +3,23 @@
 import * as React from "react";
 
 /**
- * The photos a component preview can sit on, or none. `dark` photos put the
- * preview in the dark scheme, so the glass's type stays readable on them.
+ * The four renders the site puts glass on: the home page, the playground and
+ * the component previews. `dark` renders want white type on top, so whatever
+ * sits on them takes the dark scheme.
  */
+export const renders = {
+  chrome: { label: "Chrome", src: "/previews/chrome.jpg", dark: false },
+  frost: { label: "Frost", src: "/previews/frost.jpg", dark: true },
+  mesh: { label: "Mesh", src: "/previews/mesh.jpg", dark: true },
+  satin: { label: "Satin", src: "/previews/satin.jpg", dark: false },
+} as const;
+
+/** What a component preview can sit on: one of the renders, or none. */
 export const previewBackgrounds = [
-  { id: "chrome", label: "Chrome", src: "/previews/chrome.jpg", dark: false },
-  { id: "frost", label: "Frost", src: "/previews/frost.jpg", dark: false },
-  { id: "mesh", label: "Mesh", src: "/previews/mesh.jpg", dark: true },
-  { id: "satin", label: "Satin", src: "/previews/satin.jpg", dark: false },
+  ...(Object.keys(renders) as (keyof typeof renders)[]).map((id) => ({
+    id,
+    ...renders[id],
+  })),
   { id: "none", label: "No background", src: null, dark: false },
 ] as const;
 
@@ -20,7 +29,7 @@ const BACKGROUND_KEY = "pane-preview-background";
 const DEFAULT_BACKGROUND: PreviewBackground = "chrome";
 
 /**
- * Which photo the component previews sit on, remembered in localStorage and
+ * Which render the component previews sit on, remembered in localStorage and
  * shared live, so picking one in any preview changes them all.
  */
 export function usePreviewBackground() {

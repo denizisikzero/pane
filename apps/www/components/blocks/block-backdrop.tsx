@@ -2,10 +2,7 @@
 
 import * as React from "react";
 import { GlassScene, type GlassSource } from "@/lib/glass/gpu/scene";
-import {
-  previewBackgrounds,
-  usePreviewBackground,
-} from "@/lib/use-preview-video";
+import { previewBackgrounds, usePreviewBackground } from "@/lib/previews";
 
 /**
  * The background picked for the component previews, fixed behind a whole

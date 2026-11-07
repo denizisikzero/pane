@@ -49,7 +49,7 @@ import {
   themeSlug,
   themeVars,
 } from "@/lib/glass-theme";
-import { renders } from "@/lib/photos";
+import { renders } from "@/lib/previews";
 import { cn } from "@/lib/utils";
 
 /** Motion presets, applied to both the press and the hover spring. */

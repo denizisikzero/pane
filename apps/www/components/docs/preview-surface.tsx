@@ -4,10 +4,7 @@ import { BanIcon } from "lucide-react";
 import * as React from "react";
 import { Pane } from "@/components/ui/pane";
 import { GlassScene, type GlassSource } from "@/lib/glass/gpu/scene";
-import {
-  previewBackgrounds,
-  usePreviewBackground,
-} from "@/lib/use-preview-video";
+import { previewBackgrounds, usePreviewBackground } from "@/lib/previews";
 import { cn } from "@/lib/utils";
 
 /** Five small swatches: four photos and none. The choice is shared by every preview. */

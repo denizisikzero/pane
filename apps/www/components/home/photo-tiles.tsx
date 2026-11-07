@@ -9,7 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Pane } from "@/components/ui/pane";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { renders } from "@/lib/photos";
+import { renders } from "@/lib/previews";
 
 function Tile({
   photo,

@@ -37,7 +37,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { renders } from "@/lib/photos";
+import { renders } from "@/lib/previews";
 
 const tools = [
   { value: "move", label: "Move", key: "G", icon: Move3dIcon },
