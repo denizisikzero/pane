@@ -49,7 +49,13 @@ export function Header() {
           <HeaderNav />
           <div className="col-start-3 flex items-center justify-end gap-1.5">
             <CommandMenu />
-            <Button size="icon" variant="ghost" asChild>
+            {/* on a phone, GitHub and the theme live in the menu */}
+            <Button
+              size="icon"
+              variant="ghost"
+              asChild
+              className="max-sm:hidden"
+            >
               <a
                 href={siteConfig.links.github}
                 target="_blank"
@@ -59,7 +65,9 @@ export function Header() {
                 <GitHubIcon />
               </a>
             </Button>
-            <ThemeToggle />
+            <div className="max-sm:hidden">
+              <ThemeToggle />
+            </div>
             <div className="lg:hidden">
               <MobileNav />
             </div>

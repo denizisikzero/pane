@@ -6,10 +6,7 @@ import { usePathname } from "next/navigation";
 import { Surface } from "@/components/surface";
 import { docsNav } from "@/lib/site-config";
 
-// only docs pages: mobile-only links lead out of the docs
-const pages = docsNav
-  .flatMap((group) => group.items)
-  .filter((page) => !page.mobileOnly);
+const pages = docsNav.flatMap((group) => group.items);
 
 export function DocsPager() {
   const pathname = usePathname();

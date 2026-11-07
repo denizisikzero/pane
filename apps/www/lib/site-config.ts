@@ -16,8 +16,6 @@ export function getSiteUrl() {
 export interface NavItem {
   title: string;
   href: string;
-  /** shown in the mobile menu only — on desktop the header already links it */
-  mobileOnly?: boolean;
 }
 
 export const docsNav: { title: string; items: NavItem[] }[] = [
