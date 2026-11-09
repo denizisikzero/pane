@@ -10,7 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Playground",
   description:
-    "Tune liquid glass live: accent, border, radius, density, refraction and springs, on a design studio's site and every Pane component at once — then copy one install line.",
+    "Tune liquid glass live: accent, border, radius, density, refraction and springs, on a design studio's site and every Pane component at once, then copy one install line.",
   path: "/playground",
 });
 
@@ -50,9 +50,8 @@ export default function PlaygroundPage() {
           </h1>
           <p className="max-w-2xl text-balance text-lg text-muted-foreground">
             Tune the look on the left and copy one install line. The preview is
-            a design studio&apos;s site built with every Pane component — check
-            it on a phone, read its code, and see each component on its own
-            below.
+            a design studio&apos;s site built with Pane. Check it on a phone,
+            read its code, and see every component on its own below.
           </p>
         </div>
         <Playground files={files} components={components} />

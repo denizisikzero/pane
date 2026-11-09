@@ -23,7 +23,7 @@ export default function McpPage() {
     <div className="flex flex-col gap-14">
       <PageHeader slug={["mcp"]} title="MCP server">
         Use the Pane registry with the shadcn MCP server, and let your AI
-        assistant browse, search and install components for you — the real ones,
+        assistant browse, search and install components for you. The real ones,
         not a guess at them.
       </PageHeader>
 
@@ -70,11 +70,11 @@ export default function McpPage() {
         <h2 className="display text-3xl">Docs for LLMs</h2>
         <p className="text-sm leading-relaxed text-muted-foreground">
           Every docs page has a Markdown twin at the same address plus{" "}
-          <code className={code}>.md</code> — for example{" "}
+          <code className={code}>.md</code> (for example{" "}
           <Link href="/docs/installation.md" className={link}>
             /docs/installation.md
           </Link>
-          — and the plain address returns it to clients that ask for{" "}
+          ), and the plain address returns it to clients that ask for{" "}
           <code className={code}>text/markdown</code>. The copy menu at the top
           of each page opens it in ChatGPT or Claude.
         </p>

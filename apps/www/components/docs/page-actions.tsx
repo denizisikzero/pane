@@ -9,6 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Pane } from "@/components/ui/pane";
 
 /** A chat that opens with the page's Markdown URL already asked about. */
 function promptUrl(base: string, markdownUrl: string) {
@@ -66,7 +67,8 @@ function GrokIcon() {
 
 /**
  * "Copy page" for the docs, after shadcn/ui's: copies the page as Markdown,
- * and the menu opens that Markdown or hands its URL to a chat.
+ * and the menu opens that Markdown or hands its URL to a chat. Both sit on
+ * one pill of glass, split by a hairline.
  */
 export function PageActions({
   markdown,
@@ -99,7 +101,7 @@ export function PageActions({
   ];
 
   return (
-    <div className="flex shrink-0 items-center gap-1.5">
+    <Pane radius={999} className="flex shrink-0 items-center p-0.5">
       <Button
         size="sm"
         variant="ghost"
@@ -112,6 +114,7 @@ export function PageActions({
         {copied ? <CheckIcon /> : <CopyIcon />}
         {copied ? "Copied" : "Copy page"}
       </Button>
+      <span aria-hidden="true" className="h-4 w-px bg-foreground/10" />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button size="icon-sm" variant="ghost" aria-label="More options">
@@ -129,6 +132,6 @@ export function PageActions({
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-    </div>
+    </Pane>
   );
 }

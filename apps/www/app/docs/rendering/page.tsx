@@ -1,7 +1,5 @@
-import { DownloadIcon, PaletteIcon } from "lucide-react";
 import type { Metadata } from "next";
 import { CodeBlock } from "@/components/docs/code-block";
-import { LinkCard } from "@/components/docs/link-card";
 import { PageHeader } from "@/components/docs/page-header";
 import { Surface } from "@/components/surface";
 import { renderers, sceneExample, tiers } from "@/lib/docs-content";
@@ -10,7 +8,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Rendering",
   description:
-    "How Pane draws its glass: the WebGPU lens inside a GlassScene, SVG refraction in Chromium, and the CSS fallback — and how to tune each one.",
+    "How Pane draws its glass: the WebGPU lens inside a GlassScene, SVG refraction in Chromium, the CSS fallback, and how to tune each one.",
   path: "/docs/rendering",
   markdown: true,
 });
@@ -78,8 +76,8 @@ export default function RenderingPage() {
           Wrap a section in <code className={code}>GlassScene</code> and give it
           the video, image or canvas behind it. Every Pane inside then draws its
           glass in a WebGPU shader: the rim bends the backdrop like a real lens,
-          splits it into a faint color fringe and catches the light — in any
-          browser with WebGPU, Safari and Firefox included.
+          splits it into a faint color fringe and catches the light. It works in
+          any browser with WebGPU, Safari and Firefox included.
         </p>
         <CodeBlock lang="tsx" code={sceneExample} />
         <p className="text-sm leading-relaxed text-muted-foreground">
@@ -97,7 +95,7 @@ export default function RenderingPage() {
           its exact size and corner radius and runs the backdrop through an SVG
           filter, so the rim warps whatever the page painted behind it. Panes
           too small to show it skip the filter, and a pane inside another pane
-          swaps to a flat tint — glass can&apos;t stack.
+          swaps to a flat tint, since glass can&apos;t stack.
         </p>
       </section>
 
@@ -107,7 +105,7 @@ export default function RenderingPage() {
           <code className={code}>use-glass-support</code> checks what the
           browser can do, honors{" "}
           <code className={code}>prefers-reduced-transparency</code>, and picks
-          one of three tiers. Nothing to configure — it&apos;s automatic.
+          one of three tiers. Nothing to configure, it&apos;s automatic.
         </p>
         <div className="grid gap-4 sm:grid-cols-3">
           {tiers.map((tier) => (
@@ -123,24 +121,6 @@ export default function RenderingPage() {
               <p className="text-sm">{tier.description}</p>
             </Surface>
           ))}
-        </div>
-      </section>
-
-      <section className="flex flex-col gap-5">
-        <h2 className="display text-3xl">Next steps</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <LinkCard
-            href="/docs/installation"
-            icon={DownloadIcon}
-            title="Installation"
-            description="Pick a look and add your first component."
-          />
-          <LinkCard
-            href="/docs/theming"
-            icon={PaletteIcon}
-            title="Theming"
-            description="Tokens, the accent color, and the refraction and spring config."
-          />
         </div>
       </section>
     </div>
