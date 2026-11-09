@@ -1,15 +1,57 @@
+import Link from "next/link";
+import { Wordmark } from "@/components/header";
 import { siteConfig } from "@/lib/site-config";
 
 const github = siteConfig.links.github;
 
-/** The project's own links: an open-source library's, not a company's. */
-const links = [
-  { title: "Source code", href: github },
-  { title: "Contributing", href: `${github}/blob/main/CONTRIBUTING.md` },
-  { title: "Report an issue", href: `${github}/issues/new` },
-  { title: "Releases", href: `${github}/releases` },
-  { title: "MIT License", href: `${github}/blob/main/LICENSE` },
+interface FooterLink {
+  title: string;
+  href: string;
+}
+
+/** The site, the guides, and the project around it: a library's, not a company's. */
+const columns: { title: string; links: FooterLink[] }[] = [
+  {
+    title: "Product",
+    links: [
+      { title: "Components", href: "/docs/components" },
+      { title: "Playground", href: "/playground" },
+      { title: "Changelog", href: "/docs/changelog" },
+    ],
+  },
+  {
+    title: "Guides",
+    links: [
+      { title: "Installation", href: "/docs/installation" },
+      { title: "Theming", href: "/docs/theming" },
+      { title: "Rendering", href: "/docs/rendering" },
+      { title: "MCP", href: "/docs/mcp" },
+    ],
+  },
+  {
+    title: "Project",
+    links: [
+      { title: "GitHub", href: github },
+      { title: "Releases", href: `${github}/releases` },
+      { title: "Contributing", href: `${github}/blob/main/CONTRIBUTING.md` },
+      { title: "Report an issue", href: `${github}/issues/new` },
+    ],
+  },
 ];
+
+const linkClass = "transition-colors hover:text-foreground";
+
+function FooterAnchor({ link }: { link: FooterLink }) {
+  return link.href.startsWith("/") ? (
+    <Link href={link.href} className={linkClass}>
+      {link.title}
+    </Link>
+  ) : (
+    <a href={link.href} target="_blank" rel="noreferrer" className={linkClass}>
+      {link.title}
+    </a>
+  );
+}
 
 /**
  * The studio's wordmark, drawn through a mask so it takes the text color:
@@ -25,34 +67,48 @@ function UniformInterface({ className }: { className?: string }) {
   );
 }
 
+/**
+ * The wordmark and what it is on the left, the site in three columns on the
+ * right, and the studio underneath.
+ */
 export function Footer() {
   return (
-    <footer className="mt-24 border-hairline border-t">
-      <div className="mx-auto flex w-full max-w-6xl flex-col-reverse items-center gap-8 px-4 py-12 text-muted-foreground text-sm md:flex-row md:items-end md:justify-between">
-        <nav
-          aria-label="Project"
-          className="flex flex-wrap justify-center gap-x-5 gap-y-2"
-        >
-          {links.map((item) => (
-            <a
-              key={item.title}
-              href={item.href}
-              target="_blank"
-              rel="noreferrer"
-              className="transition-colors hover:text-foreground"
+    <footer className="mt-24 text-muted-foreground text-sm">
+      <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 pt-12 md:gap-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
+        <div className="flex flex-col items-start gap-3">
+          <Link href="/" className="group" aria-label="Pane home">
+            <Wordmark className="text-[30px]" />
+          </Link>
+          <p className="max-w-[16rem] text-pretty leading-relaxed">
+            {siteConfig.tagline} Open source, MIT licensed, yours to own.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4 sm:gap-8 md:contents">
+          {columns.map((column) => (
+            <nav
+              key={column.title}
+              aria-label={column.title}
+              className="flex flex-col gap-2.5"
             >
-              {item.title}
-            </a>
+              <span className="text-foreground">{column.title}</span>
+              {column.links.map((link) => (
+                <FooterAnchor key={link.title} link={link} />
+              ))}
+            </nav>
           ))}
-        </nav>
+        </div>
+      </div>
+
+      <div className="mx-auto flex w-full max-w-6xl justify-start px-4 pt-12 pb-10 text-xs sm:justify-end md:pt-14">
         <a
           href="https://theui.company"
           target="_blank"
           rel="noreferrer"
-          aria-label="Uniform Interface"
-          className="opacity-90 transition-opacity hover:opacity-100"
+          className="flex items-center gap-2.5 transition-colors hover:text-foreground"
         >
-          <UniformInterface className="h-14" />
+          A project by
+          <UniformInterface className="h-6" />
         </a>
       </div>
     </footer>
