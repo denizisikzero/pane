@@ -1,13 +1,9 @@
-import { BotIcon, CpuIcon, DownloadIcon, PaletteIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ComponentPreview } from "@/components/docs/component-preview";
-import { LinkCard } from "@/components/docs/link-card";
 import { PageHeader } from "@/components/docs/page-header";
-import { Surface } from "@/components/surface";
 import { componentsMeta } from "@/lib/components-meta";
 import { introSections } from "@/lib/docs-content";
-import { features } from "@/lib/features";
 import { pageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
@@ -59,55 +55,6 @@ export default function DocsIntroductionPage() {
           ) : null}
         </section>
       ))}
-
-      <section className="flex flex-col gap-5">
-        <h2 className="display text-3xl">What makes it glass</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {features.map(({ icon: Icon, title, description }) => (
-            <Surface
-              key={title}
-              radius={20}
-              className="flex flex-col gap-3 p-5"
-            >
-              <Icon className="size-5 text-muted-foreground" />
-              <div className="flex flex-col gap-1">
-                <h3 className="font-medium">{title}</h3>
-                <p className="text-sm text-muted-foreground">{description}</p>
-              </div>
-            </Surface>
-          ))}
-        </div>
-      </section>
-
-      <section className="flex flex-col gap-5">
-        <h2 className="display text-3xl">Next steps</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <LinkCard
-            href="/docs/installation"
-            icon={DownloadIcon}
-            title="Installation"
-            description="Add your first component with the shadcn CLI."
-          />
-          <LinkCard
-            href="/docs/rendering"
-            icon={CpuIcon}
-            title="Rendering"
-            description="The WebGPU lens, SVG refraction and the CSS fallback."
-          />
-          <LinkCard
-            href="/docs/mcp"
-            icon={BotIcon}
-            title="MCP server"
-            description="Let your AI assistant browse and install components."
-          />
-          <LinkCard
-            href="/docs/theming"
-            icon={PaletteIcon}
-            title="Theming"
-            description="The tokens, the accent color and the glass config."
-          />
-        </div>
-      </section>
     </div>
   );
 }

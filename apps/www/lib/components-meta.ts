@@ -170,7 +170,7 @@ export function Example() {
         name: "radius",
         type: "number",
         default: "28",
-        description: "Corner radius in px — also feeds the refraction filter.",
+        description: "Corner radius in px. Also feeds the refraction filter.",
       },
       {
         name: "interactive",
@@ -190,7 +190,7 @@ export function Example() {
     slug: "text",
     title: "Text",
     description:
-      "Type cut from glass. Each letter is a window onto what's behind it — blurred, saturated, bent in Chromium — with light catching its edge.",
+      "Type cut from glass. Each letter is a window onto what's behind it: blurred, saturated and, in Chromium, bent, with light catching its edge.",
     registryName: "text",
     demo: TextDemo,
     usage: `import { Text } from "@/components/ui/text";
@@ -1064,7 +1064,7 @@ export function Example() {
         name: "onValueChange",
         type: "(value: string) => void",
         description:
-          "Called with the new segment. Never called with an empty value — one segment is always selected.",
+          "Called with the new segment. Never called with an empty value: one segment is always selected.",
       },
     ],
   },
@@ -1416,7 +1416,7 @@ export function Example() {
           "`toast.success`, `toast.info`, `toast.warning` and `toast.error` each come with an icon.",
       },
     ],
-    usage: `// app/layout.tsx — render the toaster once
+    usage: `// app/layout.tsx: render the toaster once
 import { Toaster } from "@/components/ui/sonner";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

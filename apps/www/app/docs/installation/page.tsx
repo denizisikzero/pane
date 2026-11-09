@@ -49,8 +49,8 @@ export default function InstallationPage() {
             <Link href="/playground" className={link}>
               playground
             </Link>{" "}
-            and run the command it gives you. Skip it to keep the default glass
-            — the first component you add brings that along.
+            and run the command it gives you. Skip it to keep the default glass:
+            the first component you add brings that along.
           </p>
           <CodeBlock
             lang="bash"

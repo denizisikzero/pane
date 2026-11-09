@@ -92,7 +92,7 @@ export default function ThemingPage() {
         <Link href="/playground" className={link}>
           playground
         </Link>
-        , or change them by hand — every component built on{" "}
+        , or change them by hand. Every component built on{" "}
         <code className="text-foreground">{"<Pane>"}</code> follows.
       </PageHeader>
 
@@ -157,7 +157,7 @@ export default function ThemingPage() {
         <h2 className="display text-3xl">Accent color</h2>
         <p className="text-sm leading-relaxed text-muted-foreground">
           One color fills the prominent Button and every control that is on.
-          Pick one below — or any color with the last swatch — and paste the
+          Pick one below (or any color with the last swatch) and paste the
           variables over the ones in your stylesheet, or set them to any color:{" "}
           <code className={code}>var(--primary)</code> and{" "}
           <code className={code}>var(--primary-foreground)</code> follow your
@@ -184,7 +184,7 @@ export default function ThemingPage() {
           physics lives in JS, in{" "}
           <code className={code}>lib/glass/config.ts</code>. Open it for more or
           less lensing, a stronger chromatic edge, or snappier or softer press
-          feedback — or tune it by eye in the{" "}
+          feedback. Or tune it by eye in the{" "}
           <Link href="/playground" className={link}>
             playground
           </Link>{" "}

@@ -10,7 +10,7 @@ import { siteConfig } from "@/lib/site-config";
 export const metadata: Metadata = pageMetadata({
   title: "Components",
   description:
-    "Every Pane component — buttons, cards, dialogs, menus, sliders, glass text and more — with live previews and the code to install.",
+    "Every Pane component, from buttons, cards and dialogs to menus, sliders and glass text, with live previews and the code to install.",
   path: "/docs/components",
   markdown: true,
 });

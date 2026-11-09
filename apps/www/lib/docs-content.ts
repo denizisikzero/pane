@@ -160,7 +160,7 @@ export const introSections: { title: string; body: string[] }[] = [
   {
     title: "What is this?",
     body: [
-      "Apple's liquid glass is a material, not a blur: light bends at the rim, the edge catches the light, and the surface gives under your finger. Pane brings that material to the web as components you already know — Button, Card, Dialog, Sidebar and the rest — with the same API shape as shadcn/ui.",
+      "Apple's liquid glass is a material, not a blur: light bends at the rim, the edge catches the light, and the surface gives under your finger. Pane brings that material to the web as components you already know (Button, Card, Dialog, Sidebar and the rest), with the same API shape as shadcn/ui.",
     ],
   },
   {
@@ -206,7 +206,7 @@ export const renderers = [
     name: "CSS glass",
     where: "The fallback",
     browsers: "Safari, Firefox, and any browser without the above",
-    refraction: "None — blur, saturation and rim light",
+    refraction: "None, only blur, saturation and rim light",
     source: "Whatever the page painted behind the pane",
     cost: "One backdrop-filter",
   },

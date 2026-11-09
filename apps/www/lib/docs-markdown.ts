@@ -13,7 +13,6 @@ import {
   tiers,
   tokenGroups,
 } from "@/lib/docs-content";
-import { features } from "@/lib/features";
 import { options } from "@/lib/glass-theme";
 import {
   getExampleSource,
@@ -54,17 +53,6 @@ function introduction() {
       ...section.body,
     ]),
     `See [Rendering](${url("/docs/rendering.md")}) for each renderer and how to opt into the WebGPU lens.`,
-    "## What makes it glass",
-    features.map((f) => `- **${f.title}.** ${f.description}`).join("\n"),
-    "## Next steps",
-    [
-      `- [Installation](${url("/docs/installation.md")}): add your first component with the shadcn CLI.`,
-      `- [Theming](${url("/docs/theming.md")}): the tokens, the accent color and the glass config.`,
-      `- [Rendering](${url("/docs/rendering.md")}): the WebGPU lens, SVG refraction and the CSS fallback.`,
-      `- [MCP server](${url("/docs/mcp.md")}): let your AI assistant browse and install components.`,
-      `- [Components](${url("/docs/components.md")}): all ${componentsMeta.length} components.`,
-      `- [Playground](${url("/playground")}): pick a look, see a studio site and every component take it, and copy the install line.`,
-    ].join("\n"),
   ];
 }
 
@@ -103,7 +91,7 @@ function installation() {
     "Skip this if your project already has a `components.json`. Otherwise initialize shadcn in it first:",
     fence("bash", "npx shadcn@latest init"),
     "## 2. Set the look",
-    `Pick a border, an accent, a radius and a density in the [playground](${url("/playground")}) and run the command it gives you. Skip it to keep the default glass — the first component you add brings that along.`,
+    `Pick a border, an accent, a radius and a density in the [playground](${url("/playground")}) and run the command it gives you. Skip it to keep the default glass: the first component you add brings that along.`,
     fence("bash", "npx shadcn@latest add @pane/styles/glow-green-round-thin"),
     "## 3. Add a component",
     fence("bash", "npx shadcn@latest add @pane/button"),
@@ -121,8 +109,8 @@ function installation() {
 function theming() {
   return [
     "# Theming",
-    `The glass is driven by CSS variables and one config file. Pick a look in the [playground](${url("/playground")}), or change them by hand — every component built on \`<Pane>\` follows.`,
-    `Choose a border (${options.border.map((o) => o.value).join(", ")}), an accent (${accentNames.join(", ")}), a radius (${options.radius.map((o) => o.value).join(", ")}) and a density (${options.density.map((o) => o.value).join(", ")}) in the [playground](${url("/playground")}). It gives you a command such as \`npx shadcn@latest add @pane/styles/hairline-blue-sharp-thick\` — the slug is \`<border>-<accent>-<radius>-<density>\`. Any color works as the accent too: its six hex digits go in the slug, as in \`glow-ff5500-default-regular\`.`,
+    `The glass is driven by CSS variables and one config file. Pick a look in the [playground](${url("/playground")}), or change them by hand. Every component built on \`<Pane>\` follows.`,
+    `Choose a border (${options.border.map((o) => o.value).join(", ")}), an accent (${accentNames.join(", ")}), a radius (${options.radius.map((o) => o.value).join(", ")}) and a density (${options.density.map((o) => o.value).join(", ")}) in the [playground](${url("/playground")}). It gives you a command such as \`npx shadcn@latest add @pane/styles/hairline-blue-sharp-thick\`. The slug is \`<border>-<accent>-<radius>-<density>\`. Any color works as the accent too: its six hex digits go in the slug, as in \`glow-ff5500-default-regular\`.`,
     "## Glass tokens",
     "Installation adds these `--pane-*` variables to the stylesheet set in `components.json`, usually `app/globals.css`. Light values live on `:root`, and `.dark` overrides them in dark mode. Focus rings use your theme's `--ring`, as shadcn/ui components do.",
     ...tokens(),
@@ -133,7 +121,7 @@ function theming() {
     `Ready-made presets: ${accentNames.map((n) => `\`${n}\``).join(", ")}. The default, ${DEFAULT_ACCENT}:`,
     fence("css", accentCss(DEFAULT_ACCENT)),
     "## Refraction and springs",
-    `Anything that feeds the SVG filter, the WebGPU lens or the spring physics lives in JS, in \`lib/glass/config.ts\`. Open it for more or less lensing, a stronger chromatic edge, or snappier or softer press feedback — or tune it by eye in the [playground](${url("/playground")}) and copy the result.`,
+    `Anything that feeds the SVG filter, the WebGPU lens or the spring physics lives in JS, in \`lib/glass/config.ts\`. Open it for more or less lensing, a stronger chromatic edge, or snappier or softer press feedback. Or tune it by eye in the [playground](${url("/playground")}) and copy the result.`,
     fence("tsx", getGlassSource("config")),
     "## Overrides for one section",
     "To change the springs or the refraction for part of a page only, wrap it in `GlassConfigProvider`. It merges onto the values above, so pass just what differs.",
@@ -160,13 +148,13 @@ function rendering() {
       ).map(([label, key]) => [label, ...renderers.map((r) => r[key])]),
     ),
     "## The WebGPU lens",
-    "Wrap a section in `GlassScene` and give it the video, image or canvas behind it. Every Pane inside then draws its glass in a WebGPU shader: the rim bends the backdrop like a real lens, splits it into a faint color fringe and catches the light — in any browser with WebGPU, Safari and Firefox included.",
+    "Wrap a section in `GlassScene` and give it the video, image or canvas behind it. Every Pane inside then draws its glass in a WebGPU shader: the rim bends the backdrop like a real lens, splits it into a faint color fringe and catches the light. It works in any browser with WebGPU, Safari and Firefox included.",
     fence("tsx", sceneExample),
     "WebGPU can't see what the browser painted, so the lens bends only that source: text or other elements between it and a pane aren't refracted. Outside a scene, without WebGPU, or until the source has loaded, panes keep the glass described below.",
     "## SVG refraction",
-    "Everywhere else in Chromium, each pane builds a displacement map for its exact size and corner radius and runs the backdrop through an SVG filter, so the rim warps whatever the page painted behind it. Panes too small to show it skip the filter, and a pane inside another pane swaps to a flat tint — glass can't stack.",
+    "Everywhere else in Chromium, each pane builds a displacement map for its exact size and corner radius and runs the backdrop through an SVG filter, so the rim warps whatever the page painted behind it. Panes too small to show it skip the filter, and a pane inside another pane swaps to a flat tint, since glass can't stack.",
     "## Quality tiers",
-    "`use-glass-support` checks what the browser can do, honors `prefers-reduced-transparency`, and picks one of three tiers. Nothing to configure — it's automatic.",
+    "`use-glass-support` checks what the browser can do, honors `prefers-reduced-transparency`, and picks one of three tiers. Nothing to configure, it's automatic.",
     tiers
       .map((t) => `- **\`${t.name}\`** (${t.who}): ${t.description}`)
       .join("\n"),
@@ -249,7 +237,7 @@ async function changelog() {
     "# Changelog",
     `Every ${siteConfig.name} release, newest first. Full notes: ${siteConfig.links.github}/releases`,
     ...releases.flatMap((r) => [
-      `## v${r.version}${r.prerelease ? " (pre-release)" : ""} — ${r.date}`,
+      `## v${r.version}${r.prerelease ? " (pre-release)" : ""}, ${r.date}`,
       r.summary || [],
       r.sections.map((section) =>
         [
