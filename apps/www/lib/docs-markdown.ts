@@ -26,6 +26,7 @@ import {
   getStyleTokens,
 } from "@/lib/registry-source";
 import { getReleases } from "@/lib/releases";
+import { rtlExampleNote, rtlExamples } from "@/lib/rtl-examples";
 import { getSiteUrl, siteConfig } from "@/lib/site-config";
 
 /**
@@ -234,6 +235,13 @@ function component(slug: string) {
       example.description ?? [],
       fence("tsx", getExampleSource(example.name)),
     ]),
+    rtlExamples[meta.registryName]
+      ? [
+          "## RTL",
+          `${rtlExampleNote} More on [RTL](${url("/docs/rtl.md")}).`,
+          fence("tsx", getExampleSource(`${meta.registryName}-rtl`)),
+        ]
+      : [],
     meta.props || api ? `## ${meta.props ? "Props" : "API reference"}` : [],
     meta.props
       ? table(
