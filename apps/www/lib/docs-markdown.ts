@@ -9,6 +9,11 @@ import {
   registryConfig,
   renderers,
   requirements,
+  rtlExample,
+  rtlFlips,
+  rtlIntro,
+  rtlNotes,
+  rtlSetup,
   sceneExample,
   tiers,
   tokenGroups,
@@ -126,6 +131,20 @@ function theming() {
     "## Overrides for one section",
     "To change the springs or the refraction for part of a page only, wrap it in `GlassConfigProvider`. It merges onto the values above, so pass just what differs.",
     fence("tsx", providerExample),
+  ];
+}
+
+function rtl() {
+  return [
+    "# RTL",
+    rtlIntro,
+    "## Set the direction",
+    rtlSetup,
+    fence("tsx", rtlExample),
+    "## What flips",
+    rtlFlips.map((f) => `- **${f.name}**: ${f.description}`).join("\n"),
+    "## Good to know",
+    rtlNotes.map((n) => `- ${n}`).join("\n"),
   ];
 }
 
@@ -258,6 +277,7 @@ export function docsMarkdownSlugs(): string[][] {
     ["installation"],
     ["theming"],
     ["rendering"],
+    ["rtl"],
     ["mcp"],
     ["changelog"],
     ["components"],
@@ -276,15 +296,17 @@ export async function getDocMarkdown(slug: string[]) {
           ? theming()
           : key === "rendering"
             ? rendering()
-            : key === "mcp"
-              ? mcp()
-              : key === "changelog"
-                ? await changelog()
-                : key === "components"
-                  ? components()
-                  : slug.length === 2 && slug[0] === "components"
-                    ? component(slug[1])
-                    : null;
+            : key === "rtl"
+              ? rtl()
+              : key === "mcp"
+                ? mcp()
+                : key === "changelog"
+                  ? await changelog()
+                  : key === "components"
+                    ? components()
+                    : slug.length === 2 && slug[0] === "components"
+                      ? component(slug[1])
+                      : null;
   return blocks ? `${blocks.join("\n\n")}\n` : null;
 }
 

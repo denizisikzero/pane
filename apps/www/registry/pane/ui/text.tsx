@@ -65,6 +65,10 @@ function drawGlyphs(node: HTMLElement, text: string): Glyphs | null {
         ctx as CanvasRenderingContext2D & { letterSpacing: string }
       ).letterSpacing = style.letterSpacing;
     ctx.textBaseline = "alphabetic";
+    // the element's direction orders Arabic or Hebrew right to left, and a
+    // left alignment keeps x at the ink's left edge either way
+    ctx.direction = style.direction === "rtl" ? "rtl" : "ltr";
+    ctx.textAlign = "left";
   };
   setup();
   const m = ctx.measureText(text);
