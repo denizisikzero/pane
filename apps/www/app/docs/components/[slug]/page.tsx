@@ -5,6 +5,7 @@ import { ComponentPreview } from "@/components/docs/component-preview";
 import { PageHeader } from "@/components/docs/page-header";
 import { PropsTable } from "@/components/docs/props-table";
 import { componentsMeta, getComponentMeta } from "@/lib/components-meta";
+import { rtlExampleNote, rtlExamples } from "@/lib/rtl-examples";
 import { pageMetadata } from "@/lib/seo";
 
 /** Backtick spans in a description, as code. */
@@ -93,6 +94,27 @@ export default async function ComponentPage({
           <ComponentPreview name={example.name} demo={example.demo} compact />
         </section>
       ))}
+
+      {rtlExamples[component.registryName] ? (
+        <section className="flex flex-col gap-3">
+          <h2 className="text-xl font-semibold">RTL</h2>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            <InlineCode text={rtlExampleNote} />{" "}
+            <a
+              href="/docs/rtl"
+              className="font-medium text-foreground underline underline-offset-4"
+            >
+              More on RTL
+            </a>
+            .
+          </p>
+          <ComponentPreview
+            name={`${component.registryName}-rtl`}
+            demo={rtlExamples[component.registryName]}
+            compact
+          />
+        </section>
+      ) : null}
 
       {component.props || component.reference ? (
         <section className="flex flex-col gap-3">

@@ -9,6 +9,11 @@ import {
   registryConfig,
   renderers,
   requirements,
+  rtlExample,
+  rtlFlips,
+  rtlIntro,
+  rtlNotes,
+  rtlSetup,
   sceneExample,
   tiers,
   tokenGroups,
@@ -21,6 +26,7 @@ import {
   getStyleTokens,
 } from "@/lib/registry-source";
 import { getReleases } from "@/lib/releases";
+import { rtlExampleNote, rtlExamples } from "@/lib/rtl-examples";
 import { getSiteUrl, siteConfig } from "@/lib/site-config";
 
 /**
@@ -129,6 +135,20 @@ function theming() {
   ];
 }
 
+function rtl() {
+  return [
+    "# RTL",
+    rtlIntro,
+    "## Set the direction",
+    rtlSetup,
+    fence("tsx", rtlExample),
+    "## What flips",
+    rtlFlips.map((f) => `- **${f.name}**: ${f.description}`).join("\n"),
+    "## Good to know",
+    rtlNotes.map((n) => `- ${n}`).join("\n"),
+  ];
+}
+
 function rendering() {
   return [
     "# Rendering",
@@ -215,6 +235,13 @@ function component(slug: string) {
       example.description ?? [],
       fence("tsx", getExampleSource(example.name)),
     ]),
+    rtlExamples[meta.registryName]
+      ? [
+          "## RTL",
+          `${rtlExampleNote} More on [RTL](${url("/docs/rtl.md")}).`,
+          fence("tsx", getExampleSource(`${meta.registryName}-rtl`)),
+        ]
+      : [],
     meta.props || api ? `## ${meta.props ? "Props" : "API reference"}` : [],
     meta.props
       ? table(
@@ -258,6 +285,7 @@ export function docsMarkdownSlugs(): string[][] {
     ["installation"],
     ["theming"],
     ["rendering"],
+    ["rtl"],
     ["mcp"],
     ["changelog"],
     ["components"],
@@ -276,15 +304,17 @@ export async function getDocMarkdown(slug: string[]) {
           ? theming()
           : key === "rendering"
             ? rendering()
-            : key === "mcp"
-              ? mcp()
-              : key === "changelog"
-                ? await changelog()
-                : key === "components"
-                  ? components()
-                  : slug.length === 2 && slug[0] === "components"
-                    ? component(slug[1])
-                    : null;
+            : key === "rtl"
+              ? rtl()
+              : key === "mcp"
+                ? mcp()
+                : key === "changelog"
+                  ? await changelog()
+                  : key === "components"
+                    ? components()
+                    : slug.length === 2 && slug[0] === "components"
+                      ? component(slug[1])
+                      : null;
   return blocks ? `${blocks.join("\n\n")}\n` : null;
 }
 

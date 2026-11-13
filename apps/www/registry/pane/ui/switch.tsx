@@ -36,7 +36,7 @@ function Switch({
         {/* no asChild: shadcn rewrites it to Base UI's `render` for base-*
             styles, which Radix silently ignores — the knob then loses its
             size and position. The thumb itself carries the slide instead. */}
-        <SwitchPrimitive.Thumb className="pointer-events-none block h-6 w-8 translate-x-0.5 transition-[translate] duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] data-[state=checked]:translate-x-[22px] motion-reduce:transition-none">
+        <SwitchPrimitive.Thumb className="pointer-events-none block h-6 w-8 translate-x-0.5 transition-[translate] rtl:-translate-x-0.5 duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] data-[state=checked]:translate-x-[22px] rtl:data-[state=checked]:-translate-x-[22px] motion-reduce:transition-none">
           <Pane
             variant="thick"
             radius={999}

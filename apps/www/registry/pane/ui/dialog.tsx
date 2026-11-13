@@ -75,7 +75,7 @@ function DialogContent({
               <Pane
                 interactive
                 radius={999}
-                className="absolute top-4 right-4 inline-flex has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/50"
+                className="absolute top-4 end-4 inline-flex has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/50"
               >
                 <DialogPrimitive.Close className="flex size-8 items-center justify-center bg-transparent text-muted-foreground outline-none transition-colors hover:text-foreground disabled:pointer-events-none">
                   <XIcon className="size-4" />
@@ -95,7 +95,7 @@ function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="dialog-header"
       className={cn(
-        "flex flex-col gap-1.5 text-center sm:text-left",
+        "flex flex-col gap-1.5 text-center sm:text-start",
         className,
       )}
       {...props}

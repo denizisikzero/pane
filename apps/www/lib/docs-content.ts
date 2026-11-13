@@ -134,6 +134,58 @@ export function SnappyToolbar({ children }: { children: React.ReactNode }) {
   );
 }`;
 
+export const rtlExample = `import { Direction } from "radix-ui";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="ar" dir="rtl">
+      <body>
+        <Direction.Provider dir="rtl">{children}</Direction.Provider>
+      </body>
+    </html>
+  );
+}`;
+
+export const rtlIntro =
+  "Pane works in right-to-left languages such as Arabic, Hebrew and Persian. Every component lays itself out with logical properties, start and end rather than left and right, so the whole set mirrors with the page.";
+
+export const rtlSetup =
+  "Set `dir` on the `html` element, then wrap the app in Radix's `Direction.Provider`. The attribute flips the layout; the provider tells Radix, which doesn't read the attribute, so arrow keys, the Slider and submenus follow too.";
+
+export const rtlFlips = [
+  {
+    name: "Layout",
+    description:
+      "Padding, margins, close buttons, badges, checkmarks and text alignment move to the other side.",
+  },
+  {
+    name: "Switch and Progress",
+    description:
+      "The thumb slides to the left when on, and the fill grows from the right.",
+  },
+  {
+    name: "Sidebar",
+    description:
+      '`side="left"` is the start edge, so the sidebar sits on the right, with its rail, tooltips and mobile sheet.',
+  },
+  {
+    name: "Menus",
+    description:
+      "Submenu chevrons point the other way, and Navigation menu content slides in from the matching side.",
+  },
+  {
+    name: "Text",
+    description:
+      "Glass type is drawn in the element's direction, so Arabic and Hebrew headlines read correctly.",
+  },
+];
+
+export const rtlNotes = [
+  'Sheet sides stay physical: `side="left"` is the left edge in either direction, since you choose it on purpose.',
+  'To mirror only part of a page, put `dir="rtl"` on that element and wrap it in its own `Direction.Provider`.',
+  "Directional icons in your own code, such as arrows, don't flip by themselves. Add `rtl:rotate-180` to them.",
+];
+
 export const tiers = [
   {
     name: "full",

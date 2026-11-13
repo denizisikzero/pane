@@ -99,7 +99,7 @@ function DropdownMenuItem({
       data-variant={variant}
       className={cn(
         itemClassName,
-        "data-[inset]:pl-8 data-[variant=destructive]:text-red-600 dark:data-[variant=destructive]:text-red-400 data-[variant=destructive]:[&_svg]:!text-current",
+        "data-[inset]:ps-8 data-[variant=destructive]:text-red-600 dark:data-[variant=destructive]:text-red-400 data-[variant=destructive]:[&_svg]:!text-current",
         className,
       )}
       {...props}
@@ -116,11 +116,11 @@ function DropdownMenuCheckboxItem({
   return (
     <DropdownMenuPrimitive.CheckboxItem
       data-slot="dropdown-menu-checkbox-item"
-      className={cn(itemClassName, "pl-8", className)}
+      className={cn(itemClassName, "ps-8", className)}
       checked={checked}
       {...props}
     >
-      <span className="pointer-events-none absolute left-2.5 flex size-4 items-center justify-center">
+      <span className="pointer-events-none absolute start-2.5 flex size-4 items-center justify-center">
         <DropdownMenuPrimitive.ItemIndicator>
           <CheckIcon className="!text-foreground" />
         </DropdownMenuPrimitive.ItemIndicator>
@@ -149,10 +149,10 @@ function DropdownMenuRadioItem({
   return (
     <DropdownMenuPrimitive.RadioItem
       data-slot="dropdown-menu-radio-item"
-      className={cn(itemClassName, "pl-8", className)}
+      className={cn(itemClassName, "ps-8", className)}
       {...props}
     >
-      <span className="pointer-events-none absolute left-2.5 flex size-4 items-center justify-center">
+      <span className="pointer-events-none absolute start-2.5 flex size-4 items-center justify-center">
         <DropdownMenuPrimitive.ItemIndicator>
           <CircleIcon className="!size-2 fill-current !text-foreground" />
         </DropdownMenuPrimitive.ItemIndicator>
@@ -174,7 +174,7 @@ function DropdownMenuLabel({
       data-slot="dropdown-menu-label"
       data-inset={inset}
       className={cn(
-        "px-2.5 py-1.5 text-xs font-medium text-muted-foreground data-[inset]:pl-8",
+        "px-2.5 py-1.5 text-xs font-medium text-muted-foreground data-[inset]:ps-8",
         className,
       )}
       {...props}
@@ -203,7 +203,7 @@ function DropdownMenuShortcut({
     <span
       data-slot="dropdown-menu-shortcut"
       className={cn(
-        "ml-auto text-xs tracking-widest text-muted-foreground",
+        "ms-auto text-xs tracking-widest text-muted-foreground",
         className,
       )}
       {...props}
@@ -231,13 +231,13 @@ function DropdownMenuSubTrigger({
       data-inset={inset}
       className={cn(
         itemClassName,
-        "data-[inset]:pl-8 data-[state=open]:bg-foreground/[0.07]",
+        "data-[inset]:ps-8 data-[state=open]:bg-foreground/[0.07]",
         className,
       )}
       {...props}
     >
       {children}
-      <ChevronRightIcon className="ml-auto" />
+      <ChevronRightIcon className="ms-auto rtl:rotate-180" />
     </DropdownMenuPrimitive.SubTrigger>
   );
 }

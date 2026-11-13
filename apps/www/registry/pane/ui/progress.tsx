@@ -22,8 +22,13 @@ function Progress({
       >
         <ProgressPrimitive.Indicator
           data-slot="progress-indicator"
-          className="h-full w-full rounded-full bg-[color-mix(in_oklab,var(--pane-accent)_var(--pane-accent-opacity),transparent)] transition-transform duration-500 ease-out motion-reduce:transition-none"
-          style={{ transform: `translateX(-${100 - (value ?? 0)}%)` }}
+          // slides in from the inline start: the left, or the right in RTL
+          className="h-full w-full -translate-x-(--pane-progress-rest) rounded-full bg-[color-mix(in_oklab,var(--pane-accent)_var(--pane-accent-opacity),transparent)] transition-transform duration-500 ease-out motion-reduce:transition-none rtl:translate-x-(--pane-progress-rest)"
+          style={
+            {
+              "--pane-progress-rest": `${100 - (value ?? 0)}%`,
+            } as React.CSSProperties
+          }
         />
       </ProgressPrimitive.Root>
     </Pane>

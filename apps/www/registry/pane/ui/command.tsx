@@ -67,7 +67,7 @@ function CommandDialog({
           data-slot="command"
           className={cn(
             commandClassName,
-            showCloseButton && "**:data-[slot=command-input-wrapper]:pr-14",
+            showCloseButton && "**:data-[slot=command-input-wrapper]:pe-14",
             "**:data-[slot=command-input-wrapper]:h-14 [&_[cmdk-group]]:px-[calc(8px*var(--pane-radius-scale,1))] [&_[cmdk-item]]:py-2.5",
           )}
         >
@@ -184,7 +184,7 @@ function CommandShortcut({
     <span
       data-slot="command-shortcut"
       className={cn(
-        "ml-auto text-muted-foreground text-xs tracking-widest",
+        "ms-auto text-muted-foreground text-xs tracking-widest",
         className,
       )}
       {...props}
