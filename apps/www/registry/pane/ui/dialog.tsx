@@ -108,7 +108,10 @@ function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="dialog-footer"
       className={cn(
-        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
+        // side by side at every width: on phones the buttons share the row
+        // equally (and wrap if a label won't fit), from sm up they hug their
+        // labels at the end
+        "flex flex-wrap gap-2 *:flex-1 sm:justify-end sm:*:flex-none",
         className,
       )}
       {...props}

@@ -77,7 +77,12 @@ export function HeroStage() {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             onKeyDown={(event) => {
-              if (event.key === "Enter" && materials[0]) {
+              // skip the Enter that confirms an IME composition (CJK input)
+              if (
+                event.key === "Enter" &&
+                !event.nativeEvent.isComposing &&
+                materials[0]
+              ) {
                 setMaterial(materials[0]);
                 setQuery("");
               }
