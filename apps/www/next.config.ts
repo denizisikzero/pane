@@ -5,6 +5,9 @@ const wantsMarkdown = [
 ];
 
 const nextConfig: NextConfig = {
+  experimental: {
+    agentUpgrade: "security",
+  },
   // blocks became the playground's template site
   async redirects() {
     return [{ source: "/blocks", destination: "/playground", permanent: true }];
